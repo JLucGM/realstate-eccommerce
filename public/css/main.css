@@ -1,0 +1,166 @@
+/* This file is reserved for overriding and extending the template styles. */
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap");
+
+.fondofooter {
+    background: #001A33;
+}
+
+.botonfondo {
+    background-color: #002547;
+    color: #fff;
+}
+
+.foot {
+    padding: 1rem;
+}
+
+.foot img {
+    border-radius: 10px;
+}
+
+.textofoot {
+    padding-left: 1rem;
+}
+
+.iconospropiedad i {
+    color: rgb(117, 117, 117);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    font-family: "Nunito Sans", Sans-serif;
+}
+
+.fs-7 {
+    font-size: .8rem!important;
+}
+
+.top-10 {
+    top: 10% !important;
+}
+
+.start-90 {
+    left: 90% !important;
+}
+
+.start-10 {
+    left: 10% !important;
+}
+
+.bottom-10 {
+    bottom: 10% !important;
+}
+
+.card:hover .properties-item {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.7);
+    transition: 0.5s;
+    display: block !important;
+    border-radius: 5px;
+
+}
+
+/* .card:hover .card-body-propiety{
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+} */
+
+.card:hover .card-footer {
+    /* background: rgba(0, 0, 0, 0.6); */
+    color: #ffc107;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.361);
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modalshow {
+    opacity: 1 !important;
+    pointer-events: unset !important;
+}
+
+.modal_container {
+    width: 90%;
+    background-color: #fff;
+    margin: auto;
+    max-width: 100%;
+    max-height: 82%;
+
+}
+
+#mapa {
+    height: 450px;
+    width: auto;
+}
+
+.tituloseccionprecio {
+    font-family: "Nunito Sans", Sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+    text-align: right;
+
+}
+
+.share_list {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    float: right;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-image: url(css/css-images/unitshare.png);
+    background-position: 7px 8px;
+    border: 1px solid #eef3f6;
+    border-radius: 2px;
+  }
+
+  .share_list:hover {
+    color: white;
+    background-color: #8e8f91;
+  }
+
+  .share_list i {
+    margin: 25% 25%;
+    color: #002547;
+
+  }
+  
+  .share_list:hover i {
+    color: white;
+  }
+
+  .banner {
+    position: relative;
+    width: 100%;
+    min-height: 386px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../img/team2.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* filter: brightness(80%); */
+  }
+
+  .capacontacto {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    padding-bottom: 3rem;
+    background: rgba(255, 255, 255, 0.934);
+  }
