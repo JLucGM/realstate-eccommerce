@@ -36,13 +36,21 @@ class userController extends Controller
     //
     public function indexView(){
         $message="";
+        
+        // Contador de usuarios
         $users = User::all();
         $usercount = count($users);
+        $usercount++;
+
+        // Contador de Productos (Propiedades)
         $product = Product::all();
         $productcount = count($product);
-        for ($i=0; $i < $count  ; $i++) { 
-            $product[$i]->image = json_decode($product[$i]->image);
-        }
+        $productcount++;
+
+
+        // for ($i=0; $i < $count  ; $i++) { 
+        //     $product[$i]->image = json_decode($product[$i]->image);
+        // }
         return view('/dashboard')->with('message',$message)->with('usercount',$usercount)->with('product',$product)->with('productcount',$productcount);
         // return view('customers.list');
     }

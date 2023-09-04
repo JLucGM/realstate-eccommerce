@@ -94,8 +94,8 @@
                                     <div class="sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center border border-primary mb-4">
                                         <i data-acorn-icon="server" class="text-primary"></i>
                                     </div>
-                                    <div class="mb-1 d-flex align-items-center text-alternate text-small lh-1-25">SESSIONS</div>
-                                    <div class="text-primary cta-4">463</div>
+                                    <div class="mb-1 d-flex align-items-center text-alternate text-small lh-1-25">PROPIEDADES</div>
+                                    <div class="text-primary cta-4">{{$productcount}}</div>
                                 </div>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                                     <div class="sw-6 sh-6 rounded-xl d-flex justify-content-center align-items-center border border-primary mb-4">
                                         <i data-acorn-icon="user" class="text-primary"></i>
                                     </div>
-                                    <div class="mb-1 d-flex align-items-center text-alternate text-small lh-1-25">USERS</div>
+                                    <div class="mb-1 d-flex align-items-center text-alternate text-small lh-1-25">USUARIOS</div>
                                     <div class="text-primary cta-4">{{$usercount}}</div>
                                 </div>
                             </div>
