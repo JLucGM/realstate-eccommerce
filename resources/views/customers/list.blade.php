@@ -27,9 +27,7 @@ $description= 'Ecommerce Customer List Page'
                     <div style="display: flex; justify-content: space-between; align-items: center;">
 
                         <span id="card_title">
-                            <h1>
-                                {{"Usuarios"}}
-                            </h1>
+                            <h1>{{$title}}</h1>
                         </span>
 
                         <div class="float-right">
@@ -50,14 +48,11 @@ $description= 'Ecommerce Customer List Page'
                         <table class="table table-striped table-hover">
                             <thead class="thead">
                                 <tr>
-
-
                                     <th>Nombre</th>
-                                    <th>Apellido</th>
                                     <th>Rol</th>
                                     <th>Correo</th>
+                                    <th>Teléfono</th>
                                     <th>Estatus</th>
-
                                     <th></th>
                                 </tr>
                             </thead>
@@ -65,23 +60,16 @@ $description= 'Ecommerce Customer List Page'
                                 @foreach ($users as $user)
 
                                 <tr>
-
-
-
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->last_name }}</td>
+                                    <td>{{ $user->name.' '.$user->last_name }}</td>
                                     <td>{{implode(", ", $user->getRoleNames()->toArray())}}</td>
                                     <td>{{ $user->email }}</td>
-
-
-
+                                    <td>{{ $user->whatsapp }}</td>
 
                                     {{-- <td>{{ isset($mensajesSoporte->product->name) ? $mensajesSoporte->product->name: 'No definido' }}</td> --}}
                                     @if ($user->status == 0)
                                     <td><span class="badge bg-danger px-3">Inactivo</span></td>
                                     @else
                                     <td><span class="badge bg-success px-3">Activo</span></td>
-
                                     @endif
 
 

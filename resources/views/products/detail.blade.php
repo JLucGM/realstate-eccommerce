@@ -44,7 +44,7 @@ $description= 'Detalles de productos'
     <!-- Title and Top Buttons End -->
 
     <div class="row">
-        <div class="col-xl-8">
+        <div class="col-12">
             <h2 class="small-title">Información de la propiedad</h2>
             <!-- Product Info Start -->
             <div class="mb-5">
@@ -96,7 +96,7 @@ $description= 'Detalles de productos'
             </div>
         </div>
 
-        <div class="col-xl-4">
+        <div class="col-12">
 
             <!-- Gallery Start -->
             <div class="mb-5">

@@ -98,7 +98,7 @@ $description= 'Ecommerce Customer List Page'
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn btn-primary btn-lg" type="submit" class="form-submit">Guardar</button>
+                            <button class="btn btn-primary" type="submit" class="form-submit">Guardar</button>
                         </form>
                     </div>
                 </div>

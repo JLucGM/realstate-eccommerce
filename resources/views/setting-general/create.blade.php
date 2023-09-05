@@ -1,6 +1,6 @@
 @php
     $html_tag_data = [];
-    $title = 'Crear slides';
+    $title = 'Crear configuración';
     $description= 'Ecommerce Product List Page'
 @endphp
 @extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])
@@ -26,7 +26,7 @@
                     <div class="card-header">
                           <span id="card_title">
                                <h2>
-                                {{"Crear Configuracion"}}
+                                {{$title}}
                                 </h2> 
                             </span>
                     </div>

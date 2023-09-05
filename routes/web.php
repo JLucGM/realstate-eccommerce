@@ -10,9 +10,8 @@ use App\Http\Controllers\TicketChatController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\EstadoController;
 use App\Http\Controllers\PaisController;
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -284,3 +283,4 @@ Auth::routes();
 
 // Ruta de Pais
 Route::resource('paises', PaisController::class);
+Route::resource('estados', EstadoController::class);

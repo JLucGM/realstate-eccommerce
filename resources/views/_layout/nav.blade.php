@@ -223,13 +223,6 @@
                            <span class="label">Usuarios</span>
                        </a>
                    </li>
-
-
-                   <li>
-                       <a href="{{route('roles.index')}}">
-                           <span class="label">Roles</span>
-                       </a>
-                   </li>
                    @endhasrole
 
                    <li>
@@ -237,6 +230,14 @@
                            <span class="label">Contactos</span>
                        </a>
                    </li>
+
+                   @hasrole('super Admin')
+                   <li>
+                       <a href="{{route('roles.index')}}">
+                           <span class="label">Roles</span>
+                       </a>
+                   </li>
+                   @endhasrole
                </ul>
            </li>
 
@@ -401,6 +402,11 @@
        <li>
            <a href="{{route('city.index')}}">
                <span class="label">Ciudades</span>
+           </a>
+       </li>
+       <li>
+           <a href="{{route('estados.index')}}">
+               <span class="label">Estado</span>
            </a>
        </li>
 

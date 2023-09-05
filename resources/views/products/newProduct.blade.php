@@ -20,9 +20,12 @@ $description= $title
 
 <!-- Title and Top Buttons Start -->
 <!-- Customers List Start -->
-<h1>{{$title}}</h1>
+<div class="container">
+
+    <h1>{{$title}}</h1>
+</div>
 <h1 class="success">{{$message}}</h1>
-<div class="container p-2 rounded" style="background-color: #1d1d1d;">
+<div class="container p-3 rounded" style="background-color: #1d1d1d;">
     <div class="card">
         <form action="{{ route('store.product') }}" method="post" enctype="multipart/form-data">
             @csrf
@@ -30,8 +33,8 @@ $description= $title
             <h1 class="mb-1">Información de la propiedad</h1>
             <div class="mt-1">
                 <div class="col-12 col-md-12">
-                    <label>Ficha del cliente</label>
-                    <textarea class="form-control" type="text" name="details" value="" placeholder="Ficha del cliente / Notas" required></textarea>
+                    <label>Notas del cliente</label>
+                    <textarea class="form-control" type="text" name="details" value="" placeholder="Notas del cliente" required></textarea>
                 </div>
             </div>
 
@@ -112,11 +115,21 @@ $description= $title
 
                 <div class="col-12 col-md-3">
                     <label class="form-label">Publicar el precio</label>
-                    <input class=" mt-2" type="checkbox" name="publicar" value="1">
+                    <!-- <div class="form-check">
+                        <input class="form-check-input mt-2" type="checkbox" name="publicar" value="1">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Default checkbox
+                        </label>
+                    </div> -->
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" name="publicar" value="1" id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Si</label>
+                    </div>
+
                 </div>
             </div>
 
-            <h1 class="mb-1">Detalles de la propiedad</h1>
+            <h1 class="mt-2 mb-1">Detalles de la propiedad</h1>
 
             <div class="row mt-2">
                 <div class="col-12 col-md-4">
@@ -146,9 +159,19 @@ $description= $title
                 </div>
 
                 <div class="col-12 col-md-4">
-                    <label class="form-label mt-2" style="display:flex; gap: 10%;">Propiedad a estrenar?</label>
-                    <span style="transform: translateY(10px);"><input style="width: 20px;" class="" type="radio" name="estrenar" id="yes" value="1" required>Si</span>
-                    <span style="transform: translateY(10px);"><input style="width: 20px;" class="" type="radio" name="estrenar" id="no" value="0">No</span>
+                    <label class="form-label mt-2" style="display:flex; gap: 10%;">¿Propiedad a estrenar?</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="estrenar" id="yes" value="1" required>
+                        <label class="form-check-label" for="yes">
+                            Si
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="estrenar" id="no" value="0">
+                        <label class="form-check-label" for="no">
+                            No
+                        </label>
+                    </div>
                 </div>
             </div>
 
@@ -209,7 +232,7 @@ $description= $title
             <input type="file" name="image[]" label="image" id="image" multiple>
         </div> -->
 
-        <div class="input-group mb-3">
+            <div class="input-group mb-3">
                 <label class="form-label" for="image">Subir imagenes de galeria</label>
                 <input type="file" class="form-control" name="image[]" label="image" id="image" multiple>
             </div>
@@ -231,9 +254,18 @@ $description= $title
             </div>
 
             <div class="row mt-2">
+                <!-- <div class="col-12 col-md-4">
+                    <label class="form-label">Pais</label>
+                    <select class="form-control" name="pais" id="country">
+                    </select>
+                </div> -->
+                
                 <div class="col-12 col-md-4">
                     <label class="form-label">Pais</label>
                     <select class="form-control" name="pais" id="country">
+                        @foreach($paises as $pais)
+                        <option value="">{{ $pais->name }}</option>
+                        @endforeach
                     </select>
                 </div>
 

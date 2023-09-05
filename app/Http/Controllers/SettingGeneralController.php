@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Monedas;
 use App\Models\SettingGeneral;
 use Illuminate\Http\Request;
 
@@ -18,9 +19,11 @@ class SettingGeneralController extends Controller
      */
     public function index()
     {
+        $settingGeneralscount = SettingGeneral::all();
         $settingGenerals = SettingGeneral::paginate();
+        $settingCount = $settingGeneralscount->count();
 
-        return view('setting-general.index', compact('settingGenerals'))
+        return view('setting-general.index', compact('settingGenerals','settingCount'))
             ->with('i', (request()->input('page', 1) - 1) * $settingGenerals->perPage());
     }
 
@@ -32,7 +35,9 @@ class SettingGeneralController extends Controller
     public function create()
     {
         $settingGeneral = new SettingGeneral();
-        return view('setting-general.create', compact('settingGeneral'));
+        $monedas = Monedas::all();
+        // dd($monedas);
+        return view('setting-general.create', compact('settingGeneral','monedas'));
     }
 
     /**
@@ -57,7 +62,7 @@ class SettingGeneralController extends Controller
         }
 
         $settingGeneral = SettingGeneral::create($input);
-
+        $settingGeneral->save();
         return redirect()->route('setting-generals.index')
             ->with('success', 'SettingGeneral created successfully.');
     }
@@ -84,8 +89,9 @@ class SettingGeneralController extends Controller
     public function edit($id)
     {
         $settingGeneral = SettingGeneral::find($id);
+        $monedas = Monedas::all();
 
-        return view('setting-general.edit', compact('settingGeneral'));
+        return view('setting-general.edit', compact('settingGeneral','monedas'));
     }
 
     /**
@@ -98,8 +104,8 @@ class SettingGeneralController extends Controller
     public function update(Request $request, SettingGeneral $settingGeneral)
     {
         request()->validate(SettingGeneral::$rules);
-
         $input = $request->all();
+        // dd($input);
               if($request['logo_empresa'])
         {
             $file = $request->file('logo_empresa');
@@ -110,6 +116,7 @@ class SettingGeneralController extends Controller
         }
 
         $settingGeneral->update($input);
+        $settingGeneral->save();
 
         return redirect()->route('setting-generals.index')
             ->with('success', 'SettingGeneral updated successfully');

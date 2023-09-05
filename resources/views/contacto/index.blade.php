@@ -68,7 +68,7 @@ $description= 'Ecommerce Product List Page'
 
                                     <td class="text-end">
                                         <form action="{{ route('contactos.destroy',$contacto->id) }}" method="POST">
-                                            <a class="btn btn-sm btn-primary " href="{{ route('contactos.show',$contacto->id) }}"><i data-acorn-icon="eye" class="icon" data-acorn-size="10"></i></a>
+                                            <a class="btn btn-sm btn-primary" href="{{ route('contactos.show',$contacto->id) }}"><i data-acorn-icon="eye" class="icon" data-acorn-size="10"></i></a>
                                             <a class="btn btn-sm btn-success" href="{{ route('contactos.edit',$contacto->id) }}"><i data-acorn-icon="edit" class="icon" data-acorn-size="10"></i></a>
                                             <a class="btn btn-sm btn-warning" href="{{ route('contactos-propiedad.index',$contacto->id) }}"><i data-acorn-icon="home-garage" class="icon" data-acorn-size="10"></i></a>
 

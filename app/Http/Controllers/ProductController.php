@@ -20,6 +20,7 @@ use App\Models\AmenitiesCheck;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Paises;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use SettingGeneral as GlobalSettingGeneral;
@@ -34,6 +35,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $SettingGeneral = SettingGeneral::first();
         if(auth()->user()->hasRole('super Admin'))
         {
                $products = Product::with(['media'])->get();                   
@@ -52,10 +54,10 @@ class ProductController extends Controller
         }
  
 
-
+// dd($SettingGeneral);
       
   
-       return view('products.list')->with('products', $products);
+       return view('products.list')->with('products', $products)->with('SettingGeneral', $SettingGeneral);
     }
 
     /**
@@ -83,6 +85,7 @@ class ProductController extends Controller
         $monedas = Monedas::all();
         $amenities = Amenities::all();
         $amenitiesCheck = AmenitiesCheck::all();
+        $paises = Paises::all();
 
         $asignado = User::whereHas("roles", function($q){ $q->Where("name",'Vendedor'); })->pluck('name','id');
 
@@ -104,7 +107,7 @@ class ProductController extends Controller
         // dd($res);
 
         $message = "";
-        return view('products.newProduct')->with('message', $message)->with('amenities', $amenities)->with('amenitiesCheck', $amenitiesCheck)->with('categorias', $categorias)->with('subcat',$subcat)->with('tipoPropiedad',$tipoPropiedad)->with('monedas',$monedas)->with('asignado',$asignado);
+        return view('products.newProduct')->with('message', $message)->with('amenities', $amenities)->with('amenitiesCheck', $amenitiesCheck)->with('categorias', $categorias)->with('paises',$paises)->with('tipoPropiedad',$tipoPropiedad)->with('monedas',$monedas)->with('asignado',$asignado);
     }
 
     /**

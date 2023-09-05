@@ -1,6 +1,6 @@
 @php
     $html_tag_data = [];
-    $title = 'Lista de slides';
+    $title = 'Configuración general';
     $description= 'Ecommerce Product List Page'
 @endphp
 @extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])
@@ -23,17 +23,16 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
+                               <h2 id="card_title">{{$title}}</h2> 
 
-                             <span id="card_title">
-                               <h2>
-                                {{"Configuracion General"}}
-                                </h2> 
-                            </span>
-
-                             <div class="float-right">
+                             <div class="float-end">
+                             @if ($settingCount < 0)
                                 <a href="{{ route('setting-generals.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Agregar Nuevo') }}
                                 </a>
+                                @else
+                                creado borrar mensaje luego
+                                @endif
                               </div>
                         </div>
                     </div>
@@ -57,6 +56,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    
                                     @foreach ($settingGenerals as $settingGeneral)
                                         <tr>
                                            
