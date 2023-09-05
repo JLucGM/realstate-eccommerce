@@ -10,6 +10,7 @@ use App\Http\Controllers\TicketChatController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\PaisController;
 
 
 
@@ -281,3 +282,5 @@ Route::post('blog/show/{post}',[BlogController::class,'store'])->name('blog.comm
 
 Auth::routes();
 
+// Ruta de Pais
+Route::resource('paises', PaisController::class);

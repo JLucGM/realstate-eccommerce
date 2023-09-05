@@ -61,14 +61,22 @@ class ContactoController extends Controller
     {
         request()->validate(Contacto::$rules);
         $input= $request->all();
-        $user = new User();
-        $user->name = $request['name'];
-        $user->last_name = $request['apellido'];
-        $user->email = $request['email'];
-        $user->password = Hash::make($request['telefonoContacto1']);
-        $user->save();
-        $user->assignRole('cliente');
-        $input['user_id'] = $user->id;
+        $contacto = new Contacto();
+        $contacto->name = $request['name'];
+        $contacto->apellido = $request['apellido'];
+        $contacto->email = $request['email'];
+        $contacto->telefonoContacto1 = ($request['telefonoContacto1']);
+        $contacto->telefonoContacto2 = ($request['telefonoContacto2']);
+        $contacto->origen = ($request['origen']);
+        $contacto->status = ($request['status']);
+        $contacto->pais = ($request['pais']);
+        $contacto->region = ($request['region']);
+        $contacto->ciudad = ($request['ciudad']);
+        $contacto->direccion = ($request['direccion']);
+        $contacto->observaciones = ($request['observaciones']);
+        $contacto->save();
+        // $user->assignRole('cliente');
+        // $input['user_id'] = $user->id;
 
         $input['vendedorAgente_id'] = auth()->user()->id;
 

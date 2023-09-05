@@ -7,17 +7,17 @@
             {{ Form::label('tipoRelacion','Tipo de Relacion',['class'=>'mb-4']) }}
             {{ Form::select('tipoRelacion',[
                   'interesado' => 'Interesado',
-            'colega' => 'Colega',
-            'constructora' => 'Constructora',
-            'inversionista' => 'Inversionista',
-            'consulta' => 'consulta',
-            'propietario' => 'Propietario',
-            'inquilinos' => 'Inquilinos',
-            'personales' => 'Personales',
-            'deshabilitados' => 'Deshabilitado',
+            'Colega' => 'Colega',
+            'Constructora' => 'Constructora',
+            'Inversionista' => 'Inversionista',
+            'Consulta' => 'consulta',
+            'Propietario' => 'Propietario',
+            'Inquilinos' => 'Inquilinos',
+            'Personales' => 'Personales',
+            'Deshabilitados' => 'Deshabilitado',
 
 
-        ],null, ['class' => 'form-control' . ($errors->has('tipoRelacion') ? ' is-invalid' : ''), 'placeholder' => 'Tiporelacion']) }}
+        ],null, ['class' => 'form-control' . ($errors->has('tipoRelacion') ? ' is-invalid' : ''), 'placeholder' => 'Tipo de relacion']) }}
             {!! $errors->first('tipoRelacion', '<div class="invalid-feedback">:message</div>') !!}
         </div>
 
@@ -37,7 +37,7 @@
 
 
 
-        <input type="hidden" name="contacto_id" id="" value="{{ $id }}">
+        {{--<input type="hidden" name="contacto_id" id="" value="{{ $id }}">--}}
 
     </div>
        <div class="box-footer mt20 offset-4 mt-4">

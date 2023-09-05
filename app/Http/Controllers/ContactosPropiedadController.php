@@ -7,8 +7,7 @@ use App\Models\Product;
 use App\Models\TipoPropiedad;
 use Illuminate\Http\Request;
 use App\Models\SettingGeneral;
-
-
+use App\Models\User;
 
 /**
  * Class ContactosPropiedadController
@@ -84,8 +83,8 @@ class ContactosPropiedadController extends Controller
     public function edit($id)
     {
         $contactosPropiedad = ContactosPropiedad::find($id);
-
-        return view('contactos-propiedad.edit', compact('contactosPropiedad'));
+        $product = Product::all()->pluck('name','id');
+        return view('contactos-propiedad.edit', compact('contactosPropiedad','product'));
     }
 
     /**
@@ -98,7 +97,7 @@ class ContactosPropiedadController extends Controller
     public function update(Request $request, ContactosPropiedad $contactosPropiedad)
     {
         request()->validate(ContactosPropiedad::$rules);
-
+$user = User::all();
         $contactosPropiedad->update($request->all());
 
         return redirect()->route('contactos-propiedads.index')

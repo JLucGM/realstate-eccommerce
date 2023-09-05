@@ -1,6 +1,6 @@
 @php
     $html_tag_data = [];
-    $title = 'Contacto propiedad';
+    $title = 'Lista de productos';
     $description= 'Ecommerce Product List Page'
 @endphp
 @extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])
@@ -25,29 +25,15 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                               <h2>
-                                {{ __('Contactos Propiedad') }}
-
-                                </h2> 
+                          <h2>Lista de Paises</h2>
                             </span>
 
-                  
-
-                             {{-- <div class="float-right">
-                                <a href="{{ route('contactos-propiedads.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{"Agregar nuevo"}}
+                             <div class="float-right">
+                                <a href="{{ route('paises.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ "Agregar Nuevo"}}
                                 </a>
-                              </div> --}}
+                              </div>
                         </div>
-
-                                     <div class="card-body">
-                        <form method="POST" action="{{ route('contactos-propiedads.store') }}"  role="form" enctype="multipart/form-data">
-                            @csrf
-
-                            @include('contactos-propiedad.form')
-
-                        </form>
-                    </div>
                     </div>
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success">
@@ -60,28 +46,27 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
-										<th>Tipo relacion</th>
-										<th>Propiedad</th>
-										<th>Contacto</th>
-										<th>Observaciones</th>
+                                        
+										<th>Nombre</th>
+										
+										<th>Acciones</th>
 
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($contactosPropiedads as $contactosPropiedad)
+                                    @foreach ($paises as $pais)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
                                             
-											<td>{{ $contactosPropiedad->tipoRelacion }}</td>
-											<td>{{ $contactosPropiedad->product->name }}</td>
-											<td>{{ $contactosPropiedad->contacto->name }}</td>
-											<td>{{ $contactosPropiedad->observaciones }}</td>
+											<td>{{ $pais->name }}</td>
+                                            
+											
 
-                                            <td>
-                                                <form action="{{ route('contactos-propiedads.destroy',$contactosPropiedad->id) }}" method="POST">
-                                                    {{--<a class="btn btn-sm btn-primary " href="{{ route('contactos-propiedads.show',$contactosPropiedad->id) }}"><i data-acorn-icon="eye" class="icon" data-acorn-size="10"></i></a>--}}
-                                                    <a class="btn btn-sm btn-success" href="{{ route('contactos-propiedads.edit',$contactosPropiedad->id) }}"><i data-acorn-icon="edit" class="icon" data-acorn-size="10"></i></a>
+                                            <td class="text-end">
+                                                <form action="{{ route('paises.destroy',$pais->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('paises.show',$pais->id) }}"><i data-acorn-icon="eye" class="icon" data-acorn-size="10"></i></a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('paises.edit',$pais->id) }}"><i data-acorn-icon="edit" class="icon" data-acorn-size="10"></i></a>
+
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i data-acorn-icon="bin" class="icon" data-acorn-size="10"></i></button>
@@ -94,7 +79,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $contactosPropiedads->links() !!}
+                {{--!! $paises->links() !!--}}
             </div>
         </div>
     </div>
