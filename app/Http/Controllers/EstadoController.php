@@ -77,7 +77,7 @@ class EstadoController extends Controller
     {
         $estado = Estado::find($id);
         $paises = Paises::all();
-
+// $valorActual = $estado->paise->name;
         return view('estado.edit', compact('estado','paises'));
     }
 

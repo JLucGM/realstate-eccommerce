@@ -24,7 +24,7 @@ $description= 'Ecommerce Product List Page'
                         
                         <div class="form-group">
                             <strong>Nombre:</strong>
-                            {{ $estado->nombre }}
+                            {{ $estado->name }}
                         </div>
                         <div class="form-group">
                             <strong>Pais Id:</strong>

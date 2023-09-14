@@ -46,7 +46,7 @@ $description= 'Ecommerce Product List Page'
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-											<td>{{ $estado->nombre }}</td>
+											<td>{{ $estado->name }}</td>
 											<td>{{ $estado->paise->name }}</td>
 
                                             <td>

@@ -64,7 +64,7 @@ $description= $title
             <div class="row mt-2">
                 <div class="col-12 col-md-6">
                     <label class="form-label">Estado</label>
-                    <select class="form-control" name="status" id="estado">
+                    <select class="form-control" name="status" id="status">
                         <option value="En venta">En venta</option>
                         <option value="En alquiler">En alquiler</option>
                         <option value="En alquiler temporal">En alquiler temporal</option>
@@ -73,7 +73,7 @@ $description= $title
 
                 <div class="col-12 col-md-6">
                     <label class="form-label">Estado actual</label>
-                    <select class="form-control" name="statusActual" id="estado">
+                    <select class="form-control" name="statusActual" id="statusActual">
                         <option value="En venta">En venta</option>
                         <option value="En alquiler">En alquiler</option>
                         <option value="En alquiler temporal">En alquiler temporal</option>
@@ -115,12 +115,6 @@ $description= $title
 
                 <div class="col-12 col-md-3">
                     <label class="form-label">Publicar el precio</label>
-                    <!-- <div class="form-check">
-                        <input class="form-check-input mt-2" type="checkbox" name="publicar" value="1">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Default checkbox
-                        </label>
-                    </div> -->
                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" role="switch" name="publicar" value="1" id="flexSwitchCheckDefault">
                         <label class="form-check-label" for="flexSwitchCheckDefault">Si</label>
@@ -159,7 +153,7 @@ $description= $title
                 </div>
 
                 <div class="col-12 col-md-4">
-                    <label class="form-label mt-2" style="display:flex; gap: 10%;">¿Propiedad a estrenar?</label>
+                    <label class="form-label mt-2">¿Propiedad a estrenar?</label>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="estrenar" id="yes" value="1" required>
                         <label class="form-check-label" for="yes">
@@ -254,30 +248,28 @@ $description= $title
             </div>
 
             <div class="row mt-2">
-                <!-- <div class="col-12 col-md-4">
-                    <label class="form-label">Pais</label>
-                    <select class="form-control" name="pais" id="country">
-                    </select>
-                </div> -->
-                
                 <div class="col-12 col-md-4">
                     <label class="form-label">Pais</label>
-                    <select class="form-control" name="pais" id="country">
+                    <select class="form-control" name="pais" id="paisSelect">
                         @foreach($paises as $pais)
-                        <option value="">{{ $pais->name }}</option>
+                        <option value="{{ $pais->id }}">{{ $pais->name }}</option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="col-12 col-md-4">
-                    <label class="form-label">Region</label>
-                    <select class="form-control" name="region" id="region">
+                    <label class="form-label">Estado</label>
+                    <select class="form-control" id="estadoSelect" name="region">
+                        <option value="">Seleccione un estado</option>
+                        <!-- Aquí se cargarán las opciones de los estados en función del país seleccionado -->
                     </select>
                 </div>
 
                 <div class="col-12 col-md-4">
                     <label class="form-label">Ciudad</label>
-                    <select class="form-control" name="ciudad" id="city">
+                    <select class="form-control" id="ciudadSelect" name="ciudad">
+                        <option value="">Seleccione una ciudad</option>
+                        <!-- Aquí se cargarán las opciones de las ciudades en función del estado seleccionado -->
                     </select>
                 </div>
             </div>
@@ -320,27 +312,49 @@ $description= $title
         </form>
     </div>
 </div>
-<script>
-    let yes = document.getElementById('yes');
-    let no = document.getElementById('no');
-    let antiguedad = document.getElementById('antiguedad');
 
-    yes.addEventListener('click', (e) => {
-        antiguedad.style.filter = "opacity(0)";
-        antiguedad.style.position = "absolute";
-        antiguedad.style.transform = "scale(0)";
-        setTimeout(() => {
-            antiguedad.style.transitionDuration = "0.5s";
-        }, 100);
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    // Select dependiente de municipio, hereda de estado
+    $(function() {
+        $('#paisSelect').on('change', onSelectProjectChange);
     });
-    no.addEventListener('click', (e) => {
-        antiguedad.style.filter = "opacity(1)";
-        antiguedad.style.position = "relative";
-        antiguedad.style.transform = "scale(1)";
-        setTimeout(() => {
-            antiguedad.style.transitionDuration = "0s";
-        }, 100);
+
+    function onSelectProjectChange() {
+        var project_id = $(this).val();
+        console.log(project_id);
+        if (!project_id)
+            $('#estadoSelect').html(html_select);
+        $.get('pais/' + project_id + '/estado', function(data) {
+            var html_select = '<option value="">Seleccione su estado</option>'
+            for (var i = 0; i < data.length; ++i)
+                html_select += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+            $('#estadoSelect').html(html_select);
+            console.log(html_select);
+            console.log($('#estadoSelect').html(html_select));
+        });
+
+    }
+
+    $(function() {
+        $('#estadoSelect').on('change', onSelectProjectChanges);
     });
+
+    function onSelectProjectChanges() {
+        var project_id2 = $(this).val();
+        console.log(project_id2);
+        if (!project_id2)
+            $('#ciudadSelect').html(html_select2);
+        $.get('estado/' + project_id2 + '/ciudad', function(data) {
+            var html_select2 = '<option value="">Seleccione su ciudad1</option>'
+            for (var a = 0; a < data.length; ++a)
+                html_select2 += '<option value="' + data[a].id + '">' + data[a].name + '</option>';
+            $('#ciudadSelect').html(html_select2);
+            console.log(html_select2);
+            console.log($('#ciudadSelect').html(html_select2));
+        });
+
+    }
 </script>
 
 <script>
@@ -446,135 +460,15 @@ $description= $title
         reader.readAsDataURL(file);
     }
 </script>
+
 <style>
-    #antiguedad {
-        filter: opacity(0);
-        position: absolute;
-        transform: scale(0);
-        transition-duration: 0.5s;
-    }
-</style>
-<style>
-    .centrar {
-        display: flex;
-        justify-content: center;
-        animation: girar 5s linear infinite;
-        filter: opacity(0.1);
-    }
-
-    /* #logo_svg {
-        position: absolute;
-        width: 50%;
-        text-align: center;
-        z-index: 0;
-
-    } */
-
-    /* @keyframes girar{
-                         0%,100%{
-                             transform: rotateY(0deg):
-                         }
-                         50%{
-                             transform: rotateY(360deg):
-                         }
-                        } */
-
-    @keyframes girar {
-        0% {
-            transform: rotateY(0deg);
-        }
-
-        50% {
-            transform: rotateY(90deg);
-
-        }
-
-        100% {
-            transform: rotateY(0deg);
-
-        }
-    }
+   
 
     .btn_pregunta {
         width: 10px;
         margin-left: 10px;
         transform: rotate(-90deg);
         z-index: 1;
-    }
-
-    /* .s_amenities {
-        width: 280px;
-        background: none;
-        border: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.405);
-        border-right: 1px solid rgba(255, 255, 255, 0.405);
-        color: white;
-        border-radius: 5%;
-        height: 60px;
-        z-index: 1;
-    } */
-
-    /* #amenities {
-        display: flex;
-        grid-auto-columns: 1fr;
-        gap: 0%;
-        height: auto;
-        overflow: hidden;
-    } */
-
-    /* .linea_grid {
-        /* display: grid;*/
-    /* width: 100%; */
-    /* display: grid; */
-    /* grid-template-columns: repeat(auto-fill, 450px); */
-    /* grid-template-columns: 1fr; */
-    /* flex-direction: column; */
-    /* justify-content: center;
-        gap: 2%;
-        transition-duration: 0.2s;
-        height: auto;
-        padding: 5% 0;
-        overflow-y: scroll;
-        overflow-x: hidden; 
-    } */
-
-    @media (max-width:992px) {
-        /* .linea_grid {
-            width: auto;
-            position: absolute;
-            background: #4e4e4e36;
-            display: flex;
-            flex-direction: column;
-            padding: 0% 0;
-            justify-content: end;
-            align-items: left;
-        } */
-
-        /* .contenedor input{
-                                width: 70% !important;
-                                height: 22px;
-                                margin-top: -2vh;
-                            } */
-        /* #amenities {
-            display: flex;
-            flex-direction: column;
-            grid-auto-columns: 1fr;
-            gap: 0%;
-            height: auto;
-            overflow: hidden;
-        } */
-
-        /* .s_amenities {
-            width: 280px;
-            background: none;
-            border: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.405);
-            border-right: 1px solid rgba(255, 255, 255, 0.405);
-            color: white;
-            border-radius: 5%;
-            height: 35px;
-            z-index: 1;
-        } */
     }
 
     .linea_grid::-webkit-scrollbar-track {
@@ -591,95 +485,13 @@ $description= $title
         background-color: #000000;
     }
 
-    .check {
+    /* .check {
         margin-right: -90px;
         transform: translateY(5px);
-    }
-</style>
-<style>
-    .flex {
-        display: flex;
-        gap: 2%;
-        width: 100%;
-    }
-
-    /* .c_completo{
-                        width: 100% !important;
-                    } */
-    /* .c_completo2 {
-        width: 90% !important;
     } */
-
-    /* .c_largo {
-        width: 100% !important;
-        height: 100px !important;
-    } */
-
-    /* .contenedor{
-                        width: 80vw;
-                        height: auto;
-                        background: red; 
-                    } */
-    /* .contenedor .card {
-        width: 100%;
-        height: 100%;
-        background: none;
-        background: var(--background-theme); */
-    /* padding: 2%;
-        border-radius: 3%;
-        margin-top: 2vh;
-        place-content: center; */
-    /* } */
-
-    .contenedor .card form {
-        display: flex;
-        flex-direction: column;
-        gap: 1%;
-        margin-top: 1vh;
-
-    }
-
-    /* .contenedor input {
-        width: 50%;
-        height: 22px;
-        margin-top: -2vh;
-    } */
-
-    /* h2 {
-        font-size: 1.5vh;
-    } */
-
-    /* select {
-        width: 50% !important;
-        height: 22px !important;
-        margin-top: -2vh !important;
-    } */
-
-    .btn_style {
-        background: var(--primary);
-        width: 50%;
-        height: 100%;
-        transition-duration: 0.5s;
-        font-size: 20px;
-    }
-
-    .btn_style:hover {
-        background: var(--dark);
-        width: 50%;
-        height: 100%;
-    }
-
-    /* @media (max-width:992px) {
-        .contenedor {
-            width: 90vw;
-            height: auto;
-            /* background: red; */
-    /* }
-    } */
-
-    */
 </style>
 
+<!-- MAPA -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2zAA0lz2WIp9qYBZd671LqbUaFok9LMc&callback=initMap" async defer></script>
@@ -815,91 +627,6 @@ $description= $title
         });
     }
     // FINAL MAPS
-
-
-    $(document).ready(function() {
-        //-------------------------------SELECT CASCADING-------------------------//
-        var selectedCountry = (selectedRegion = selectedCity = "");
-
-        // This is a demo API key that can only be used for a short period of time, and will be unavailable soon. You should rather request your API key (free)  from http://battuta.medunes.net/
-        var BATTUTA_KEY = "df576e94f48f79e79c64010875385e0d";
-        // Populate country select box from battuta API
-        url =
-            "https://battuta.medunes.net/api/country/all/?key=" +
-            BATTUTA_KEY +
-            "&callback=?";
-
-        // EXTRACT JSON DATA.
-        $.getJSON(url, function(data) {
-            console.log(data);
-            $.each(data, function(index, value) {
-                // APPEND OR INSERT DATA TO SELECT ELEMENT.
-                $("#country").append(
-                    '<option value="' + value.code + '">' + value.name + "</option>"
-                );
-            });
-        });
-        // Country selected --> update region list .
-        $("#country").change(function() {
-            selectedCountry = this.options[this.selectedIndex].text;
-            countryCode = $("#country").val();
-            // Populate country select box from battuta API
-            url =
-                "https://battuta.medunes.net/api/region/" +
-                countryCode +
-                "/all/?key=" +
-                BATTUTA_KEY +
-                "&callback=?";
-            $.getJSON(url, function(data) {
-                $("#region option").remove();
-                $.each(data, function(index, value) {
-                    // APPEND OR INSERT DATA TO SELECT ELEMENT.
-                    $("#region").append(
-                        '<option value="' + value.region + '">' + value.region + "</option>"
-                    );
-                });
-            });
-        });
-        // Region selected --> updated city list
-        $("#region").on("change", function() {
-            selectedRegion = this.options[this.selectedIndex].text;
-            // Populate country select box from battuta API
-            countryCode = $("#country").val();
-            region = $("#region").val();
-            // console.log(countryCode + " - " + region);
-            url =
-                "https://battuta.medunes.net/api/city/" +
-                countryCode +
-                "/search/?region=" +
-                region +
-                "&key=" +
-                BATTUTA_KEY +
-                "&callback=?";
-            $.getJSON(url, function(data) {
-                // console.log(data);
-                $("#city option").remove();
-                $.each(data, function(index, value) {
-                    // APPEND OR INSERT DATA TO SELECT ELEMENT.
-                    $("#city").append(
-                        '<option value="' + value.city + '">' + value.city + "</option>"
-                    );
-                });
-            });
-        });
-        // city selected --> update location string
-        $("#city").on("change", function() {
-            selectedCity = this.options[this.selectedIndex].text;
-            $("#location").html(
-                "Locatation: Country: " +
-                selectedCountry +
-                ", Region: " +
-                selectedRegion +
-                ", City: " +
-                selectedCity
-            );
-        });
-    });
 </script>
-
 
 @endsection

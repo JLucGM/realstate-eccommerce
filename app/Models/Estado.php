@@ -20,10 +20,10 @@ use Illuminate\Database\Eloquent\Model;
 class Estado extends Model
 {
     
-  public $table = 'estado';
+  public $table = 'estados';
   
     static $rules = [
-		'nombre' => 'required',
+		'name' => 'required',
 		'pais_id' => 'required',
     ];
 
@@ -34,7 +34,7 @@ class Estado extends Model
      *
      * @var array
      */
-    protected $fillable = ['nombre','pais_id'];
+    protected $fillable = ['name','pais_id'];
 
 
     /**

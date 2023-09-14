@@ -14,7 +14,13 @@ class Ciudades extends Model
 
     public $fillable = [
         'name',
-        'status'
+        'estado_id',
      
     ];
+
+    public function estados()
+{
+    return $this->belongsTo('App\Models\Estado', 'estado_id', 'id');
+}
+
 }

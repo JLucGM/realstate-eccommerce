@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ciudades;
 use App\Http\Requests\StoreCiudadesRequest;
 use App\Http\Requests\UpdateCiudadesRequest;
+use App\Models\Estado;
 use Symfony\Component\HttpFoundation\Request;
 
 class CiudadesController extends Controller
@@ -16,8 +17,18 @@ class CiudadesController extends Controller
      */
     public function index()
     {
-        $ciudades = Ciudades::all();        
-        return view('ciudades.index')->with('ciudades',$ciudades);
+         $ciudades = Ciudades::all();
+        // // $ciudades = Ciudades::with('estados')->get();
+        // // $nombreEstado = $ciudades->estados->nombre;
+
+        // // dd($nombreEstado);
+
+        // foreach ($ciudades as $ciudad) {
+        //     $nombreEstado = $ciudad->estado_id;
+        //     dd($nombreEstado);
+        // }
+        
+        return view('ciudades.index', compact('ciudades'));
     }
 
     /**
@@ -27,8 +38,11 @@ class CiudadesController extends Controller
      */
     public function create()
     {
+        $ciudad = new Ciudades();
+        $estados = Estado::all();
+
         $message="";
-        return view('ciudades.add')->with('message',$message);
+        return view('ciudades.add')->with('message',$message)->with('estados',$estados)->with('ciudad',$ciudad);
     }
 
     /**
@@ -44,7 +58,8 @@ class CiudadesController extends Controller
     
 
         $city->name = $request->name;
-        $city->status = $request->status;
+        // $city->status = $request->status;
+        $city->estado_id = $request->estado_id;
 
 
        
@@ -73,8 +88,10 @@ class CiudadesController extends Controller
     public function edit(Ciudades $ciudades, $id)
     {
         $city = Ciudades::find($id);
+        $estados = Estado::all();
+
         $message = "";
-        return view('ciudades.edit')->with('city',$city)->with('message',$message);
+        return view('ciudades.edit')->with('city',$city)->with('estados',$estados)->with('message',$message);
     }
 
     /**
@@ -87,14 +104,15 @@ class CiudadesController extends Controller
     public function update(Request $request, $id)
     {
         $city = Ciudades::find($id);
+        $estados = Estado::all();
 
         $city->name = $request->name;
-        $city->status= $request->status;
-
+        $city->estado_id= $request->estado_id;
 
         $city->save();
+        
         $message = "Datos actualizados correctamente";
-        return view('ciudades.edit')->with('city',$city)->with('message',$message);
+        return view('ciudades.edit')->with('city',$city)->with('message',$message)->with('estados',$estados);
     }
 
     /**

@@ -44,13 +44,13 @@ $description= 'Detalles de productos'
     <!-- Title and Top Buttons End -->
 
     <div class="row">
-        <div class="col-12">
+        <div class="col-xl-8">
             <h2 class="small-title">Información de la propiedad</h2>
             <!-- Product Info Start -->
             <div class="mb-5">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{route('product.update',['id'=>$product->id])}}" method="post">
+                        <form action="{{route('product.update',['id'=>$product->id])}}" method="post" enctype="multipart/form-data">
                             @method('PATCH')
                             @csrf
                             <div class="mb-3">
@@ -86,7 +86,9 @@ $description= 'Detalles de productos'
                                 <textarea name="details" class="form-control">{{$product->details}}</textarea>
                             </div>
 
-                            <!-- Price End -->
+                            <input type="file" name="image" multiple>
+
+
                             <button class="btn btn-primary" type="submit" class="form-submit">
                                 Guardar cambios
                             </button>
@@ -96,7 +98,7 @@ $description= 'Detalles de productos'
             </div>
         </div>
 
-        <div class="col-12">
+        <div class="col-xl-4">
 
             <!-- Gallery Start -->
             <div class="mb-5">
@@ -109,10 +111,14 @@ $description= 'Detalles de productos'
 
                             <div class="row">
                                 @foreach($images as $image)
+                                
                                 <div class="col-md-3">
                                     <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $image) }}" class="w-100" alt="Imagen de la propiedad">
                                 </div>
                                 @endforeach
+
+
+
                             </div>
 
                             <input class="form-control" type="file" name="image[]" label="image" id="image" multiple>
@@ -124,6 +130,8 @@ $description= 'Detalles de productos'
                                 Guardar cambios
                             </button>
                         </form>
+
+
                     </div>
                 </div>
             </div>
