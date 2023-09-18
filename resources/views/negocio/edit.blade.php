@@ -12,8 +12,8 @@
 @endsection
 
 @section('js_page')
-    <script src="/js/cs/checkall.js"></script>
-    <script src="/js/pages/products.list.js"></script>
+    <!-- <script src="/js/cs/checkall.js"></script>
+    <script src="/js/pages/products.list.js"></script> -->
 @endsection
 
 @section('content')
@@ -25,7 +25,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">Update Negocio</span>
+                        <h2 class="card-title">{{$title}}</h2>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('negocios.update', $negocio->id) }}"  role="form" enctype="multipart/form-data">

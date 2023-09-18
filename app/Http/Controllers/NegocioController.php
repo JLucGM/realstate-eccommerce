@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Negocio;
 use App\Models\Product;
 use App\Models\Contacto;
+use App\Models\SettingGeneral;
 use App\Models\User;
 
 
@@ -25,8 +26,9 @@ class NegocioController extends Controller
     public function index()
     {
         $negocios = Negocio::paginate();
-
-        return view('negocio.index', compact('negocios'))
+        $SettingGeneral = SettingGeneral::first();
+// dd($settingGeneral);
+        return view('negocio.index', compact('negocios','SettingGeneral'))
             ->with('i', (request()->input('page', 1) - 1) * $negocios->perPage());
     }
 
@@ -59,7 +61,7 @@ class NegocioController extends Controller
     public function store(Request $request)
     {
         request()->validate(Negocio::$rules);
-
+// dd($request);
         $negocio = Negocio::create($request->all());
 
         return redirect()->route('negocios.index')
@@ -88,8 +90,11 @@ class NegocioController extends Controller
     public function edit($id)
     {
         $negocio = Negocio::find($id);
+        $contactos = Contacto::all()->pluck('name','id');
+        $propiedades = Product::all()->pluck('name','id');
+        $agente =  User::whereHas("roles", function($q){ $q->where("name", "Arrendador")->orWhere("name",'Vendedor'); })->pluck('name','id');
 
-        return view('negocio.edit', compact('negocio'));
+        return view('negocio.edit', compact('negocio','contactos','propiedades','agente'));
     }
 
     /**

@@ -12,8 +12,8 @@ $description= 'Ecommerce tasks List Page'
 @endsection
 
 @section('js_page')
-<script src="/js/cs/checkall.js"></script>
-<script src="/js/pages/products.list.js"></script>
+<!-- <script src="/js/cs/checkall.js"></script>
+<script src="/js/pages/products.list.js"></script> -->
 @endsection
 
 @section('content')
@@ -24,12 +24,7 @@ $description= 'Ecommerce tasks List Page'
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
-                            <span id="card_title">
-                               <h1>
-                                {{"Mensajes"}}
-                                </h1> 
-                            </span>
-
+                               <h2>{{$title}}</h2> 
                              <div class="float-right">
                                 <a href="{{ route('mensajes-soportes.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{"Agregar Nuevo" }}
@@ -57,7 +52,7 @@ $description= 'Ecommerce tasks List Page'
 										<th>Propiedad</th>
 										<th>Contacto</th>
 
-                                        <th></th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
