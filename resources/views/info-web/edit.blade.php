@@ -1,7 +1,7 @@
 @php
-    $html_tag_data = [];
-    $title = 'Editar info';
-    $description= 'Ecommerce Product List Page'
+$html_tag_data = [];
+$title = 'Editar información de servicios';
+$description= 'Ecommerce Product List Page'
 @endphp
 @extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])
 
@@ -12,36 +12,36 @@
 @endsection
 
 @section('js_page')
-    <script src="/js/cs/checkall.js"></script>
-    <script src="/js/pages/products.list.js"></script>
+<!-- <script src="/js/cs/checkall.js"></script>
+    <script src="/js/pages/products.list.js"></script> -->
 @endsection
 
 @section('content')
-    <section class="content container-fluid">
-        <div class="">
-            <div class="col-md-12">
+<section class="content container-fluid">
+    <div class="">
+        <div class="col-md-12">
 
-                @includeif('partials.errors')
+            @includeif('partials.errors')
 
-                <div class="card card-default">
-                    <div class="card-header">
-                  <span id="card_title">
-                               <h1>
-                                {{"Editar Informacion Principal"}}
-                                </h1> 
-                            </span>
-                    </div>
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('info-webs.update', $infoWeb->id) }}"  role="form" enctype="multipart/form-data">
-                            {{ method_field('PATCH') }}
-                            @csrf
+            <div class="card">
+                <div class="card-header">
+                    <span id="card_title">
+                        <h1>
+                            {{$title}}
+                        </h1>
+                    </span>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ route('info-webs.update', $infoWeb->id) }}" role="form" enctype="multipart/form-data">
+                        {{ method_field('PATCH') }}
+                        @csrf
 
-                            @include('info-web.form')
+                        @include('info-web.form')
 
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 @endsection

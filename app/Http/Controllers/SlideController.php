@@ -50,7 +50,7 @@ class SlideController extends Controller
         if($request['image'])
         {
             $file = $request->file('image');
-            $filepath = "image/";
+            $filepath = "image/sliders";
             $filename = time() . '-' . $file->getClientOriginalName();
             $uploadSucess = $request->file('image')->move($filepath, $filename);
             $input['image'] = $filename;
@@ -97,9 +97,40 @@ class SlideController extends Controller
      */
     public function update(Request $request, Slide $slide)
     {
-        request()->validate(Slide::$rules);
+        // request()->validate(Slide::$rules);
 
-        $slide->update($request->all());
+        // $slide->update($request->all());
+
+        // $request->validate([
+        //     'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        //     'active' => 'required',
+        //     'texto' => 'required',
+        //     'title' => 'required',
+        // ]);
+
+        // Actualizar los campos
+        $slide->active = $request->input('active');
+        $slide->texto = $request->input('texto');
+        $slide->title = $request->input('title');
+
+        // Verificar si se ha enviado una nueva imagen
+        if ($request->hasFile('image')) {
+            // Obtener el archivo de imagen
+            $image = $request->file('image');
+
+            // Generar un nombre único para la imagen
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+
+            // Guardar la imagen en la carpeta de almacenamiento
+            $image->move(public_path('image/sliders'), $imageName);
+
+            // Actualizar el campo de imagen con el nombre del archivo
+            $slide->image = $imageName;
+        }
+
+        // Guardar los cambios en la base de datos
+        $slide->save();
+
 
         return redirect()->route('slides.index')
             ->with('success', 'Slide updated successfully');

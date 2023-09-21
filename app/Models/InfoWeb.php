@@ -25,7 +25,12 @@ class InfoWeb extends Model
   public $table = 'info_web';
     
     static $rules = [
+		'title_info' => 'required',
 		'select_us' => 'required',
+		'icon_first' => 'required',
+		'icon_second' => 'required',
+		'icon_thrid' => 'required',
+		'icon_fourth' => 'required',
 		'sell_home' => 'required',
 		'rent_home' => 'required',
 		'buy_home' => 'required',
@@ -39,7 +44,7 @@ class InfoWeb extends Model
      *
      * @var array
      */
-    protected $fillable = ['select_us','sell_home','rent_home','buy_home','marketing_free'];
+    protected $fillable = ['title_info','select_us','icon_first','icon_second','icon_thrid','icon_fourth','sell_home','rent_home','buy_home','marketing_free'];
 
 
 

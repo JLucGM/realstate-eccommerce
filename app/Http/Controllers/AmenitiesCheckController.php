@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreAmenitiesCheckRequest;
 use App\Http\Requests\UpdateAmenitiesCheckRequest;
 
-class AmenitiesCheckController extends Controller
+class  AmenitiesCheckController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -44,9 +44,18 @@ class AmenitiesCheckController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreAmenitiesCheckRequest $request)
-    {
-        //
-    }
+{
+    $amenitiesCheck = new AmenitiesCheck;
+
+    $amenitiesCheck->name = $request->name;
+    $amenitiesCheck->status = $request->amenities_id;
+    $amenitiesCheck->icon = $request->icon;
+
+    $amenitiesCheck->save();
+
+    return redirect()->route('amenities-checks.index')
+        ->with('success', 'Amenities Check created successfully');
+}
 
     /**
      * Display the specified resource.
@@ -82,15 +91,13 @@ class AmenitiesCheckController extends Controller
      */
    
 
-     public function update(Request $request,AmenitiesCheck $amenitiesCheck)
-    {
-        request()->validate(AmenitiesCheck::$rules);
+     public function update(UpdateAmenitiesCheckRequest $request, AmenitiesCheck $amenitiesCheck)
+{
+    $amenitiesCheck->update($request->all());
 
-        $amenitiesCheck->update($request->all());
-
-        return redirect()->route('amenities-checks.index')
-            ->with('success', 'Slide updated successfully');
-    }
+    return redirect()->route('amenities-checks.index')
+        ->with('success', 'Amenities Check updated successfully');
+}
 
     /**
      * Remove the specified resource from storage.
@@ -99,7 +106,10 @@ class AmenitiesCheckController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(AmenitiesCheck $amenitiesCheck)
-    {
-        //
-    }
+{
+    $amenitiesCheck->delete();
+
+    return redirect()->route('amenities-checks.index')
+        ->with('success', 'Amenities Check deleted successfully');
+}
 }

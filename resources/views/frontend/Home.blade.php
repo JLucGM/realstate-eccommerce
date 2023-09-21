@@ -1,6 +1,26 @@
 @include('frontend.header')
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    @foreach($slides->take(5) as $slide)
+      @if($slide->active = 1)
+        <div class="carousel-item {{ $loop->first ? 'active' : '' }}" style="width:100vw; height:86vh; ">
+          <img src="{{ asset('image/sliders/'.$slide->image) }}" class="d-block w-100" alt="Slide Image">
+        </div>
+      @endif
+    @endforeach
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
 
-<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+
+{{--<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
   <div class="carousel-indicators" style="display: none">
     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -8,7 +28,7 @@
   </div>
   <div class="carousel-inner position-relative d-sm-none d-md-block">
     <div class="carousel-item active" data-bs-interval="3000" style="width:100vw; height:86vh; ">
-      <img src="{{ asset('image/'.$slides[0]->image ) }}" class="d-block w-100" style="filter: brightness(80%);" alt="...">
+      <img src="{{ asset('image/sliders/'.$slides[0]->image ) }}" class="d-block w-100" style="filter: brightness(80%);" alt="...">
 
       <div class="col-4 py-5 my-5 carousel-caption">
         <div class="text-center">
@@ -20,7 +40,7 @@
 
     </div>
     <div class="carousel-item" data-bs-interval="2000" style="width:100vw; height:86vh; ">
-      <img src="{{ asset('image/'.$slides[1]->image ) }}" class="d-block w-100" style="filter: brightness(80%);" alt="...">
+      <img src="{{ asset('image/sliders/'.$slides[1]->image ) }}" class="d-block w-100" style="filter: brightness(80%);" alt="...">
       <div class="col-4 py-5 my-5 carousel-caption">
         <div class="text-center">
           <h1 class="title-main text-capitalize text-white">{{ $slides[1]->title }}</h1>
@@ -29,7 +49,7 @@
       </div>
     </div>
     <div class="carousel-item" style="width:100vw; height:86vh; ">
-      <img src="{{ asset('image/'.$slides[2]->image ) }}" class="d-block w-100" style="filter: brightness(80%);" alt="...">
+      <img src="{{ asset('image/sliders/'.$slides[2]->image ) }}" class="d-block w-100" style="filter: brightness(80%);" alt="...">
       <div class="col-4 py-5 my-5 carousel-caption">
         <div class="text-center">
           <h1 class="title-main text-capitalize text-white">{{ $slides[2]->title }}</h1>
@@ -38,7 +58,7 @@
       </div>
     </div>
 
-</div>
+</div>--}}
     <div class="position-absolute top-50 end-0 translate-middle-y p-2 m-3 ">
       <div class="bg-white m-3 p-4 me-5" style="--bs-bg-opacity: .6;">
         <form method="POST" action="{{ route('buscarPropiedad') }}" id="rentar" name="rentar" role="form" enctype="multipart/form-data">
@@ -289,7 +309,7 @@
 <div class="container my-5">
   <div class="row">
     <div class="col-12 text-center">
-      <h1 class="text-capitalize fw-bold">Por qué elegirnos</h1>
+      <h1 class="text-capitalize fw-bold">{{ $info->title_info }}</h1>
       <p class="">
         {{ $info->select_us }}
       </p>
@@ -297,7 +317,7 @@
   </div>
   <div class="row py-4">
     <div class="col-sm-12 col-lg-3 ">
-      <i class="fa-sharp fa-solid fa-house-chimney fs-1 mb-5"></i>
+      <i class="{{ $info->icon_first }} fs-1 mb-5"></i>
       <h2>Vende tu casa</h2>
       <p>
         {{ $info->sell_home }}
@@ -305,7 +325,7 @@
     </div>
 
     <div class="col-sm-12 col-lg-3 ">
-      <i class="fa-solid fa-building fs-1 mb-5"></i>
+      <i class="{{ $info->icon_second }} fs-1 mb-5"></i>
       <h2>Alquila tu casa</h2>
       <p>
         {{ $info->rent_home }}
@@ -313,7 +333,7 @@
     </div>
 
     <div class="col-sm-12 col-lg-3 ">
-      <i class="fa-solid fa-person-shelter fs-1 mb-5"></i>
+      <i class="{{ $info->icon_thrid }} fs-1 mb-5"></i>
       <h2>Compra una casa</h2>
       <p>
         {{ $info->buy_home }}
@@ -321,7 +341,7 @@
     </div>
 
     <div class="col-sm-12 col-lg-3 ">
-      <i class="fa-solid fa-magnifying-glass fs-1 mb-5"></i>
+      <i class="{{ $info->icon_fourth }} fs-1 mb-5"></i>
       <h2>Marketing Gratuito</h2>
       <p>
         {{ $info->marketing_free }}
@@ -428,11 +448,11 @@
     @foreach ($testimonios as $t )
     <div class="col-lg-4 col-md-6 col-sm-12">
       <div class="card border-0">
-        <div class="d-flex justify-content-around">
-          <img src="img/person-500x328.jpg" class="rounded-circle" alt="exposed brick wall in a hipster cafe" style="height: 90px; width:90px;" />
+        <div class="d-flex justify-content-center">
           <div class="contenidocard mb-0 p-4">
+            <img src="{{ asset('image/testimonio/'.$t->image) }}" class="rounded-circle" alt="exposed brick wall in a hipster cafe" style="height: 90px; width:90px;" />
             <p class="fs-5 mb-0">{{ $t->name }}</p>
-            <p class="fs-6 mb-0">Cliente</p>
+            <!-- <p class="fs-6 mb-0">Cliente</p> -->
           </div>
         </div>
         <div class="row">
@@ -440,13 +460,13 @@
             <p class="mb-0">
               {{ $t->testimonio }}
             </p>
-            <div class="text-warning">
+            <!-- <div class="text-warning">
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -491,7 +511,7 @@
 
         <div class="col-12  pt-2">
           <div class="form-group">
-            <input type="text" required class="form-control" name="mensaje" id="text" placeholder="Mensaje">
+            <input type="text" required class="form-control" name="observaciones" id="text" placeholder="Mensaje">
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 @php
-    $html_tag_data = [];
-    $title = 'Crear slides';
-    $description= 'Ecommerce Product List Page'
+$html_tag_data = [];
+$title = 'Crear slides';
+$description= 'Ecommerce Product List Page'
 @endphp
 @extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])
 
@@ -12,34 +12,34 @@
 @endsection
 
 @section('js_page')
-    <script src="/js/cs/checkall.js"></script>
-    <script src="/js/pages/products.list.js"></script>
+<script src="/js/cs/checkall.js"></script>
+<script src="/js/pages/products.list.js"></script>
 @endsection
 
 @section('content')
-    <section class="content container-fluid">
-        <div class="row">
-            <div class="col-md-12">
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
 
-                @includeif('partials.errors')
+            @includeif('partials.errors')
 
-                <div class="card card-default">
-                    <div class="card-header">
-                        <h1>
-                        <span class="card-title">Crear Slide</span>
+            <div class="card card-default">
+                <div class="card-header">
+                    <h1>
+                        <span class="card-title">{{ $title }}</span>
 
-                        </h1>
-                    </div>
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('slides.store') }}"  role="form" enctype="multipart/form-data">
-                            @csrf
+                    </h1>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ route('slides.store') }}" role="form" enctype="multipart/form-data">
+                        @csrf
 
-                            @include('slide.form')
+                        @include('slide.form')
 
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 @endsection

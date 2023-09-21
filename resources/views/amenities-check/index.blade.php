@@ -1,6 +1,6 @@
 @php
     $html_tag_data = [];
-    $title = 'Lista de slides';
+    $title = 'Lista de Comodidades';
     $description= 'Ecommerce Product List Page'
 @endphp
 @extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])
@@ -12,8 +12,8 @@
 @endsection
 
 @section('js_page')
-    <script src="/js/cs/checkall.js"></script>
-    <script src="/js/pages/products.list.js"></script>
+    <!-- <script src="/js/cs/checkall.js"></script>
+    <script src="/js/pages/products.list.js"></script> -->
 @endsection
 
 @section('content')
@@ -22,20 +22,16 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
 
                              <span id="card_title">
-                               <h2>
-                                {{"Comodidades"}}
-                                </h2> 
+                               <h2>{{$title}}</h2> 
                             </span>
 
-                             <div class="float-right">
+                             {{--<div class="float-end">
                                 <a href="{{ route('amenities-checks.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Agregar Nuevo') }}
                                 </a>
-                              </div>
-                        </div>
+                              </div>--}}
                     </div>
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success">
@@ -49,26 +45,24 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-                                        
 										<th>Nombre</th>
 										<th>Caracteristica</th>
-										<th>Icon</th>
+										<th>Icono</th>
 
-                                        <th></th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($amenitiesChecks as $amenitiesCheck)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-                                            
 											<td>{{ $amenitiesCheck->name }}</td>
 											<td>{{ $amenitiesCheck->amenities->name }}</td>
-											<td>{{ $amenitiesCheck->icon }}</td>
+											<td><i class="{{ $amenitiesCheck->icon }} me-2"></i>{{ $amenitiesCheck->icon }}</td>
 
                                             <td class="text-end">
                                                 <form action="{{ route('amenities-checks.destroy',$amenitiesCheck->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-success" href="{{ route('amenities-checks.edit',$amenitiesCheck->id) }}"><i class="fa fa-fw fa-edit"></i></a>
+                                                    {{--<a class="btn btn-sm btn-success" href="{{ route('amenities-checks.edit',$amenitiesCheck->id) }}"><i class="fa fa-fw fa-edit"></i></a>--}}
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>

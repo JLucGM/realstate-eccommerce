@@ -50,7 +50,7 @@ class TestimonioController extends Controller
           if($request['image'])
         {
             $file = $request->file('image');
-            $filepath = "image/";
+            $filepath = "image/testimonio/";
             $filename = time() . '-' . $file->getClientOriginalName();
             $uploadSucess = $request->file('image')->move($filepath, $filename);
             $input['image'] = $filename;
@@ -97,9 +97,28 @@ class TestimonioController extends Controller
      */
     public function update(Request $request, Testimonio $testimonio)
     {
-        request()->validate(Testimonio::$rules);
+        // request()->validate(Testimonio::$rules);
 
-        $testimonio->update($request->all());
+        // $testimonio->update($request->all());
+
+        // $request->validate([
+        //     'name' => 'required',
+        //     'image' => 'file',
+        //     'testimonio' => 'required',
+        // ]);
+    
+        $testimonio->name = $request->input('name');
+        $testimonio->testimonio = $request->input('testimonio');
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('image/testimonio'), $imageName);
+            $testimonio->image = $imageName;
+        }
+
+    
+        $testimonio->save();
 
         return redirect()->route('testimonios.index')
             ->with('success', 'Testimonio updated successfully');
