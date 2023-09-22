@@ -49,9 +49,8 @@
                                         
 										<th>Nombre</th>
 										
-										<th>Acciones</th>
+										<th ><p class="float-end mb-0">Acciones</p></th>
 
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -64,7 +63,7 @@
 
                                             <td class="text-end">
                                                 <form action="{{ route('paises.destroy',$pais->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('paises.show',$pais->id) }}"><i data-acorn-icon="eye" class="icon" data-acorn-size="10"></i></a>
+                                                    {{--<a class="btn btn-sm btn-primary " href="{{ route('paises.show',$pais->id) }}"><i data-acorn-icon="eye" class="icon" data-acorn-size="10"></i></a>--}}
                                                     <a class="btn btn-sm btn-success" href="{{ route('paises.edit',$pais->id) }}"><i data-acorn-icon="edit" class="icon" data-acorn-size="10"></i></a>
 
                                                     @csrf

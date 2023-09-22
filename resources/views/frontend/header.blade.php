@@ -21,7 +21,7 @@
 </head>
 
 <body>
-  <div class="d-flex justify-content-between px-5 pt-3">
+  <!-- <div class="d-flex justify-content-between px-5 pt-3">
     <div class="d-flex">
       <a class="btn fw-bold" href="#">
         <i class="bi bi-facebook"></i> </a>
@@ -37,9 +37,9 @@
       <a href="#" class="btn"><i class="fa-sharp fa-solid fa-phone"></i> 300-555-6789</a>
     </div>
 
-  </div>
+  </div> -->
 
-  <nav class="navbar navbar-expand-lg bg-white  sticky-top" data-bs-theme="dark" style="z-index: 2;">
+  <nav class="navbar navbar-expand-lg bg-white py-0 sticky-top" data-bs-theme="dark" style="z-index: 2;">
     <div class="container-fluid px-5">
 
       <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,16 +48,16 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <a href="#" class="btn">
-          <img src="{{ asset('img/logo.png') }}" alt="" class="logo" width="90%" height="auto" />
+        <img src="{{ asset('image/' . $setting->logo_empresa) }}" alt="" class="logo" width="60px" height="auto" />
         </a>
         <ul class="navbar-nav mx-auto mt-2 pb-2 mb-lg-0">
           <li class="nav-item " style="margin-left: 25px;">
-            <a class="nav-link " href="{{ route('home') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="btn-sm btn nav-link " href="{{ route('home') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Inicio
             </a>
           </li>
           <li class="nav-item dropdown" style="margin-left: 25px;">
-            <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="btn-sm btn nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Ventas
             </a>
             <ul class="dropdown-menu">
@@ -68,7 +68,7 @@
             </ul>
           </li>
           <li class="nav-item dropdown" style="margin-left: 25px;">
-            <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="btn-sm btn nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Alquiler
             </a>
             <ul class="dropdown-menu">
@@ -80,7 +80,7 @@
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="btn-sm btn nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Alquiler temporal
             </a>
             <ul class="dropdown-menu">
@@ -91,12 +91,12 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="{{ route('contactacto.web') }}" role="button">
+            <a class="btn-sm btn nav-link " href="{{ route('contactacto.web') }}" role="button">
               Contacto
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="{{ route('blog.index') }}" role="button">
+            <a class="btn-sm btn nav-link " href="{{ route('blog.index') }}" role="button">
               Blog
             </a>
           </li>

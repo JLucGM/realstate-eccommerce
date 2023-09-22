@@ -20,9 +20,10 @@
                     {!! Form::file('image', ['class' => 'custom-file-inpust form-control','id'=>'image']) !!}
                 </div>
             </div>
+            <p>Resolución recomendada: 1280x620px</p>
         </div>
 
-        <div class="form-group col-12 col-md-6">
+        <div class="form-group col-12 col-md-6 mt-4">
             <div class="form-check form-switch">
                 {!! Form::hidden('active', 0, ['class' => 'form-check-input']) !!}
                 {!! Form::checkbox('active', '1', $slide->active, ['class' => 'form-check-input', 'id' => 'switch']) !!}

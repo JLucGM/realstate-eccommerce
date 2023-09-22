@@ -1,89 +1,68 @@
 @include('frontend.header')
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    @foreach($slides->take(5) as $slide)
-      @if($slide->active = 1)
-        <div class="carousel-item {{ $loop->first ? 'active' : '' }}" style="width:100vw; height:86vh; ">
-          <img src="{{ asset('image/sliders/'.$slide->image) }}" class="d-block w-100" alt="Slide Image">
+
+<!-- SLIDER -->
+<div class="container-fluid p-0">
+  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      @foreach($slides as $slide)
+      <div class="carousel-item {{ $loop->first ? 'active' : '' }} ">
+        <img src="{{ asset('image/sliders/'.$slide->image) }}" class="d-block w-100 img-fluid" alt="{{$slide->name}}">
+        <div class="carousel-caption pb-5 bg-primsary rounded" style="background: rgb(0,0,0); background: linear-gradient(0deg, rgba(0,0,0,0.3841911764705882) 37%, rgba(0,0,0,0.19091386554621848) 100%);">
+          <h5>{{ $slide->title }}</h5>
+          <p>{{ $slide->texto }}</p>
         </div>
-      @endif
-    @endforeach
+      </div>
+
+      @endforeach
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
 </div>
 
-
-{{--<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-  <div class="carousel-indicators" style="display: none">
-    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner position-relative d-sm-none d-md-block">
-    <div class="carousel-item active" data-bs-interval="3000" style="width:100vw; height:86vh; ">
-      <img src="{{ asset('image/sliders/'.$slides[0]->image ) }}" class="d-block w-100" style="filter: brightness(80%);" alt="...">
-
-      <div class="col-4 py-5 my-5 carousel-caption">
-        <div class="text-center">
-          <h1 class="title-main text-capitalize text-white">{{ $slides[0]->title }}</h1>
-          <h5 class="text-white my-5 px-5">{{ $slides[0]->texto }}</h5>
-        </div>
+<div class="col-9 mx-auto bg-white p-3" style="--bs-bg-opacity: 1;">
+  <form method="POST" action="{{ route('buscarPropiedad') }}" id="rentar" name="rentar" role="form" enctype="multipart/form-data">
+    @csrf
+    <div class="row">
+      <div class="col-4 col-md-2 mb-3">
+        <label class="form-label">Pais</label>
+        <select class="form-control form-control-sm" name="pais" id="paisSelect">
+          @foreach($paises as $pais)
+          <option value="{{ $pais->id }}">{{ $pais->name }}</option>
+          @endforeach
+        </select>
       </div>
 
-
-    </div>
-    <div class="carousel-item" data-bs-interval="2000" style="width:100vw; height:86vh; ">
-      <img src="{{ asset('image/sliders/'.$slides[1]->image ) }}" class="d-block w-100" style="filter: brightness(80%);" alt="...">
-      <div class="col-4 py-5 my-5 carousel-caption">
-        <div class="text-center">
-          <h1 class="title-main text-capitalize text-white">{{ $slides[1]->title }}</h1>
-          <h5 class="text-white my-5 px-5">{{ $slides[1]->texto }}</h5>
-        </div>
+      <div class="col-4 col-md-2 mb-3">
+        <label class="form-label">Estado</label>
+        <select class="form-control form-control-sm" id="estadoSelect" name="region">
+          <option value="">Seleccione un estado</option>
+          <!-- Aquí se cargarán las opciones de los estados en función del país seleccionado -->
+        </select>
       </div>
-    </div>
-    <div class="carousel-item" style="width:100vw; height:86vh; ">
-      <img src="{{ asset('image/sliders/'.$slides[2]->image ) }}" class="d-block w-100" style="filter: brightness(80%);" alt="...">
-      <div class="col-4 py-5 my-5 carousel-caption">
-        <div class="text-center">
-          <h1 class="title-main text-capitalize text-white">{{ $slides[2]->title }}</h1>
-          <h5 class="text-white my-5 px-5">{{ $slides[2]->texto }}</h5>
-        </div>
+
+      <div class="col-4 col-md-2 mb-3">
+        <label class="form-label">Ciudad</label>
+        <select class="form-control form-control-sm" id="ciudadSelect" name="ciudad">
+          <option value="">Seleccione una ciudad</option>
+          <!-- Aquí se cargarán las opciones de las ciudades en función del estado seleccionado -->
+        </select>
       </div>
-    </div>
 
-</div>--}}
-    <div class="position-absolute top-50 end-0 translate-middle-y p-2 m-3 ">
-      <div class="bg-white m-3 p-4 me-5" style="--bs-bg-opacity: .6;">
-        <form method="POST" action="{{ route('buscarPropiedad') }}" id="rentar" name="rentar" role="form" enctype="multipart/form-data">
-          @csrf
-          <div class="ronw">
-            <div class="mb-3">
-              <label for="" class="text-secondary d-block">REGIÓN DE LA PROPIEDAD</label>
-              <select class="form-select select2s" id="region" name="region">
-              </select>
-            </div>
+      <div class="col-4 col-md-2 mb-3">
+        <label for="" class="form-label d-block">Tipo</label>
+        {{ Form::select('tipo_propiedad',$tipoAll, null,['class' => 'form-select select2s form-control-sm' . ($errors->has('tipoPropiedad') ? ' is-invalid' : ''), 'placeholder' => 'tipo de propiedad']) }}
+      </div>
 
-            <div class="mb-3">
-              <label for="" class="text-secondary d-block">CIUDAD DE LA PROPIEDAD</label>
-              <select class="form-select select2s" name="ciudad" id="city">
-              </select>
-            </div>
-
-            <div class="mb-3">
-              <label for="" class="text-secondary d-block">TIPO DE PROPIEDAD</label>
-              {{ Form::select('tipo_propiedad',$tipoAll, null,['class' => 'form-select select2s' . ($errors->has('tipoPropiedad') ? ' is-invalid' : ''), 'placeholder' => 'tipo de propiedad']) }}
-            </div>
-
-            <div class="mb-3">
-              <label for="" class="text-secondary d-block">NÚMERO DE HABITACIONES</label>
-              {{ Form::select('cuartoNumero',[
+      <div class="col-4 col-md-2 mb-3">
+        <label for="" class="form-label d-block">Habitaciones</label>
+        {{ Form::select('cuartoNumero',[
                     '1' => '1',
                     '2' => '2',
                     '3' => '3',
@@ -94,38 +73,26 @@
                     '8' => '8',
                     '9' => '9',
                     
-                    ],null, ['class' => 'form-select select2s' . ($errors->has('estadoticket') ? ' is-invalid' : ''), 'placeholder' => 'Dormitorios']) }}
-            </div>
+                    ],null, ['class' => 'form-select select2s form-control-sm' . ($errors->has('estadoticket') ? ' is-invalid' : ''), 'placeholder' => 'Dormitorios']) }}
+      </div>
 
-            <div class="mb-3">
-              <label for="" class="text-secondary d-block">PRECIO</label>
-              <span class="text-secondary">{{ $setting->moneda }} </span>
-              <output class="text-secondary" id="outprice" name="outprice" for="price">{{number_format($min,2,".",".")}}</output>
-              <input type="range" id="precio" name="precio" class="form-range mt-2" min="{{ $min }}" max="{{ $max }}" value="{{ $min }}" onchange="document.getElementById('outprice').value=new Intl.NumberFormat('de-DE').format(value)">
-            </div>
+      <div class="col-4 col-md-2 mb-3">
+        <label for="" class="form-label d-block">Precio</label>
+        <span class="text-secondary">{{ $setting->moneda }} </span>
+        <output class="form-labels fs-6" id="outprice" name="outprice" for="price">{{number_format($min,2,".",".")}}</output>
+        <input type="range" id="precio" name="precio" class="form-range mt-2" min="{{ $min }}" max="{{ $max }}" value="{{ $min }}" onchange="document.getElementById('outprice').value=new Intl.NumberFormat('de-DE').format(value)">
+      </div>
 
-            <input type="hidden" name="tipo" value="renta" id="tipo">
+      <input type="hidden" name="tipo" value="renta" id="tipo">
 
-            <div class="d-grid gap-2 mb-3">
-              <button type="submit" class="btn btn-warning" value="submit" form="rentar">VER RESULTADOS</button>
-            </div>
-          </div>
-        </form>
+      <div class="text-center mb-3">
+        <button type="submit" class="btn btn-warning px-5 fw-bold" value="submit" form="rentar">VER RESULTADOS</button>
       </div>
     </div>
-  
-  <!-- <button class="carousel-control-prev normal" type="button" data-bs-target="#carouselExampleDark" style="z-index: 0;" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next normal" type="button" data-bs-target="#carouselExampleDark" style="z-index: 0;" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button> -->
+  </form>
 </div>
-<!-- </div> -->
 
-<div class="row">
+{{--<div class="row">
   @if ($message = Session::get('success'))
   <div class="alert alert-success mt-5 text-center" style="z-index: 4">
     <p>{{ $message }}</p>
@@ -135,61 +102,10 @@
     <p>{{ $message }}</p>
   </div>
   @endif
-</div>
+</div>--}}
 
-<!-- <div class="container">
-    <div class="row">
-      <div class="col-12  responsiveElegirnos">
-        <h1 class="text-capitalize text-center fw-bold">Por qué elegirnos</h1>
-        <p class="">
-          {{ $info->select_us }}
-        </p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-12 col-lg-3 ">
-        
-          <i class="fa-sharp fa-solid fa-house-chimney"></i>
-        </div>
-        <h2>Vende tu casa</h2>
-        <p>
-          {{ $info->sell_home }}
-        </p>
-      </div>
 
-      <div class="col-sm-12 col-lg-3 ">
-        
-          <i class="fa-solid fa-building"></i>
-        </div>
-        <h2>Alquila tu casa</h2>
-        <p>
-          {{ $info->rent_home }}
-        </p>
-      </div>
-
-      <div class="col-sm-12 col-lg-3 ">
-        
-          <i class="fa-solid fa-person-shelter"></i>
-        </div>
-        <h2>Compra una casa</h2>
-        <p>
-          {{ $info->buy_home }}
-        </p>
-      </div>
-
-      <div class="col-sm-12 col-lg-3 ">
-        
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </div>
-        <h2>Marketing Gratuito</h2>
-        <p>
-          {{ $info->marketing_free }}
-        </p>
-      </div>
-    </div>
-  </div> -->
-
-<ul class="nav nav-pills my-3 d-flex justify-content-center" id="pills-tab" role="tablist">
+<ul class="nav nav-pills my-3 mt-5 d-flex justify-content-center" id="pills-tab" role="tablist">
   <li class="nav-item" role="presentation">
     <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Recientes</button>
   </li>
@@ -219,9 +135,11 @@
         <div class="col-12 col-lg-4 col-sm-6">
           <div class="card bg-white border-0 my-1 position-relative">
             @foreach ($product->media as $image)
-            <img src="{{asset('product/'.$image->getUrl()) }}" alt="imagen no encontrada" class="card-img-top">
+            <img src="{{asset('product/'.$image->name) }}" alt="imagen no encontrada" class="card-img-top">
             @break
             @endforeach
+            
+            
             <div class="card-body-propiety p-3">
               <h5 class="card-title">{{ $product->name }}</h5>
               <p class="card-text"><i class="bi bi-geo-alt-fill"></i>{{ $product->direccion }}</p>
@@ -523,5 +441,47 @@
   </div>
 </div>
 
-@include('frontend.footer')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  // Select dependiente de municipio, hereda de estado
+  $(function() {
+    $('#paisSelect').on('change', onSelectProjectChange);
+  });
 
+  function onSelectProjectChange() {
+    var project_id = $(this).val();
+    console.log(project_id);
+    if (!project_id)
+      $('#estadoSelect').html(html_select);
+    $.get('pais/' + project_id + '/estado', function(data) {
+      var html_select = '<option value="">Seleccione su estado</option>'
+      for (var i = 0; i < data.length; ++i)
+        html_select += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+      $('#estadoSelect').html(html_select);
+      console.log(html_select);
+      console.log($('#estadoSelect').html(html_select));
+    });
+
+  }
+
+  $(function() {
+    $('#estadoSelect').on('change', onSelectProjectChanges);
+  });
+
+  function onSelectProjectChanges() {
+    var project_id2 = $(this).val();
+    console.log(project_id2);
+    if (!project_id2)
+      $('#ciudadSelect').html(html_select2);
+    $.get('estado/' + project_id2 + '/ciudad', function(data) {
+      var html_select2 = '<option value="">Seleccione su ciudad1</option>'
+      for (var a = 0; a < data.length; ++a)
+        html_select2 += '<option value="' + data[a].id + '">' + data[a].name + '</option>';
+      $('#ciudadSelect').html(html_select2);
+      console.log(html_select2);
+      console.log($('#ciudadSelect').html(html_select2));
+    });
+
+  }
+</script>
+@include('frontend.footer')
