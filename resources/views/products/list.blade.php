@@ -1,4 +1,4 @@
-@php
+ @php
 $html_tag_data = [];
 $title = 'Lista de Propiedades';
 $description= 'Ecommerce Product List Page'
@@ -12,8 +12,8 @@ $description= 'Ecommerce Product List Page'
 @endsection
 
 @section('js_page')
-<script src="/js/cs/checkall.js"></script>
-<script src="/js/pages/products.list.js"></script>
+<!-- <script src="/js/cs/checkall.js"></script>
+<script src="/js/pages/products.list.js"></script> -->
 @endsection
 
 
@@ -44,35 +44,21 @@ $description= 'Ecommerce Product List Page'
                         <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
-
-
-                                    <!-- <th>Foto</th> -->
+                                    <th>Portada</th>
                                     <th>Nombre de la propiedad</th>
                                     <th>Precio</th>
                                     <th>Estatus</th>
-
-                                    <th></th>
+                                    <th class="text-end">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($products as $product)
 
                                 <tr>
-                                    {{--@if (isset($product->media[0]))
-                                            <td> <img src="{{ $product->media[0]->getUrl('thumb')}}" alt="imagen no encontrada" class="" style=" width: 70px; height:50px"></td>
-                                    @else
-                                    <td> <img src="" alt="imagen no encontrada" class="" style=" width: 70px; height:50px"></td>
-                                    @endif--}}
-
-                                    {{-- <td><img src="/image/{{$slide->image}}" class="" style=" width: 70px; height:50px"></td> --}}
-
+                                    <td><img src="{{ asset('img/product/product_id_' . $product->id . '/' . $product->portada) }}" class="" style=" width: 70px; height:50px"></td>
                                     <td>{{ $product->name }}</td>
-                                    <td>{{ $product->price.' '.$SettingGeneral->moneda }}</td>
+                                    <td>{{ number_format($product->price, 2, ',', '.').' '.$SettingGeneral->moneda }}</td>
                                     <td>{{ $product->status }}</td>
-
-                                    {{-- <td>{{ isset($mensajesSoporte->product->name) ? $mensajesSoporte->product->name: 'No definido' }}</td> --}}
-
-
 
                                     <td class="text-end">
                                         <form action="{{ route('propiedad.delete', $product->id) }}" method="GET">

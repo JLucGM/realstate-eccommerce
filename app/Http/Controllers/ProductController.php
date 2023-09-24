@@ -83,9 +83,10 @@ class ProductController extends Controller
         $amenities = Amenities::all();
         $amenitiesCheck = AmenitiesCheck::all();
         $paises = Paises::all();
+        $SettingGeneral = SettingGeneral::all();
 
         $asignado = User::whereHas("roles", function ($q) {
-            $q->Where("name", 'Vendedor');
+            $q->Where('name', 'Vendedor');
         })->pluck('name', 'id');
 
         $message = "";
@@ -94,7 +95,7 @@ class ProductController extends Controller
             ->with('amenitiesCheck', $amenitiesCheck)
             ->with('categorias', $categorias)
             ->with('paises', $paises)
-            // ->with('estados', $estados)
+            ->with('SettingGeneral', $SettingGeneral)
             ->with('tipoPropiedad', $tipoPropiedad)
             ->with('monedas', $monedas)
             ->with('asignado', $asignado);
@@ -125,10 +126,7 @@ class ProductController extends Controller
             if (is_array($images)) {
                 $nombreImagen = [];
                 foreach ($images as $image) {
-                    $nombreImagen[] = [
-                        'id' => uniqid(), // Generar un ID único
-                        'name' => $image->getClientOriginalName()
-                    ];
+                    $nombreImagen[] = $image->getClientOriginalName();
                     $image->move(public_path($folderPath), $image->getClientOriginalName());
                 }
                 $jsonImagenes = json_encode($nombreImagen);
@@ -136,17 +134,23 @@ class ProductController extends Controller
                 $product->image = $jsonImagenes;
                 $product->save();
             } else {
-                $nombreImagen = [
-                        'id' => uniqid(), // Generar un ID único
-                        'name' => $images->getClientOriginalName()                    
-                ];
+                $nombreImagen = $images->getClientOriginalName();
                 $images->move(public_path($folderPath), $images->getClientOriginalName());
         
-                $jsonImagenes = json_encode($nombreImagen);
-                $product->image = $jsonImagenes;
+                $product->image = $nombreImagen;
                 $product->save();
             }
         }
+        
+        if ($request->hasFile('portada')) {
+            $image = $request->file('portada');
+            $nombreImagen = $image->getClientOriginalName();
+            $image->move(public_path($folderPath), $nombreImagen);
+        
+            $product->portada = $nombreImagen;
+            $product->save();
+        }
+        
 
 
         if (auth()->user()->hasRole('super Admin')) {
@@ -187,6 +191,7 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->price = $request->price;
         $product->category = $request->category;
+        $product->tipoPropiedad_id = $request->t_propiedades;
         $product->description = $request->description;
         $product->details = $request->details;
         $product->metrosCuadradosT = $request->metrosCuadradosT;
@@ -221,9 +226,11 @@ class ProductController extends Controller
         $product = Product::find($id);
         $categorias = Categorias::all();
         $images = json_decode($product->image);
+        $tipoPropiedad = TipoPropiedad::all();
+
         $message = "";
 
-        return view('products.detail')->with('product', $product)->with('categorias', $categorias)->with('message', $message)->with('images', $images);
+        return view('products.detail')->with('product', $product)->with('categorias', $categorias)->with('message', $message)->with('images', $images)->with('tipoPropiedad', $tipoPropiedad);
     }
 
     public function productJsonImages(Request $request, $id)
@@ -233,7 +240,14 @@ class ProductController extends Controller
 
 
         $categorias = Categorias::all();
-
+        if ($request->hasFile('portada')) {
+            $image = $request->file('portada');
+            $nombreImagen = $image->getClientOriginalName();
+            $image->move(public_path("img/product/product_id_" . $id . "/"), $nombreImagen);
+        
+            $product->portada = $nombreImagen;
+            $product->save();
+        }
         if ($request->hasFile('image')) {
         //     $message = "No seleccionaste ningun archivo";
         //     $product = Product::find($id);

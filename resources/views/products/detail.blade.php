@@ -29,39 +29,38 @@ $description= 'Detalles de productos'
 
 @section('content')
 <div class="container">
-    <!-- Title and Top Buttons Start -->
-    <div class="page-title-container">
-        <div class="row g-0">
-            <!-- Title Start -->
-            <div class="col-auto mb-3 mb-md-0 me-auto">
-                <div class="w-auto sw-md-30">
-                    <h1 class="mb-0 pb-0 display-4" id="title">{{ $title }}</h1>
-                </div>
-            </div>
-            <!-- Title End -->
-        </div>
-    </div>
-    <!-- Title and Top Buttons End -->
-
     <div class="row">
-        <div class="col-xl-8">
-            <h2 class="small-title">Información de la propiedad</h2>
+        <div class="col-8">
             <!-- Product Info Start -->
             <div class="mb-5">
                 <div class="card">
+                    <div class="card-header">
+                        <h1>{{ $title }}</h1>
+                    </div>
                     <div class="card-body">
                         <form action="{{route('product.update',['id'=>$product->id])}}" method="post" enctype="multipart/form-data">
+                            <h2 class="small-title">Información de la propiedad</h2>
                             @method('PATCH')
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label">Nombre de la propiedad</label>
                                 <input type="text" class="form-control" name="name" value="{{$product->name}}" />
                             </div>
-                            <div class="mb-3 w-100">
+                            <div class="mb-3">
                                 <label class="form-label">Categoria</label>
                                 <select class="form-select" id="categoria" name="category">
                                     @foreach ($categorias as $categoria)
-                                    <option value="{{$categoria->id}}">{{$categoria->name}}</option>
+                                    <option value="{{$categoria->id}}" {{ $categoria->id == $product->category ? 'selected' : '' }}>{{$categoria->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Tipo de propiedad</label>
+                                <!-- <input class="form-control" type="text" list="t_propisedades" name="tipoPropiedad_id" placeholder="Tipo de propiedad"> -->
+                                <select class="form-control" id="t_propiedades" name="t_propiedades">
+                                    @foreach ($tipoPropiedad as $item)
+                                    <option value="{{$item->id}}" {{ $item->id == $product->tipoPropiedad_id ? 'selected' : '' }}>{{ $item->nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -86,8 +85,6 @@ $description= 'Detalles de productos'
                                 <textarea name="details" class="form-control">{{$product->details}}</textarea>
                             </div>
 
-                            <input type="file" name="image" multiple>
-
 
                             <button class="btn btn-primary" type="submit" class="form-submit">
                                 Guardar cambios
@@ -98,7 +95,7 @@ $description= 'Detalles de productos'
             </div>
         </div>
 
-        <div class="col-xl-4">
+        <div class="col-4">
 
             <!-- Gallery Start -->
             <div class="mb-5">
@@ -109,19 +106,24 @@ $description= 'Detalles de productos'
                             @csrf
                             @method('PATCH')
 
-                            <div class="row">
-                                @foreach($images as $image)
-                                
-                                <div class="col-md-3">
-                                    <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $image) }}" class="w-100" alt="Imagen de la propiedad">
-                                </div>
-                                @endforeach
+                            <div class="mb-2">
 
-
-
+                                <label class="form-label">Portada</label>
+                                <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $product->portada) }}" class="w-100 mb-2" alt="Imagen de la propiedad">
+                                <input class="form-control" type="file" name="portada" label="image" id="image" multiple>
                             </div>
 
-                            <input class="form-control" type="file" name="image[]" label="image" id="image" multiple>
+                            <div class="mb-2">
+                                <label class="form-label">Galeria</label>
+                                <div class="row">
+                                    @foreach($images as $image)
+                                    <div class="col-md-4">
+                                        <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $image) }}" class="w-100 mb-2" alt="Imagen de la propiedad">
+                                    </div>
+                                    @endforeach
+                                </div>
+                                <input class="form-control" type="file" name="image[]" label="image" id="image" multiple>
+                            </div>
 
                             <div class="text-center">
                                 <p class="mt-3">{{$message}}</p>

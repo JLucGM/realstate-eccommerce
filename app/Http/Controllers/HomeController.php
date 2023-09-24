@@ -24,7 +24,7 @@ class HomeController extends Controller
 
     public function index()
     {
-       $products = Product::with(['media'])->get();  
+       $products = Product::with(['media'])->get()->take(9);  
        $info = InfoWeb::all()->first();
        $paises = Paises::all();
        $estado = Estado::all();
@@ -33,7 +33,7 @@ class HomeController extends Controller
        $vendedorAgente =  User::whereHas("roles", function($q){ $q->where("name", "Arrendador")->orWhere("name",'Vendedor'); })->take(3)->get();
 
 
-       $productsDestacados = Product::with(['media'])->get()->take(2);    
+       $productsDestacados = Product::with(['media'])->get()->take(9);    
 
         $slides= Slide::latest()
         ->where('active', 1)

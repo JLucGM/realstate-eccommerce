@@ -23,7 +23,7 @@ class Product extends Model implements HasMedia
      'category',
      'description',
      'details',
-
+     'portada',
      'statusActual',
      'moneda',
      'publicar',
@@ -63,6 +63,10 @@ class Product extends Model implements HasMedia
      public function agente()
     {
         return $this->hasOne('App\Models\PropiedadAgente','product_id','id');
+    }
+     public function tipopropiedad()
+    {
+        return $this->hasOne('App\Models\TipoPropiedad','id','tipoPropiedad_id');
     }
 
       public function amenities()
