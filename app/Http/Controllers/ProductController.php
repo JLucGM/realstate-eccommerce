@@ -114,44 +114,47 @@ class ProductController extends Controller
         $input = $request->all();
         $amenitiesAll = json_decode($input['comodidades']);
 
-        $product =  Product::create($input);
+        $product = Product::create($input);
+        $productId = $product->id;
+        $folderPath = 'img/product/product_id_' . $productId;
 
-        $productId = $product->id; // Obtén el ID del producto creado
-
-        $folderPath = 'img/product/product_id_' . $productId; // Concatena el ID del producto en la ruta de la carpeta
-
+        // GUARDA NOMBRE Y GUARDA IMAGENES DE GALLERIA
         if ($request->hasFile('image')) {
             $images = $request->file('image');
-        
             if (is_array($images)) {
                 $nombreImagen = [];
-                foreach ($images as $image) {
-                    $nombreImagen[] = $image->getClientOriginalName();
+                foreach ($images as $index => $image) {
+                    $nombreImagen[$index] = [
+                        'id' => $index + 1, // Asigna un ID basado en el índice del array
+                        'name' => $image->getClientOriginalName()
+                    ];
                     $image->move(public_path($folderPath), $image->getClientOriginalName());
                 }
                 $jsonImagenes = json_encode($nombreImagen);
-        
+
                 $product->image = $jsonImagenes;
                 $product->save();
             } else {
-                $nombreImagen = $images->getClientOriginalName();
+                $nombreImagen = [
+                    'id' => 1, // Asigna un ID de 1 para la única imagen
+                    'name' => $images->getClientOriginalName()
+                ];
                 $images->move(public_path($folderPath), $images->getClientOriginalName());
-        
-                $product->image = $nombreImagen;
+
+                $product->image = json_encode($nombreImagen);
                 $product->save();
             }
         }
-        
+
+        // GUARDA IMAGEN DE PORTADA
         if ($request->hasFile('portada')) {
             $image = $request->file('portada');
             $nombreImagen = $image->getClientOriginalName();
             $image->move(public_path($folderPath), $nombreImagen);
-        
+
             $product->portada = $nombreImagen;
             $product->save();
         }
-        
-
 
         if (auth()->user()->hasRole('super Admin')) {
             $propiedadAgente = new PropiedadAgente();
@@ -198,18 +201,18 @@ class ProductController extends Controller
 
         if ($request->hasFile('image')) {
             $images = []; // Crear un arreglo vacío para almacenar los nombres de las imágenes
-        
+
             foreach ($request->file('image') as $file) {
                 $imageName = $file->getClientOriginalName();
                 $file->move(public_path('images'), $imageName);
                 $images[] = $imageName; // Agregar el nombre de la imagen al arreglo
             }
-        
+
             // Actualizar el campo "image" con el arreglo de nombres de las imágenes en la base de datos
             $product->image = $images;
         }
-        
-        
+
+
         $product->save();
 
         return redirect()->route('product.index');
@@ -244,21 +247,21 @@ class ProductController extends Controller
             $image = $request->file('portada');
             $nombreImagen = $image->getClientOriginalName();
             $image->move(public_path("img/product/product_id_" . $id . "/"), $nombreImagen);
-        
+
             $product->portada = $nombreImagen;
             $product->save();
         }
         if ($request->hasFile('image')) {
-        //     $message = "No seleccionaste ningun archivo";
-        //     $product = Product::find($id);
-        //     $categorias = Categorias::all();
-        //     // $product->image = json_decode($product->image);
-        //     return view('products.detail')->with('product', $product)->with('categorias', $categorias)->with('message', $message);
-        // } else {
+            //     $message = "No seleccionaste ningun archivo";
+            //     $product = Product::find($id);
+            //     $categorias = Categorias::all();
+            //     // $product->image = json_decode($product->image);
+            //     return view('products.detail')->with('product', $product)->with('categorias', $categorias)->with('message', $message);
+            // } else {
             $array = [];
             $file = $request->file('image');
             $count = count($file);
-            $product->image = json_decode($product->image);
+            // $product->image = json_decode($product->image);
 
             // ELIMINA LAS IMAGENES EXISTENTES
             // if (empty($product->image)) {
@@ -282,20 +285,23 @@ class ProductController extends Controller
                 $filepath = "img/product/product_id_" . $id . "/";
                 $filename = time() . '-' . $file[$i]->getClientOriginalName();
                 $uploadSucess = $file[$i]->move($filepath, $filename);
-                $array[$i] = $filename;
-            }
+                $array[] = [
+                    'id' => count($images) + $i + 1, // Asigna un nuevo ID basado en el número total de imágenes existentes más el índice actual
+                    'name' => $filename
+                ];
             
+            }
+
             // $product->image = json_encode(array_merge($images, $array));
             $product->image = json_encode(array_merge((array) $images, $array));
 
             $product->save();
             // $product->image = array_merge($images, $array);
             $product->image = array_merge((array) $images, $array);
-
         }
 
         $message = "Exito al subir Archivos";
-        
+
         // return view('products.detail')->with('product', $product)->with('categorias', $categorias)->with('message', $message)->with('images', $images);
         return redirect()->route('product.edit', ['id' => $product->id])->with('product', $product)->with('categorias', $categorias)->with('message', $message)->with('images', $images);
     }

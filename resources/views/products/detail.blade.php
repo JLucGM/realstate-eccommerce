@@ -118,8 +118,9 @@ $description= 'Detalles de productos'
                                 <div class="row">
                                     @foreach($images as $image)
                                     <div class="col-md-4">
-                                        <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $image) }}" class="w-100 mb-2" alt="Imagen de la propiedad">
+                                        <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $image->name) }}" class="w-100 mb-2" alt="Imagen de la propiedad">
                                     </div>
+                                    {{$image->id}}
                                     @endforeach
                                 </div>
                                 <input class="form-control" type="file" name="image[]" label="image" id="image" multiple>

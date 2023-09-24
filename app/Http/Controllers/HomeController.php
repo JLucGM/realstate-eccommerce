@@ -24,7 +24,7 @@ class HomeController extends Controller
 
     public function index()
     {
-       $products = Product::with(['media'])->get()->take(9);  
+       $products = Product::with(['media'])->latest()->get()->take(9);  
        $info = InfoWeb::all()->first();
        $paises = Paises::all();
        $estado = Estado::all();
