@@ -31,7 +31,7 @@ $description= $title
             @csrf
             <div class="card-body">
 
-                <h1 class="my-3">Información de la propiedad</h1>
+                <h1 class="my-3 small-title">Información de la propiedad</h1>
 
                 <div class="row">
                     <div class="col-12 col-md-6">
@@ -41,13 +41,13 @@ $description= $title
 
                     <div class="col-12 col-md-6">
                         <label class="form-label">Tipo de propiedad</label>
-                        <input class="form-control" type="text" list="t_propiedades" name="tipoPropiedad_id" placeholder="Tipo de propiedad">
-                        <datalist id="t_propiedades">
-                            <option label="Tipo de propiedad"></option>
+                        <!-- <input class="form-control" type="text" list="t_propiedades" name="tipoPropiedad_id" placeholder="Tipo de propiedad"> -->
+                        <select class="form-control" name="tipoPropiedad_id" id="t_propiedades">
+                            <!-- <option label="Tipo de propiedad"></option> -->
                             @foreach ($tipoPropiedad as $item)
                             <option value="{{$item->id}}">{{ $item->nombre }}</option>
                             @endforeach
-                        </datalist>
+                        </select>
                     </div>
                 </div>
 
@@ -78,24 +78,21 @@ $description= $title
                 <div class="row">
                     <div class="col-12 col-md-3">
                         <label class="form-label">Moneda</label>
-                        <input class="form-control" type="text" list="monedas" name="moneda" placeholder="Moneda">
-                        <datalist id="monedas">
-                            <option label="Tipo de propiedad"></option>
-                            @foreach ($monedas as $item)
-                            <option value="{{$item->denominacion}} {{$item->tipo}}"></option>
-                            @endforeach
-                        </datalist>
+                        <!-- <input class="form-control" type="text" list="monedas" name="moneda" placeholder="Moneda"> -->
+                        <select class="form-control" name="moneda">
+                            <option  value="{{$SettingGeneral->moneda}}">{{$SettingGeneral->moneda}}</option>
+                        </select>
                     </div>
+                    
 
                     <div class="col-12 col-md-3">
                         <label class="form-label">Categoria</label>
-                        <input class="form-control" type="text" list="categoria" name="category" placeholder="categoria">
-                        <datalist id="categoria">
-                            <option label="Tipo de propiedad"></option>
+                        <!-- <input class="form-control" type="text" list="categoria" name="category" placeholder="categoria"> -->
+                        <select class="form-control" name="category" id="categoria">
                             @foreach ($categorias as $ca)
                             <option value="{{$ca->id}}">{{ $ca->name }}</option>
                             @endforeach
-                        </datalist>
+                        </select>
                     </div>
 
                     <div class="col-12 col-md-3">
@@ -132,7 +129,7 @@ $description= $title
 
                 </div>
 
-                <h1 class="my-3">Detalles de la propiedad</h1>
+                <h1 class="my-3 small-title">Detalles de la propiedad</h1>
 
                 <div class="row">
                     <div class="col-12 col-md-4">
@@ -190,7 +187,7 @@ $description= $title
                     </div>
                 </div>
 
-                <h1 class="my-3">Comodidades</h1>
+                <h1 class="my-3 small-title">Comodidades</h1>
 
                 @foreach ($amenities as $am)
 
@@ -229,7 +226,7 @@ $description= $title
 
                 <input class="form-control" style="position:absolute; filter:opacity(0); transform:translateX(-5000px);" type="text" name="comodidades" id="ghostJson">
 
-                <h1 class="my-3">Imagenes</h1>
+                <h1 class="my-3 small-title">Imagenes</h1>
                 <div class="mb-3">
                     <label class="form-label" for="portada">Subir portada</label>
                     <input type="file" class="form-control" name="portada" label="portada" id="portada" multiple>
@@ -257,7 +254,8 @@ $description= $title
                     </div>
                 </div>
 
-                <h1 class="my-3">Ubicación de la propiedad</h1>
+                <h1 class="my-3 small-title">Ubicación de la propiedad</h1>
+                
                 <div class="row mt-2">
                     <div class="col-12 col-md-4">
                         <label class="form-label">Pais</label>
@@ -331,7 +329,7 @@ $description= $title
         if (!project_id)
             $('#estadoSelect').html(html_select);
         $.get('pais/' + project_id + '/estado', function(data) {
-            var html_select = '<option value="">Seleccione su estado</option>'
+            var html_select = '<option value="">Seleccione un estado</option>'
             for (var i = 0; i < data.length; ++i)
                 html_select += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
             $('#estadoSelect').html(html_select);
@@ -351,7 +349,7 @@ $description= $title
         if (!project_id2)
             $('#ciudadSelect').html(html_select2);
         $.get('estado/' + project_id2 + '/ciudad', function(data) {
-            var html_select2 = '<option value="">Seleccione su ciudad1</option>'
+            var html_select2 = '<option value="">Seleccione una ciudad</option>'
             for (var a = 0; a < data.length; ++a)
                 html_select2 += '<option value="' + data[a].id + '">' + data[a].name + '</option>';
             $('#ciudadSelect').html(html_select2);

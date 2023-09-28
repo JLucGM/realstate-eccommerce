@@ -46,14 +46,6 @@ $description= 'Detalles de productos'
                                 <label class="form-label">Nombre de la propiedad</label>
                                 <input type="text" class="form-control" name="name" value="{{$product->name}}" />
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Categoria</label>
-                                <select class="form-select" id="categoria" name="category">
-                                    @foreach ($categorias as $categoria)
-                                    <option value="{{$categoria->id}}" {{ $categoria->id == $product->category ? 'selected' : '' }}>{{$categoria->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Tipo de propiedad</label>
@@ -65,30 +57,137 @@ $description= 'Detalles de productos'
                                 </select>
                             </div>
 
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label">Estado</label>
+                                    <select class="form-control" name="status" id="status">
+                                        <option value="{{$product->status}}">{{$product->status}}</option>
+                                        <option value="En venta">En venta</option>
+                                        <option value="En alquiler">En alquiler</option>
+                                        <option value="En alquiler temporal">En alquiler temporal</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label">Estado actual</label>
+                                    <select class="form-control" name="statusActual" id="statusActual">
+                                        <option value="{{$product->statusActual}}">{{$product->statusActual}}</option>
+
+                                        <option value="En venta">En venta</option>
+                                        <option value="En alquiler">En alquiler</option>
+                                        <option value="En alquiler temporal">En alquiler temporal</option>
+                                        <option value="Vendido">Vendido</option>
+                                        <option value="Alquilado">Alquilado</option>
+                                        <option value="Alquilado temporalmente">Alquilado temporalmente</option>
+                                        <option value="Reservado">Reservado</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <div class="mb-3">
-                                <label class="form-label">M2 Totales</label>
-                                <input class="form-control" type="text" name="metrosCuadradosT" value="{{$product->metrosCuadradosT}}" placeholder="M2 Totales" required>
+                                <label class="form-label">Categoria</label>
+                                <select class="form-select" id="categoria" name="category">
+                                    @foreach ($categorias as $categoria)
+                                    <option value="{{$categoria->id}}" {{ $categoria->id == $product->category ? 'selected' : '' }}>{{$categoria->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-12 col-md-3">
+                                    <label class="form-label">Precio ({{$product->moneda}})</label>
+                                    <input class="form-control" type="number" name="price" value="{{$product->price}}" placeholder="Precio" required>
+                                </div>
+                                <div class="col-12 col-md-3">
+                                    <label class="form-label">Publicar el precio</label>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" name="publicar" value="1" id="flexSwitchCheckDefault" {{ $product->publicar ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="flexSwitchCheckDefault">Si</label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Descripción del inmueble</label>
+                                    <textarea name="description" class="form-control">{{$product->description}}</textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Notas del cliente</label>
+                                    <textarea name="details" class="form-control">{{$product->details}}</textarea>
+                                </div>
+
                             </div>
 
 
-                            <div class="mb-3">
-                                <label class="form-label">Precio $</label>
-                                <input type="text" name="price" class="form-control" value="{{$product->price}}" />
+                            <h1 class="my-3 small-title">Detalles de la propiedad</h1>
+
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label">Dormitorios</label>
+                                    <input class="form-control" type="number" name="dormitorios" value="{{$product->dormitorios}}" placeholder="Dormitorios" required>
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label">Ambientes</label>
+                                    <input class="form-control" type="number" name="ambientes" value="{{$product->ambientes}}" placeholder="Ambientes" required>
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label">Baños</label>
+                                    <input class="form-control" type="number" name="toilet" value="{{$product->toilet}}" placeholder="Baños" required>
+                                </div>
                             </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">Descripción</label>
-                                <textarea name="description" class="form-control">{{$product->description}}</textarea>
+                            <div class="row">
+
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label">M2 Totales</label>
+                                    <input class="form-control" type="text" name="metrosCuadradosT" value="{{$product->metrosCuadradosT}}" placeholder="M2 Totales" required>
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label">M2 Cubiertos</label>
+                                    <input class="form-control " type="number" name="metrosCuadradosC" value="{{$product->metrosCuadradosC}}" placeholder="M2 Cubiertos" required>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Detalles</label>
-                                <textarea name="details" class="form-control">{{$product->details}}</textarea>
+
+                            
+                            
+                            
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label">¿Propiedad a estrenar?</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="estrenar" id="yes" value="1" {{ $product->estrenar == 1 ? 'checked' : '' }} required>
+                                        <label class="form-check-label" for="yes">
+                                            Si
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="estrenar" id="no" value="0" {{ $product->estrenar == 0 ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="no">
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label">Expensas</label>
+                                    <input class="form-control" type="number" name="expensas" value="{{ $product->expensas}}" placeholder="Expensas" required>
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label">Cocheras</label>
+                                    <input class="form-control" type="number" name="cocheras" value="{{ $product->cocheras}}" placeholder="Cocheras" required>
+                                </div>
                             </div>
 
 
-                            <button class="btn btn-primary" type="submit" class="form-submit">
-                                Guardar cambios
-                            </button>
+
+                            <div class="card-footer">
+                                <button class="btn btn-primary" type="submit" class="form-submit">
+                                    Guardar cambios
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -99,9 +198,9 @@ $description= 'Detalles de productos'
 
             <!-- Gallery Start -->
             <div class="mb-5">
-                <h2 class="small-title">Galeria de la propiedad</h2>
                 <div class="card">
                     <div class="card-body">
+                        <h2 class="small-title">Galeria de la propiedad</h2>
                         <form class="" action="{{route('pjson.images',['id' => $product->id])}}" enctype="multipart/form-data" method="post">
                             @csrf
                             @method('PATCH')

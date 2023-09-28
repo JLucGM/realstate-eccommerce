@@ -83,7 +83,7 @@ class ProductController extends Controller
         $amenities = Amenities::all();
         $amenitiesCheck = AmenitiesCheck::all();
         $paises = Paises::all();
-        $SettingGeneral = SettingGeneral::all();
+        $SettingGeneral = SettingGeneral::first();
 
         $asignado = User::whereHas("roles", function ($q) {
             $q->Where('name', 'Vendedor');
@@ -195,6 +195,8 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->category = $request->category;
         $product->tipoPropiedad_id = $request->t_propiedades;
+        $product->status = $request->status;
+        $product->statusActual = $request->statusActual;
         $product->description = $request->description;
         $product->details = $request->details;
         $product->metrosCuadradosT = $request->metrosCuadradosT;
@@ -230,10 +232,13 @@ class ProductController extends Controller
         $categorias = Categorias::all();
         $images = json_decode($product->image);
         $tipoPropiedad = TipoPropiedad::all();
+        $asignado = User::whereHas("roles", function ($q) {
+            $q->Where('name', 'Vendedor');
+        })->pluck('name', 'id');
 
         $message = "";
 
-        return view('products.detail')->with('product', $product)->with('categorias', $categorias)->with('message', $message)->with('images', $images)->with('tipoPropiedad', $tipoPropiedad);
+        return view('products.detail')->with('product', $product)->with('categorias', $categorias)->with('message', $message)->with('images', $images)->with('tipoPropiedad', $tipoPropiedad)->with('asignado', $asignado);
     }
 
     public function productJsonImages(Request $request, $id)
