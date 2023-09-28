@@ -43,7 +43,8 @@ class Product extends Model implements HasMedia
      'latitud',
      'longitud',
      'direccion',
-     'tipoPropiedad_id'
+     'tipoPropiedad_id',
+     'destacado',
     ];
 
 

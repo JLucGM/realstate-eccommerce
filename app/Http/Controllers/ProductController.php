@@ -112,6 +112,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+        // dd($input);
         $amenitiesAll = json_decode($input['comodidades']);
 
         $product = Product::create($input);

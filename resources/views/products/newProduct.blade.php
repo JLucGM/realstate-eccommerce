@@ -107,6 +107,13 @@ $description= $title
                             <label class="form-check-label" for="flexSwitchCheckDefault">Si</label>
                         </div>
                     </div>
+                    <div class="col-12 col-md-3">
+                        <label class="form-label">Destacar</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" name="destacado" value="1" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Si</label>
+                        </div>
+                    </div>
 
                     @hasrole('super Admin')
                     <div class="form-group col-sm-6">
