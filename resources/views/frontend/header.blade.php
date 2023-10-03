@@ -6,13 +6,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Inmobiliaria</title>
+  <title>{{$title}}</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   <link rel="stylesheet" href="{{asset('css/main.css')}}">
-  <script src="{{asset('js/enable-push.js')}}"></script>
+  <!-- <script src="{{asset('js/enable-push.js')}}"></script> -->
 
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
@@ -20,7 +20,7 @@
 
 </head>
 
-<body>
+<body class="text-bg-light">
   <!-- <div class="d-flex justify-content-between px-5 pt-3">
     <div class="d-flex">
       <a class="btn fw-bold" href="#">
@@ -47,64 +47,42 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-        <a href="#" class="btn">
-        <img src="{{ asset('image/' . $setting->logo_empresa) }}" alt="" class="logo" width="60px" height="auto" />
+        <a class="btn" href="{{ route('home') }}">
+          <img src="{{ asset('image/' . $setting->logo_empresa) }}" alt="" class="logo" width="60px" height="auto" />
         </a>
-        <ul class="navbar-nav mx-auto mt-2 pb-2 mb-lg-0">
+        <ul class="navbar-nav ms-auto mt-2 pb-2 mb-lg-0">
           <li class="nav-item " style="margin-left: 25px;">
-            <a class="btn-sm btn nav-link " href="{{ route('home') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="btn nav-link " href="{{ route('home') }}">
               Inicio
             </a>
           </li>
           <li class="nav-item dropdown" style="margin-left: 25px;">
-            <a class="btn-sm btn nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Ventas
+            <a class="btn nav-link dropdown-toggle " href="#" data-bs-toggle="dropdown" aria-expanded="false">
+              Propiedades
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item " href="{{ route('propiedad.lista',[$tipo='all']) }}">Todos</a></li>
-              <li><a class="dropdown-item " href="{{ route('propiedad.lista',[$tipo='Alquiler']) }}">Apartamento</a></li>
-              <li><a class="dropdown-item " href="{{ route('propiedad.lista',[$tipo='Venta']) }}">Casa</a></li>
-              <li><a class="dropdown-item " href="{{ route('propiedad.lista',[$tipo='AlquilerT']) }}">Duplex</a></li>
+              <li><a class="dropdown-item " href="{{ route('propiedad.lista',[$tipo='Alquiler']) }}">Alquiler</a></li>
+              <li><a class="dropdown-item " href="{{ route('propiedad.lista',[$tipo='Venta']) }}">En venta</a></li>
+              <li><a class="dropdown-item " href="{{ route('propiedad.lista',[$tipo='AlquilerT']) }}">Alquiler temporal</a></li>
             </ul>
           </li>
-          <li class="nav-item dropdown" style="margin-left: 25px;">
-            <a class="btn-sm btn nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Alquiler
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item " href="{{ route('propiedad.lista',[$tipo='all']) }}">Todos</a></li>
-              <li><a class="dropdown-item " href="{{ route('propiedad.lista',[$tipo='Alquiler']) }}">Estudio</a></li>
-              <li><a class="dropdown-item " href="{{ route('propiedad.lista',[$tipo='Venta']) }}">Casa</a></li>
-              <li><a class="dropdown-item " href="{{ route('propiedad.lista',[$tipo='AlquilerT']) }}">Posada</a></li>
-            </ul>
-          </li>
-
-          <li class="nav-item dropdown">
-            <a class="btn-sm btn nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Alquiler temporal
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item " href="{{ route('propiedad.lista',[$tipo='all']) }}">Todos</a></li>
-              <li><a class="dropdown-item " href="{{ route('propiedad.lista',[$tipo='Alquiler']) }}">Apartamento</a></li>
-              <li><a class="dropdown-item " href="{{ route('propiedad.lista',[$tipo='AlquilerT']) }}">Casa</a></li>
-              <li><a class="dropdown-item " href="{{ route('propiedad.lista',[$tipo='Venta']) }}">Duplex</a></li>
-            </ul>
-          </li>
+          
           <li class="nav-item">
-            <a class="btn-sm btn nav-link " href="{{ route('contactacto.web') }}" role="button">
+            <a class="btn nav-link " href="{{ route('contactacto.web') }}">
               Contacto
             </a>
           </li>
+
           <li class="nav-item">
-            <a class="btn-sm btn nav-link " href="{{ route('blog.index') }}" role="button">
+            <a class="btn nav-link " href="{{ route('blog.index') }}">
               Blog
             </a>
           </li>
-
         </ul>
-        <a href="{{route('Dashboard')}}" class="btn"><i class="fa-solid fa-circle-user"></i></a>
 
-        <a href="{{ route('propiedad.anunciar') }}" class="btn btn-outline-primary">Publicar</a>
+        {{--<a href="{{ route('propiedad.anunciar') }}" class="btn btn-outline-primary">Publicar</a>--}}
+        <a href="{{route('Dashboard')}}" class="btn btn-primary ms-1">Login</a>
       </div>
     </div>
   </nav>

@@ -1,3 +1,9 @@
+@php
+$html_tag_data = [];
+$title = 'Inicio';
+$description= $title
+@endphp
+
 @include('frontend.header')
 
 <!-- SLIDER -->
@@ -26,7 +32,7 @@
   </div>
 </div>
 
-<div class="col-9 mx-auto bg-white p-3" style="--bs-bg-opacity: 1;">
+<div class="col-9 mx-auto p-3">
   <form method="POST" action="{{ route('buscarPropiedad') }}" id="rentar" name="rentar" role="form" enctype="multipart/form-data">
     @csrf
     <div class="row">
@@ -72,7 +78,6 @@
                     '7' => '7',
                     '8' => '8',
                     '9' => '9',
-                    
                     ],null, ['class' => 'form-select select2s form-control-sm' . ($errors->has('estadoticket') ? ' is-invalid' : ''), 'placeholder' => 'Dormitorios']) }}
       </div>
 
@@ -92,114 +97,118 @@
   </form>
 </div>
 
-{{--<div class="row">
-  @if ($message = Session::get('success'))
-  <div class="alert alert-success mt-5 text-center" style="z-index: 4">
-    <p>{{ $message }}</p>
-</div>
-@elseif($message = Session::get('error'))
-<div class="alert alert-danger mt-5 text-center" style="z-index: 4">
-  <p>{{ $message }}</p>
-</div>
-@endif
-</div>--}}
-
-
-<ul class="nav nav-pills my-3 mt-5 d-flex justify-content-center" id="pills-tab" role="tablist">
-  <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Recientes</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Destacados</button>
-  </li>
-</ul>
-<div class="tab-content" id="pills-tabContent">
-  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
-
-    <!-- TAB PROPIEDADES RECIENTES -->
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center px-5">
-          <h1 class="text-capitalize fw-bold"> Propiedades recientes</h1>
-          <p class="my-4">
-            Estas son las últimas propiedades en la categoría Ventas. Puede
-            crear la lista utilizando el "último código abreviado de listado" y
-            mostrar elementos por categorías específicas.
-          </p>
-        </div>
-      </div>
-
-      <div class="row">
-
-        @foreach ($products as $product)
-        <div class="col-12 col-lg-4 col-sm-6">
-          <a href="{{route('producto.show', [$product->id])}}" class="card bg-white border-0 my-1 position-relative">
-
-            <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $product->portada) }}" class="card-img-top" alt="Imagen de la propiedad">
-
-            <div class="card-body-propiety p-3">
-              <h5 class="card-title">{{ $product->name }}</h5>
-              <p class="card-text"><i class="bi bi-geo-alt-fill"></i>{{ $product->direccion }}</p>
-            </div>
-            <div class="card-footer px-3 pt-3">
-              <p class="fs-5 fw-bold text-successs-emphasis">{{ $setting->moneda }} {{number_format($product->price,2,".",".")}}</p>
-            </div>
-            <div class="position-absolute top-10 start-90 translate-middle" style="z-index: 1;">
-              <div class="bg-success rounded p-2 " >
-                <span class="text-white fs-7 mb-0 text-nowrap">{{ $product->status }}</span>
-              </div>
-            </div>
-
-          </a>
-        </div>
-        @endforeach
-
-      </div>
+<!-- PROPIEDADES RECIENTES -->
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12 text-start pb-4">
+      <h3 class="text-uppercase fw-bold"> Propiedades recientes</h3>
     </div>
   </div>
-  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
 
-    <!-- PROPIEDADES DESTACADAS -->
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center px-5">
-          <h1 class="text-capitalize fw-bold">Propiedades Destacadas</h1>
-          <p class="my-4">
-            Estas son las últimas propiedades en la categoría Ventas. Puede
-            crear la lista utilizando el "último código abreviado de listado" y
-            mostrar elementos por categorías específicas.
-          </p>
+  <div class="row">
+
+    @foreach ($products as $product)
+    <div class="col-12 col-lg-4 col-sm-6">
+      <a href="{{route('producto.show', [$product->id])}}" class="card btns text-decoration-none p-0 shadow-sm border-0 my-1 position-relative">
+
+        <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $product->portada) }}" class="card-img-top rounded-bottom" style="height: 250px; background-size: cover;" alt="Imagen de la propiedad">
+
+        <div class="card-body p-3">
+          <h5 class="card-title link-dark fw-bold">{{ $product->name }}</h5>
+          <p class="card-text text-secondary mb-0 fs-7"><i class="bi bi-geo-alt-fill me-2 fs-6 "></i>{{ $product->direccion }}</p>
+
+          <table class="table table-borderless">
+            <thead>
+            <tbody>
+              <tr>
+                <td>
+                  <p class="link-secondary mb-0 fs-7"><i class="fa-solid fa-bed me-2 fs-6"></i>{{ $product->dormitorios }} Habitaciones</p>
+                </td>
+                <td>
+                  <p class="link-secondary mb-0 fs-7"><i class="fa-solid fa-toilet me-2 fs-6"></i>{{ $product->toilet }} Baños</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p class="link-secondary mb-0 fs-7"><i class="fa-solid fa-ruler-combined me-2 fs-6"></i>{{ $product->metrosCuadradosT }} m<sup>2</sup> totales</p>
+                </td>
+                <td>
+                  <p class="link-secondary mb-0 fs-7"><i class="fa-solid fa-car me-2 fs-6"></i>{{ $product->cocheras }} Estacionamiento</p>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
         </div>
-      </div>
-      <div class="row">
-
-        @foreach ($productsDestacados as $product )
-        <div class="col-12 col-lg-4 col-sm-6">
-          <a href="{{route('producto.show', [$product->id])}}" class="card bg-white border-0 my-1 position-relative">
-
-            <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $product->portada) }}" class="card-img-top" alt="Imagen de la propiedad">
-
-            <div class="card-body-propiety p-3">
-              <h5 class="card-title">{{ $product->name }}</h5>
-              <p class="card-text"><i class="bi bi-geo-alt-fill"></i>{{ $product->direccion }}</p>
-            </div>
-            <div class="card-footer px-3 pt-3">
-              <p class="fs-5 fw-bold text-successs-emphasis">{{ $setting->moneda }} {{number_format($product->price,2,".",".")}}</p>
-            </div>
-            <div class="position-absolute top-10 start-90 translate-middle" style="z-index: 1;">
-              <div class="bg-success rounded p-2 " >
-                <span class="text-white fs-7 mb-0 text-nowrap">{{ $product->status }}</span>
-              </div>
-            </div>
-
-          </a>
+        <div class="card-footer rounded-bottom bg-white px-3 pt-3">
+          <p class="fs-6 fw-bold link-dark">{{ $setting->moneda.' '.number_format($product->price,2,".",".")}}</p>
         </div>
-        @endforeach
-      </div>
+        <div class="position-absolute top-10 start-90 translate-middle" style="z-index: 1;">
+          <div class="bg-success rounded p-2 ">
+            <span class="text-white fs-7 mb-0 text-nowrap">{{ $product->status }}</span>
+          </div>
+        </div>
+      </a>
     </div>
+    @endforeach
   </div>
 </div>
 
+<!-- PROPIEDADES DESTACADAS -->
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12 text-start pb-4">
+      <h3 class="text-uppercase fw-bold">Propiedades Destacadas</h3>
+    </div>
+  </div>
+  
+  <div class="row">
+    @foreach ($productsDestacados as $product )
+    <div class="col-12 col-lg-4 col-sm-6">
+      <a href="{{route('producto.show', [$product->id])}}" class="card btns text-decoration-none p-0 shadow-sm border-0 my-1 position-relative">
+
+        <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $product->portada) }}" class="card-img-top rounded-bottom" style="height: 250px; background-size: cover;" alt="Imagen de la propiedad">
+
+        <div class="card-body p-3">
+          <h5 class="card-title link-dark fw-bold">{{ $product->name }}</h5>
+          <p class="card-text text-secondary mb-0 fs-7"><i class="bi bi-geo-alt-fill me-2 fs-6 "></i>{{ $product->direccion }}</p>
+
+          <table class="table table-borderless">
+            <thead>
+            <tbody>
+              <tr>
+                <td>
+                  <p class="link-secondary mb-0 fs-7"><i class="fa-solid fa-bed me-2 fs-6"></i>{{ $product->dormitorios }} Habitaciones</p>
+                </td>
+                <td>
+                  <p class="link-secondary mb-0 fs-7"><i class="fa-solid fa-toilet me-2 fs-6"></i>{{ $product->toilet }} Baños</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p class="link-secondary mb-0 fs-7"><i class="fa-solid fa-ruler-combined me-2 fs-6"></i>{{ $product->metrosCuadradosT }} m<sup>2</sup> totales</p>
+                </td>
+                <td>
+                  <p class="link-secondary mb-0 fs-7"><i class="fa-solid fa-car me-2 fs-6"></i>{{ $product->cocheras }} Estacionamiento</p>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer rounded-bottom bg-white px-3 pt-3">
+          <p class="fs-6 fw-bold link-dark">{{ $setting->moneda.' '.number_format($product->price,2,".",".")}}</p>
+        </div>
+        <div class="position-absolute top-10 start-90 translate-middle" style="z-index: 1;">
+          <div class="bg-success rounded p-2 ">
+            <span class="text-white fs-7 mb-0 text-nowrap">{{ $product->status }}</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    @endforeach
+  </div>
+</div>
 
 <!-- PORQUE ELEGIRNOS -->
 <div class="container my-5">
@@ -368,54 +377,6 @@
       </div>
     </div>
     @endforeach
-  </div>
-</div>
-
-
-
-<div class="container">
-  <div class="card border-0 m-5">
-
-    <div class="text-center">
-      <h1 class="fw-bold">Contacta Con Nuestro Equipo</h1>
-      <p>Nuestro Expertos Agentes Inmobiliaros estan esperando porti para brindarte toda ayuda posible</p>
-    </div>
-
-    <form method="POST" action="{{ route('store.user-contacto') }}" role="form" enctype="multipart/form-data">
-      @csrf
-      <div class="row">
-        <div class="col-lg-6 col-sm-12  pt-2">
-          <div class="form-group">
-            <input type="text" required class="form-control" name="name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nombre">
-          </div>
-        </div>
-        <div class="col-lg-6 col-sm-12 pt-2">
-          <div class="form-group">
-            <input type="number" required class="form-control" name="telefono" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Telefono">
-          </div>
-        </div>
-        <div class="col-lg-6 col-sm-12  pt-2">
-          <div class="form-group">
-            <input type="email" required class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Correo">
-          </div>
-        </div>
-        <div class="col-lg-6 col-sm-12 pt-2">
-          <div class="form-group">
-            <input type="text" required class="form-control" name="direccion" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Direccion">
-          </div>
-        </div>
-
-        <div class="col-12  pt-2">
-          <div class="form-group">
-            <input type="text" required class="form-control" name="observaciones" id="text" placeholder="Mensaje">
-          </div>
-        </div>
-      </div>
-
-      <div class="d-grid gap-2 mt-4">
-        <button type="submit" class="btn btn-warning fw-bold">ENVIAR</button>
-      </div>
-    </form>
   </div>
 </div>
 

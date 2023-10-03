@@ -82,7 +82,7 @@
     <!--Grid column-->
   </div>
   <!--Grid row-->
-  </div>
+
   <!-- Grid container -->
 
   <!-- Copyright -->
@@ -108,71 +108,71 @@
 
 
 
-  $(document).ready(function() {
-    //-------------------------------SELECT CASCADING-------------------------//
-    var selectedCountry = (selectedRegion = selectedCity = "");
+  // $(document).ready(function() {
+  //   //-------------------------------SELECT CASCADING-------------------------//
+  //   var selectedCountry = (selectedRegion = selectedCity = "");
 
-    // This is a demo API key that can only be used for a short period of time, and will be unavailable soon. You should rather request your API key (free)  from http://battuta.medunes.net/
-    var BATTUTA_KEY = "6a48f8900236fe5673fcf42869adfd49";
-    // Populate country select box from battuta API
-    url =
-      "https://battuta.medunes.net/api/region/co/all/?key=" +
-      BATTUTA_KEY +
-      "&callback=?";
+  //   // This is a demo API key that can only be used for a short period of time, and will be unavailable soon. You should rather request your API key (free)  from http://battuta.medunes.net/
+  //   var BATTUTA_KEY = "6a48f8900236fe5673fcf42869adfd49";
+  //   // Populate country select box from battuta API
+  //   url =
+  //     "https://battuta.medunes.net/api/region/co/all/?key=" +
+  //     BATTUTA_KEY +
+  //     "&callback=?";
 
-    // EXTRACT JSON DATA.
-    $.getJSON(url, function(data) {
-
-
-
-
-      $("#region option").remove();
-
-      $.each(data, function(index, value) {
-
-        console.log(value);
-        // APPEND OR INSERT DATA TO SELECT ELEMENT.
-        $("#region").append(
-          '<option value="' + value.region + '">' + value.region + "</option>"
-        );
-      });
-    });
-    // Country selected --> update region list .
-
-    // Region selected --> updated city list
+  //   // EXTRACT JSON DATA.
+  //   $.getJSON(url, function(data) {
 
 
 
 
-    $("#region").on("change", function() {
-      selectedRegion = this.options[this.selectedIndex].text;
-      // Populate country select box from battuta API
-      countryCode = 'co';
-      region = $("#region").val();
-      // console.log(countryCode + " - " + region);
-      url =
-        "https://battuta.medunes.net/api/city/" +
-        countryCode +
-        "/search/?region=" +
-        region +
-        "&key=" +
-        BATTUTA_KEY +
-        "&callback=?";
-      $.getJSON(url, function(data) {
-        // console.log(data);
-        $("#city option").remove();
-        $.each(data, function(index, value) {
-          // APPEND OR INSERT DATA TO SELECT ELEMENT.
-          $("#city").append(
-            '<option value="' + value.city + '">' + value.city + "</option>"
-          );
-        });
-      });
-    });
+  //     $("#region option").remove();
+
+  //     $.each(data, function(index, value) {
+
+  //       console.log(value);
+  //       // APPEND OR INSERT DATA TO SELECT ELEMENT.
+  //       $("#region").append(
+  //         '<option value="' + value.region + '">' + value.region + "</option>"
+  //       );
+  //     });
+  //   });
+  //   // Country selected --> update region list .
+
+  //   // Region selected --> updated city list
 
 
 
-  });
+
+  //   $("#region").on("change", function() {
+  //     selectedRegion = this.options[this.selectedIndex].text;
+  //     // Populate country select box from battuta API
+  //     countryCode = 'co';
+  //     region = $("#region").val();
+  //     // console.log(countryCode + " - " + region);
+  //     url =
+  //       "https://battuta.medunes.net/api/city/" +
+  //       countryCode +
+  //       "/search/?region=" +
+  //       region +
+  //       "&key=" +
+  //       BATTUTA_KEY +
+  //       "&callback=?";
+  //     $.getJSON(url, function(data) {
+  //       // console.log(data);
+  //       $("#city option").remove();
+  //       $.each(data, function(index, value) {
+  //         // APPEND OR INSERT DATA TO SELECT ELEMENT.
+  //         $("#city").append(
+  //           '<option value="' + value.city + '">' + value.city + "</option>"
+  //         );
+  //       });
+  //     });
+  //   });
+
+
+
+  // });
 
 
 

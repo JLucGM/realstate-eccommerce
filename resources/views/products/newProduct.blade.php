@@ -80,10 +80,10 @@ $description= $title
                         <label class="form-label">Moneda</label>
                         <!-- <input class="form-control" type="text" list="monedas" name="moneda" placeholder="Moneda"> -->
                         <select class="form-control" name="moneda">
-                            <option  value="{{$SettingGeneral->moneda}}">{{$SettingGeneral->moneda}}</option>
+                            <option value="{{$SettingGeneral->moneda}}">{{$SettingGeneral->moneda}}</option>
                         </select>
                     </div>
-                    
+
 
                     <div class="col-12 col-md-3">
                         <label class="form-label">Categoria</label>
@@ -100,12 +100,13 @@ $description= $title
                         <input class="form-control" type="number" name="price" value="" placeholder="Precio" required>
                     </div>
 
-                    <div class="col-12 col-md-3">
-                        <label class="form-label">Publicar el precio</label>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" name="publicar" value="1" id="flexSwitchCheckDefault">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">Si</label>
-                        </div>
+                    @hasrole('super Admin')
+
+                    <div class="form-group col-md-3">
+                        {{ Form::label('agenteVendedor_id','Asignar agente inmobiliario',['class'=>'form-label'])  }}
+                        <!-- ROLE VENDEDOR -->
+                        {{ Form::select('agenteVendedor_id',$asignado, null,['class' => 'form-control' . ($errors->has('agenteVendedor_id') ? ' is-invalid' : ''), 'placeholder' => 'Asignar agente']) }}
+                        {!! $errors->first('agenteVendedor_id', '<div class="invalid-feedback">:message</div>') !!}
                     </div>
                     <div class="col-12 col-md-3">
                         <label class="form-label">Destacar</label>
@@ -114,20 +115,20 @@ $description= $title
                             <label class="form-check-label" for="flexSwitchCheckDefault">Si</label>
                         </div>
                     </div>
-
-                    @hasrole('super Admin')
-                    <div class="form-group col-sm-6">
-                        {{ Form::label('agenteVendedor_id','Asignar agente inmobiliario',['class'=>'form-label'])  }}
-                        <!-- ROLE VENDEDOR -->
-                        {{ Form::select('agenteVendedor_id',$asignado, null,['class' => 'form-control' . ($errors->has('agenteVendedor_id') ? ' is-invalid' : ''), 'placeholder' => 'Asignar agente']) }}
-                        {!! $errors->first('agenteVendedor_id', '<div class="invalid-feedback">:message</div>') !!}
-                    </div>
                     @endhasrole
 
+                    <div class="col-12 col-md-3">
+                        <label class="form-label">Publicar el precio</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" name="publicar" value="1" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Si</label>
+                        </div>
+                    </div>
+
                     <div class="col-12">
-                    <label class="form-label">Descripción del inmueble</label>
-                    <textarea class="form-control" type="text" name="description" value="" placeholder="Descripción" required></textarea>
-                </div>
+                        <label class="form-label">Descripción del inmueble</label>
+                        <textarea class="form-control" type="text" name="description" value="" placeholder="Descripción" required></textarea>
+                    </div>
 
                     <div class="col-12">
                         <label class="form-label">Notas del cliente</label>
@@ -262,7 +263,7 @@ $description= $title
                 </div>
 
                 <h1 class="my-3 small-title">Ubicación de la propiedad</h1>
-                
+
                 <div class="row mt-2">
                     <div class="col-12 col-md-4">
                         <label class="form-label">Pais</label>
@@ -317,7 +318,7 @@ $description= $title
                 <div class="mt-2">
                     <button class="btn btn-primary" type="submit">Guardar</button>
                 </div>
-                
+
             </div>
         </form>
     </div>

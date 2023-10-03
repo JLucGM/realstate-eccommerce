@@ -1,3 +1,9 @@
+@php
+$html_tag_data = [];
+$title = 'Blog';
+$description= $title
+@endphp
+
 @include('frontend.header')
 
 <div class="container">
@@ -32,7 +38,7 @@
                   <div class="d-flex my-3">
                     <div class=" me-2">
                       <p class="bg-secondary text-white mb-0 p-3">
-                        {{$post->created_at->format('d/m/Y')}}
+                        {{$post->created_at}}
                       </p>
                     </div>
                     <div class="d-block">

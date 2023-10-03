@@ -295,7 +295,6 @@ class ProductController extends Controller
                     'id' => count($images) + $i + 1, // Asigna un nuevo ID basado en el número total de imágenes existentes más el índice actual
                     'name' => $filename
                 ];
-            
             }
 
             // $product->image = json_encode(array_merge($images, $array));
@@ -339,18 +338,22 @@ class ProductController extends Controller
     public function propiedadLista($tipo)
     {
         if ($tipo == 'all') {
-            $products = Product::with(['media'])->get();
+            $products = Product::paginate(12);
         } elseif ($tipo == 'Alquiler') {
-
-            $products = Product::with(['media'])->where('status', 'En alquiler')->get();
+            $products = Product::where('status', 'En alquiler')->paginate(12);
         } elseif ($tipo == 'Venta') {
-            $products = Product::with(['media'])->where('status', 'En venta')->get();
+            $products = Product::where('status', 'En venta')->paginate(12);
         } elseif ($tipo == 'AlquilerT') {
-            $products = Product::with(['media'])->where('status', 'En alquiler temporal')->get();
+            $products = Product::where('status', 'En alquiler temporal')->paginate(12);
         }
+
         $productFooter = Product::with(['media'])->get()->take(3);
         $tipoPropiedad = TipoPropiedad::get()->take(7);
         $tipoAll = TipoPropiedad::all()->pluck('nombre', 'id');
+
+        $paises = Paises::all();
+        $estado = Estado::all();
+        $ciudades = Ciudades::all();
 
         $setting = SettingGeneral::first();
 
@@ -363,6 +366,9 @@ class ProductController extends Controller
             ->with('tipoAll', $tipoAll)
             ->with('max', $max)
             ->with('min', $min)
+            ->with('paises', $paises)
+            ->with('estado', $estado)
+            ->with('ciudades', $ciudades)
             ->with('setting', $setting);
     }
 

@@ -1,3 +1,9 @@
+@php
+$html_tag_data = [];
+$title = 'Contacto';
+$description= $title
+@endphp
+
 @include('frontend.header')
 
 <div class="container py-5">
