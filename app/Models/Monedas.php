@@ -19,4 +19,9 @@ class Monedas extends Model
         
      
     ];
+
+    public function settingGeneral()
+    {
+        return $this->hasOne(SettingGeneral::class, 'moneda');
+    }
 }

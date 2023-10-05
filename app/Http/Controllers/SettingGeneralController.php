@@ -23,7 +23,7 @@ class SettingGeneralController extends Controller
         $settingGenerals = SettingGeneral::paginate();
         $settingCount = $settingGeneralscount->count();
 
-        return view('setting-general.index', compact('settingGenerals','settingCount'))
+        return view('setting-general.index', compact('settingGenerals', 'settingCount'))
             ->with('i', (request()->input('page', 1) - 1) * $settingGenerals->perPage());
     }
 
@@ -37,7 +37,7 @@ class SettingGeneralController extends Controller
         $settingGeneral = new SettingGeneral();
         $monedas = Monedas::all();
         // dd($monedas);
-        return view('setting-general.create', compact('settingGeneral','monedas'));
+        return view('setting-general.create', compact('settingGeneral', 'monedas'));
     }
 
     /**
@@ -52,8 +52,7 @@ class SettingGeneralController extends Controller
 
         $input = $request->all();
 
-          if($request['logo_empresa'])
-        {
+        if ($request['logo_empresa']) {
             $file = $request->file('logo_empresa');
             $filepath = "image/";
             $filename = time() . '-' . $file->getClientOriginalName();
@@ -91,7 +90,7 @@ class SettingGeneralController extends Controller
         $settingGeneral = SettingGeneral::find($id);
         $monedas = Monedas::all();
 
-        return view('setting-general.edit', compact('settingGeneral','monedas'));
+        return view('setting-general.edit', compact('settingGeneral', 'monedas'));
     }
 
     /**
@@ -103,11 +102,21 @@ class SettingGeneralController extends Controller
      */
     public function update(Request $request, SettingGeneral $settingGeneral)
     {
-        request()->validate(SettingGeneral::$rules);
+        // request()->validate(SettingGeneral::$rules);
         $input = $request->all();
         // dd($input);
-              if($request['logo_empresa'])
-        {
+
+        // Verificar si el checkbox está marcado
+        $valor1 = $request->input('status_section_one');
+        $input['status_section_one'] = ($valor1 == "1") ? 1 : 0;
+
+        $valor2 = $request->input('status_section_two');
+        $input['status_section_two'] = ($valor2 == "1") ? 1 : 0;
+
+        $valor3 = $request->input('status_section_three');
+        $input['status_section_three'] = ($valor3 == "1") ? 1 : 0;
+
+        if ($request['logo_empresa']) {
             $file = $request->file('logo_empresa');
             $filepath = "image/";
             $filename = time() . '-' . $file->getClientOriginalName();
@@ -116,7 +125,7 @@ class SettingGeneralController extends Controller
         }
 
         $settingGeneral->update($input);
-        $settingGeneral->save();
+        // $settingGeneral->save();
 
         return redirect()->route('setting-generals.index')
             ->with('success', 'SettingGeneral updated successfully');

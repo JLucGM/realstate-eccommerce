@@ -50,6 +50,7 @@ $description= $title
   @endif
 </div>
 
+@if($images && (is_array($images) || is_object($images)))
 <div class="swiper mySwiper">
   <div class="swiper-wrapper">
     @foreach($images as $image)
@@ -59,12 +60,15 @@ $description= $title
       </button>
     </div>
     @endforeach
+
   </div>
   <div class="swiper-button-next"></div>
   <div class="swiper-button-prev"></div>
   <div class="swiper-pagination"></div>
 </div>
+@endif
 
+@if($images && (is_array($images) || is_object($images)))
 @foreach($images as $image)
 <!-- Button trigger modal -->
 {{--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#{{ $image->id }}">
@@ -86,10 +90,12 @@ Launch static backdrop modal{{ $image->id }}
   </div>
 </div>
 @endforeach
+@endif
+
 <!-- <div style="background-color: #fbfbfb;"> -->
 
-<div class="container bg-white sbg-primary p-5 my-5">
-  <div class="row">
+<div class="container bg-white shadow-sm rounded-4 p-5 my-5">
+  <div class="row ">
     <div class="col-6">
       <h4 class="fw-bold">{{$product->name}}</h4>
       <p class="text-secondary mb-0"><i class="fa-solid fa-location-dot"></i> {{$product->direccion}}</p>
@@ -98,18 +104,18 @@ Launch static backdrop modal{{ $image->id }}
       <h5><span class="badge bg-secondary">{{$product->status}}</span></h5>
     </div>
     <div class="col-6">
-      <h4 class="text-primary float-end">{{ $setting->moneda.' '.number_format($product->price,2,".",".")}} </h4>
+      <h4 class="text-primary float-end">{{ $setting->monedaSetting->denominacion.' '.number_format($product->price,2,".",".")}} </h4>
     </div>
   </div>
 </div>
 
 <div class="container">
   <div class="row">
-    <div class="col-lg-8 col-xs-12 p-0">
-      <div class="card bg-white border-0 p-5">
+    <div class="col-lg-8 col-xs-12 p-0 mb-3">
+      <div class="card border-0 shadow-sm rounded-4">
         <div class="row">
 
-          <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-between p-5">
             <!-- <div class="text-center">
               <p class="mb-0 fw-bold">Tipo de propiedad</p>
               <p class="mb-0">{{$product->tipopropiedad->nombre}} </p>
@@ -141,10 +147,10 @@ Launch static backdrop modal{{ $image->id }}
             </div>
           </div>
         </div>
-      </div>
+        <!-- </div> -->
 
-      <!-- INFORMACION DE LA PROPIEDAD -->
-      <div class="card border-0">
+        <!-- INFORMACION DE LA PROPIEDAD -->
+        <!-- <div class="card border-0 shadow-sm rounded-4"> -->
         <ul class="nav nav-pills nav-fill mb-3 bg-secondary" style="--bs-bg-opacity: .3;" id="pills-tab" role="tablist">
           <li class="nav-item" role="presentation">
             <button class="nav-link py-3 fw-bold rounded-0 text-black active " id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Descripción</button>
@@ -219,16 +225,28 @@ Launch static backdrop modal{{ $image->id }}
             <table class="table">
               <tbody>
                 <tr>
-                  <td><p><strong>Precio:</strong> {{ $setting->moneda.' '.number_format($product->price,2,".",".")}}</p></td>
-                  <td><p><strong>M<sup>2</sup> construidos:</strong> {{$product->metrosCuadradosC}} ft</p></td>
+                  <td>
+                    <p><strong>Precio:</strong> {{ $setting->monedaSetting->denominacion.' '.number_format($product->price,2,".",".")}}</p>
+                  </td>
+                  <td>
+                    <p><strong>M<sup>2</sup> construidos:</strong> {{$product->metrosCuadradosC}} ft</p>
+                  </td>
                 </tr>
                 <tr>
-                  <td><p><strong>Baños:</strong> {{$product->toilet}}</p></td>
-                  <td><p><strong>Habitaciones:</strong> {{$product->dormitorios}}</p></td>
+                  <td>
+                    <p><strong>Baños:</strong> {{$product->toilet}}</p>
+                  </td>
+                  <td>
+                    <p><strong>Habitaciones:</strong> {{$product->dormitorios}}</p>
+                  </td>
                 </tr>
                 <tr>
-                  <td><p><strong>Garaje:</strong> {{$product->cocheras}}</p></td>
-                  <td><p><strong>Expensas:</strong> {{$product->expensas}}</p></td>
+                  <td>
+                    <p><strong>Garaje:</strong> {{$product->cocheras}}</p>
+                  </td>
+                  <td>
+                    <p><strong>Expensas:</strong> {{$product->expensas}}</p>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -254,208 +272,126 @@ Launch static backdrop modal{{ $image->id }}
       </div>
 
 
-      {{-- cierra de descripcion  --}}
+      {{-- cierra de descripcion  
       <div class="card border-0 p-5">
         <h5>Video</h5>
         <video width="auto" controls>
           <source src="{{$product->lonkVideo}}" type="video/mp4">
-          Your browser does not support HTML video.
-        </video>
-      </div>
+      Your browser does not support HTML video.
+      </video>
+    </div>--}}
 
-
-      <!-- <div class="card border-0 p-5">
-        <input type="hidden" name="latitud" id="latitud" value="{{$product->latitud}}">
-        <input type="hidden" name="longitud" id="longitud" value="{{$product->longitud}}">
-        <h5>Mapa</h5>
-        <div id="mapa"> </div>
-      </div> -->
-
-
-      <div class="card border-0 p-5">
-        <h5>Opiniones</h5>
-
-        <div class="row">
-          <div class="col-12">
-            <div class="row">
-              <div class="col-6">
-                <div class="contenidocard" style="padding-top:2rem; margin-bottom: 0!important;">
-                  <img src="img/person-500x328.jpg" alt="exposed brick wall in a hipster cafe" style="height: 90px;  width:90px; padding-bottom: 10px;" />
-                  <h3>Carlos David</h3>
-                  <h6>Comprador</h6>
-                  <div class="testimmonials_starts"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                  </div>
-                  <p>
-                    Estoy interesado en esta propiedad
-                  </p>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="contenidocard" style="padding-top:2rem; margin-bottom: 0!important;">
-                  <img src="img/person-500x328.jpg" alt="exposed brick wall in a hipster cafe" style="height: 90px;  width:90px; padding-bottom: 10px;" />
-                  <h3>Carlos David</h3>
-                  <h6>Comprador</h6>
-                  <div class="testimmonials_starts"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                  </div>
-                  <p>
-                    Estoy interesado en esta propiedad
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="row pb-5 pt-5">
-        <div class="col-lg-6 col-md-6 col-sm-12">
-          <h3>Anuncios Similares</h3>
-        </div>
-      </div>
-
-      <div class="row">
-        @foreach ($products as $product)
-        <div class="col-12 col-lg-6 col-sm-6">
-          <div class="card bg-white border-0 my-1 position-relative">
-            @foreach ($product->media as $image)
-            <img src="{{asset($image->getUrl()) }}" alt="imagen no encontrada" class="card-img-top">
-            @break
-            @endforeach
-            <div class="card-body-propiety p-3">
-              <h5 class="card-title">{{ $product->name }}</h5>
-              <p class="card-text"><i class="bi bi-geo-alt-fill"></i>{{ $product->direccion }}</p>
-            </div>
-            <div class="card-footer px-3 pt-3">
-              <p class="fs-5 fw-bold text-successs-emphasis">{{ $setting->moneda }} {{number_format($product->price,2,".",".")}}</p>
-            </div>
-            <div class="position-absolute top-10 start-90 translate-middle" style="z-index: 1;">
-              <div class="bg-success rounded p-2" style="width: 95px;">
-                <span class="text-white">EN VENTA</span>
-              </div>
-            </div>
-            <a href="{{route('producto.show', [$product->id])}}" class="properties-item p-3 d-none">
-              <div class="mt-5 pt- text-white">
-                <p class="text-white fs-7 mb-1"> {{ $product->description }}</p>
-                <div class="d-flex">
-                  <p class="text-white me-1"><i class="fa-solid fa-bed"></i> {{ $product->dormitorios }}</p>
-                  <p class="text-white me-1"><i class="fa-solid fa-bath"></i> {{ $product->toilet }}</p>
-                  <p class="text-white me-1"><i class="fa-regular fa-square"></i> {{ $product->metrosCuadradosC.'ft' }} </p>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-        @endforeach
+    <div class="row pb-3 mt-5">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <h3>Anuncios Similares</h3>
       </div>
     </div>
 
-    <div class="col-lg-4 col-xs-12 ps-2 p-0">
-      <div class="tab-container sticky-top bg-white border-0">
-        <div class="contents">
-          <div id="content1" class="content content-active">
-            <div class="row">
-              @if (isset($product->agente))
-              <div class="text-center mt-3">
-                <img src="../img/person-500x328.jpg" alt="" class="w-50 rounded">
-                <h4>{{ $product->agente->user->name }}</h4>
-                <!-- <p class="text-primary mb-0">Agente</p> -->
-              </div>
-              @endif
+    <div class="row">
+      @foreach ($products as $product)
+      <div class="col-12 col-lg-6 col-sm-6">
+        <a href="{{route('producto.show', [$product->id])}}" class="card  text-decoration-none p-0 shadow-sm border-0 rounded-4 my-1 position-relative">
 
-              <div class="col-12 p-5 pt-2">
-                <!-- <hr>
-                  <a href="#" class="btn btn-primary w-100 fw-bold mb-2">PROGRAMAR UNA
-                    VISITA</a> -->
-                <form method="POST" action="{{ route('store.user-contacto') }}" role="form" enctype="multipart/form-data">
-                  @csrf
-                  <input type="text" class="form-control mb-2" name="name" placeholder="Nombre">
-                  <input type="text" class="form-control mb-2" name="email" placeholder="Correo">
-                  <input type="text" class="form-control mb-2" name="telefono" placeholder="Telefono">
-                  <textarea name="mensaje" id="" placeholder="Mensaje" rows="5" class="form-control mb-2"></textarea>
+          <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $product->portada) }}" class="card-img-top rounded-bottom" style="height: 250px; background-size: cover;" alt="Imagen de la propiedad">
 
-                  <input type="hidden" name="propiedad_id" value="{{ $product->id }}" class="form-control mb-2" required name="telefono" placeholder="Telefono">
-                  @if (isset($product->agente))
-                  <input type="hidden" name="agente_id" value="{{ $product->agente->user_id }}" class="form-control mb-2" required name="telefono" placeholder="Telefono">
+          <div class="card-body p-3">
+            <h5 class="card-title link-dark fw-bold">{{ $product->name }}</h5>
+            <p class="card-text text-secondary mb-0 fs-7"><i class="bi bi-geo-alt-fill me-2 fs-6 "></i>{{ $product->direccion }}</p>
 
-                  @endif
+            <table class="table table-borderless">
+              <thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <p class="link-secondary mb-0 fs-7"><i class="fa-solid fa-bed me-2 fs-6"></i>{{ $product->dormitorios }} Habitaciones</p>
+                  </td>
+                  <td>
+                    <p class="link-secondary mb-0 fs-7"><i class="fa-solid fa-toilet me-2 fs-6"></i>{{ $product->toilet }} Baños</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="link-secondary mb-0 fs-7"><i class="fa-solid fa-ruler-combined me-2 fs-6"></i>{{ $product->metrosCuadradosT }} m<sup>2</sup> totales</p>
+                  </td>
+                  <td>
+                    <p class="link-secondary mb-0 fs-7"><i class="fa-solid fa-car me-2 fs-6"></i>{{ $product->cocheras }} Estacionamiento</p>
+                  </td>
+                </tr>
 
-                  <button type="submit" class="btn btn-primary w-100 fw-bold">Enviar Correo</button>
-                </form>
-
-                <div class="row">
-                  <div class="col-6 pt-2">
-                    <a href="#" class="btn btn-outline-primary w-100 fw-bold">
-                      <i class="fa-solid fa-phone"></i>
-                      Llamar
-                    </a>
-                  </div>
-                  <div class="col-6 pt-2">
-                    <a href="https://api.whatsapp.com/send?phone=04124980849&text=Hola%20,te%20asesoramos%20por
-              %20whatsapp%20gestiona%20tu%20compra%20por%20este%20canal" target="_blank" class="btn btn-outline-primary w-100 fw-bold">
-                      <i class="fab fa-whatsapp"></i>
-                      Whatsapp
-                    </a>
-                  </div>
-                </div>
-              </div>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer rounded-4 rounded-top-0 bg-white px-3 pt-3">
+            <p class="fs-6 fw-bold link-dark">{{ $setting->monedaSetting->denominacion.' '.number_format($product->price,2,".",".")}}</p>
+          </div>
+          <div class="position-absolute top-10 start-90 translate-middle" style="z-index: 1;">
+            <div class="bg-success rounded p-2 ">
+              <span class="text-white fs-7 mb-0 text-nowrap">{{ $product->status }}</span>
             </div>
           </div>
-          <div id="content2" class="content">
-            <div class="row">
-              <div class="col-12" style="padding-left: 3rem; padding-right: 3rem; padding-bottom: 3rem; padding-top: 1rem;">
-                <!-- <a href="#" class="btn btn-primary w-100"
-        style="font-weight: 600; border-radius: 0px; border:#0ABFF7; background:#0ABFF7;">PROGRAMAR UNA
-        VISITA</a> -->
-                <form action="#" class="pt-2">
-                  <input type="date" class="form-control mb-2" placeholder="Nombre" style="border-radius: 1px;">
-                  <div class="row" style="padding-bottom: 10px;">
-                    <div class="col-6 pt-2">
-                      <a href="#" class="btn btn-outline-primary w-100" style="font-weight: 600; border-radius: 1px;">
-                        <i class="fa-solid fa-phone"></i>
-                        En persona
-                      </a>
-                    </div>
-                    <div class="col-6 pt-2">
-                      <a href="#" class="btn btn-outline-primary w-100" style="font-weight: 600; border-radius: 1px;">
-                        <i class="fab fa-whatsapp"></i>
-                        Video Chat
-                      </a>
-                    </div>
-                  </div>
-                  <input type="time" class="form-control mb-2" placeholder="Tu nombre" style="border-radius: 1px;">
-                  <input type="text" class="form-control mb-2" placeholder="Tu nombre" style="border-radius: 1px;">
-                  <input type="text" class="form-control mb-2" placeholder="Tu correo" style="border-radius: 1px;">
-                  <input type="text" class="form-control mb-2" placeholder="Tu telefono" style="border-radius: 1px;">
-
-                  <textarea name="" id="" rows="5" style="width: 100%; border:1px solid #d5d5d5;"></textarea>
-                  <a href="#" class="btn btn-primary w-100" style="font-weight: 600; border-radius: 1px;">Enviar
-                    Correo</a>
-                </form>
-
-                <div class="row">
-                  <div class="col-6 pt-2">
-                    <a href="#" class="btn btn-outline-primary w-100" style="font-weight: 600; border-radius: 1px;">
-                      <i class="fa-solid fa-phone"></i>
-                      Llamar
-                    </a>
-                  </div>
-                  <div class="col-6 pt-2">
-                    <a href="#" class="btn btn-outline-primary w-100" style="font-weight: 600; border-radius: 1px;">
-                      <i class="fab fa-whatsapp"></i>
-                      Whatsapp
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
+        </a>
       </div>
+      @endforeach
     </div>
   </div>
+
+  <div class="col-lg-4 col-xs-12 ps-2 p-0 mb-3 ">
+    <div class="tab-container sticky-top bg-white border-0 shadow-sm rounded-4">
+      <div class="contents">
+        <div id="content1" class="content content-active">
+          <div class="row">
+            @if (isset($product->agente))
+            <div class="text-center mt-3">
+              <img src="$product->agente->image" alt="" class="w-50 rounded">
+              <h4>{{ $product->agente->user->name }}</h4>
+              <!-- <p class="text-primary mb-0">Agente</p> -->
+            </div>
+            @endif
+
+            <div class="col-12 p-5 pt-2">
+              <!-- <hr>
+                  <a href="#" class="btn btn-primary w-100 fw-bold mb-2">PROGRAMAR UNA
+                    VISITA</a> -->
+              <form method="POST" action="{{ route('store.user-contacto') }}" role="form" enctype="multipart/form-data">
+                @csrf
+                <input type="text" class="form-control mb-2" name="name" placeholder="Nombre">
+                <input type="text" class="form-control mb-2" name="email" placeholder="Correo">
+                <input type="text" class="form-control mb-2" name="telefono" placeholder="Telefono">
+                <textarea name="mensaje" id="" placeholder="Mensaje" rows="5" class="form-control mb-2"></textarea>
+
+                <input type="hidden" name="propiedad_id" value="{{ $product->id }}" class="form-control mb-2" required name="telefono" placeholder="Telefono">
+                @if (isset($product->agente))
+                <input type="hidden" name="agente_id" value="{{ $product->agente->user_id }}" class="form-control mb-2" required name="telefono" placeholder="Telefono">
+
+                @endif
+
+                <button type="submit" class="btn btn-primary w-100 fw-bold">Enviar Correo</button>
+              </form>
+
+              <div class="row">
+                <div class="col-6 pt-2">
+                  <a href="#" class="btn btn-outline-primary w-100 fw-bold">
+                    <i class="fa-solid fa-phone"></i>
+                    Llamar
+                  </a>
+                </div>
+                <div class="col-6 pt-2">
+                  <a href="https://api.whatsapp.com/send?phone=04124980849&text=Hola%20,te%20asesoramos%20por
+              %20whatsapp%20gestiona%20tu%20compra%20por%20este%20canal" target="_blank" class="btn btn-outline-primary w-100 fw-bold">
+                    <i class="fab fa-whatsapp"></i>
+                    Whatsapp
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
 
 </div>
 </div>

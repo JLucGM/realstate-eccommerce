@@ -1,3 +1,9 @@
+@php
+$html_tag_data = [];
+$title = $post->name;
+$description= $title
+@endphp
+
 @include('frontend.header')
 
 <section class="p-5 mt-5 ">

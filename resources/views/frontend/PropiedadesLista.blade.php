@@ -63,7 +63,7 @@ $description= $title
 
             <div class="col-4 col-md-2 mb-3">
               <label for="" class="form-label d-block">Precio</label>
-              <span class="text-secondary">{{ $setting->moneda }} </span>
+              <span class="text-secondary">{{ $setting->monedaSetting->denominacion }} </span>
               <output class="form-labels fs-6" id="outprice" name="outprice" for="price">{{number_format($min,2,".",".")}}</output>
               <input type="range" id="precio" name="precio" class="form-range mt-2" min="{{ $min }}" max="{{ $max }}" value="{{ $min }}" onchange="document.getElementById('outprice').value=new Intl.NumberFormat('de-DE').format(value)">
             </div>
@@ -112,7 +112,7 @@ $description= $title
               </table>
             </div>
             <div class="card-footer rounded-bottom bg-white px-3 pt-3">
-              <p class="fs-6 fw-bold link-dark">{{ $setting->moneda.' '.number_format($product->price,2,".",".")}}</p>
+              <p class="fs-6 fw-bold link-dark">{{ $setting->monedaSetting->denominacion.' '.number_format($product->price,2,".",".")}}</p>
             </div>
             <div class="position-absolute top-10 start-90 translate-middle" style="z-index: 1;">
               <div class="bg-success rounded p-2 ">

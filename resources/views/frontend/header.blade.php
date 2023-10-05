@@ -82,7 +82,7 @@
         </ul>
 
         {{--<a href="{{ route('propiedad.anunciar') }}" class="btn btn-outline-primary">Publicar</a>--}}
-        <a href="{{route('Dashboard')}}" class="btn btn-primary ms-1">Login</a>
+        <a href="{{route('Dashboard')}}" class="btn btn-primary ms-1 rounded-pill">Login</a>
       </div>
     </div>
   </nav>

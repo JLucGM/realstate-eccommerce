@@ -38,7 +38,8 @@ $description= $title
     <div class="row">
       <div class="col-4 col-md-2 mb-3">
         <label class="form-label">Pais</label>
-        <select class="form-control form-control-sm" name="pais" id="paisSelect">
+        <select class="form-control " name="pais" id="paisSelect">
+          <option value="">Seleccione un país</option>
           @foreach($paises as $pais)
           <option value="{{ $pais->id }}">{{ $pais->name }}</option>
           @endforeach
@@ -47,7 +48,7 @@ $description= $title
 
       <div class="col-4 col-md-2 mb-3">
         <label class="form-label">Estado</label>
-        <select class="form-control form-control-sm" id="estadoSelect" name="region">
+        <select class="form-control " id="estadoSelect" name="region">
           <option value="">Seleccione un estado</option>
           <!-- Aquí se cargarán las opciones de los estados en función del país seleccionado -->
         </select>
@@ -55,38 +56,27 @@ $description= $title
 
       <div class="col-4 col-md-2 mb-3">
         <label class="form-label">Ciudad</label>
-        <select class="form-control form-control-sm" id="ciudadSelect" name="ciudad">
+        <select class="form-control " id="ciudadSelect" name="ciudad">
           <option value="">Seleccione una ciudad</option>
           <!-- Aquí se cargarán las opciones de las ciudades en función del estado seleccionado -->
         </select>
       </div>
 
       <div class="col-4 col-md-2 mb-3">
-        <label for="" class="form-label d-block">Tipo</label>
-        {{ Form::select('tipo_propiedad',$tipoAll, null,['class' => 'form-select select2s form-control-sm' . ($errors->has('tipoPropiedad') ? ' is-invalid' : ''), 'placeholder' => 'tipo de propiedad']) }}
+        <label for="" class="form-label">Tipo</label>
+        {{ Form::select('tipo_propiedad',$tipoAll, null,['class' => 'form-select ' . ($errors->has('tipoPropiedad') ? ' is-invalid' : ''), 'placeholder' => 'Tipo de propiedad']) }}
       </div>
 
       <div class="col-4 col-md-2 mb-3">
-        <label for="" class="form-label d-block">Habitaciones</label>
-        {{ Form::select('cuartoNumero',[
-                    '1' => '1',
-                    '2' => '2',
-                    '3' => '3',
-                    '4' => '4',
-                    '5' => '5',
-                    '6' => '6',
-                    '7' => '7',
-                    '8' => '8',
-                    '9' => '9',
-                    ],null, ['class' => 'form-select select2s form-control-sm' . ($errors->has('estadoticket') ? ' is-invalid' : ''), 'placeholder' => 'Dormitorios']) }}
+        <label for="" class="form-label">Habitaciones</label>
+        {{ Form::number('cuartoNumero',null, ['class' => 'form-control ' . ($errors->has('estadoticket') ? ' is-invalid' : ''), 'placeholder' => 'Habitaciones']) }}
       </div>
 
       <div class="col-4 col-md-2 mb-3">
-        <label for="" class="form-label d-block">Precio</label>
-        <span class="text-secondary">{{ $setting->moneda }} </span>
-        <output class="form-labels fs-6" id="outprice" name="outprice" for="price">{{number_format($min,2,".",".")}}</output>
-        <input type="range" id="precio" name="precio" class="form-range mt-2" min="{{ $min }}" max="{{ $max }}" value="{{ $min }}" onchange="document.getElementById('outprice').value=new Intl.NumberFormat('de-DE').format(value)">
+        <label for="" class="form-label d-block">Precio {{ $setting->monedaSetting->denominacion }}</label>
+        <input type="text" id="precio" name="precio" class="form-control" value="{{ old('precio') }}">
       </div>
+
 
       <input type="hidden" name="tipo" value="renta" id="tipo">
 
@@ -141,7 +131,7 @@ $description= $title
           </table>
         </div>
         <div class="card-footer rounded-bottom bg-white px-3 pt-3">
-          <p class="fs-6 fw-bold link-dark">{{ $setting->moneda.' '.number_format($product->price,2,".",".")}}</p>
+          <p class="fs-6 fw-bold link-dark">{{ $setting->monedaSetting->denominacion.' '.number_format($product->price,2,".",".")}}</p>
         </div>
         <div class="position-absolute top-10 start-90 translate-middle" style="z-index: 1;">
           <div class="bg-success rounded p-2 ">
@@ -161,7 +151,7 @@ $description= $title
       <h3 class="text-uppercase fw-bold">Propiedades Destacadas</h3>
     </div>
   </div>
-  
+
   <div class="row">
     @foreach ($productsDestacados as $product )
     <div class="col-12 col-lg-4 col-sm-6">
@@ -197,7 +187,7 @@ $description= $title
           </table>
         </div>
         <div class="card-footer rounded-bottom bg-white px-3 pt-3">
-          <p class="fs-6 fw-bold link-dark">{{ $setting->moneda.' '.number_format($product->price,2,".",".")}}</p>
+          <p class="fs-6 fw-bold link-dark">{{ $setting->monedaSetting->denominacion.' '.number_format($product->price,2,".",".")}}</p>
         </div>
         <div class="position-absolute top-10 start-90 translate-middle" style="z-index: 1;">
           <div class="bg-success rounded p-2 ">
@@ -211,6 +201,7 @@ $description= $title
 </div>
 
 <!-- PORQUE ELEGIRNOS -->
+@if($setting->status_section_one == 1)
 <div class="container my-5">
   <div class="row">
     <div class="col-12 text-center">
@@ -254,9 +245,10 @@ $description= $title
     </div>
   </div>
 </div>
-
+@endif
 
 <!-- EQUIPO DE TRABAJO -->
+@if($setting->status_section_two == 1)
 <div class="container my-5">
   <div class="row">
     <div class="col-12 text-center px-5">
@@ -340,8 +332,9 @@ $description= $title
     @endforeach
   </div>
 </div>
+@endif
 
-
+@if($setting->status_section_three == 1)
 <div class="container my-4">
   <div class="row pb-4">
     <div class="col-12 text-center">
@@ -379,6 +372,7 @@ $description= $title
     @endforeach
   </div>
 </div>
+@endif
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>

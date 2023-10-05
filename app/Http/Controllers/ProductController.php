@@ -401,7 +401,24 @@ class ProductController extends Controller
     public function buscarPropiedad(Request $request)
     {
         $input = $request->all();
-        $productsSearch = Product::with(['media'])->where('Region', $input['region'])->where('tipoPropiedad_id', $input['tipo_propiedad'])->get();
+        $productsSearch = Product::with(['media']);
+        if (isset($input['region'])) {
+            $productsSearch->where('Region', $input['region']);
+        }
+        if (isset($input['ciudad'])) {
+            $productsSearch->where('ciudad', $input['ciudad']);
+        }
+    
+        if (isset($input['tipo_propiedad'])) {
+            $productsSearch->where('tipoPropiedad_id', $input['tipo_propiedad']);
+        }
+    
+        if (isset($input['precio'])) {
+            $precio = str_replace(',', '', $input['precio']); // Eliminar las comas del valor ingresado
+            $productsSearch->where('price', '<=', $precio);
+        }
+    
+        $productsSearch = $productsSearch->get();
 
         $products = Product::with(['media'])->get();
         $productFooter = Product::with(['media'])->get()->take(3);

@@ -62,7 +62,7 @@
 
                                             <td class="text-end">
                                                 <form action="{{ route('amenities-checks.destroy',$amenitiesCheck->id) }}" method="POST">
-                                                    {{--<a class="btn btn-sm btn-success" href="{{ route('amenities-checks.edit',$amenitiesCheck->id) }}"><i class="fa fa-fw fa-edit"></i></a>--}}
+                                                    <a class="btn btn-sm btn-success" href="{{ route('amenities-checks.edit',$amenitiesCheck->id) }}"><i class="fa fa-fw fa-edit"></i></a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>

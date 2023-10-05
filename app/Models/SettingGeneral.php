@@ -20,7 +20,10 @@ class SettingGeneral extends Model
     
     static $rules = [
 		'moneda' => 'required',
-    'logo_empresa' => 'required'
+    'logo_empresa' => 'required',
+    'status_section_one' => 'required',
+    'status_section_two' => 'required',
+    'status_section_three' => 'required',
     ];
 
     protected $perPage = 20;
@@ -30,8 +33,11 @@ class SettingGeneral extends Model
      *
      * @var array
      */
-    protected $fillable = ['moneda','logo_empresa'];
+    protected $fillable = ['moneda','logo_empresa','status_section_one','status_section_two','status_section_three'];
 
 
-
+    public function monedaSetting()
+    {
+        return $this->belongsTo(Monedas::class, 'moneda');
+    }
 }

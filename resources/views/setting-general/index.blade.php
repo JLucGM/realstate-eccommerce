@@ -63,7 +63,7 @@
 										  <td><img src="/image/{{$settingGeneral->logo_empresa}}"  class="" style=" width: 70px; height:50px"></td>
 
                                             
-											<td>{{ $settingGeneral->moneda }}</td>
+											<td>{{ $settingGeneral->monedaSetting->tipo.' '.$settingGeneral->monedaSetting->denominacion }}</td>
 
                                             <td>
                                                 <form action="{{ route('setting-generals.destroy',$settingGeneral->id) }}" method="POST">
