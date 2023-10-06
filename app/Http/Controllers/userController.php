@@ -17,10 +17,7 @@ use App\Models\Contacto;
 use App\Models\ContactosPropiedad;
 
 use App\Models\TicketChat;
-
-
-
-
+use Illuminate\Support\Facades\Auth;
 use Mail;
 use Spatie\Permission\Models\Role;
 use SpomkyLabs\Pki\ASN1\Type\Primitive\Real;
@@ -159,7 +156,6 @@ class userController extends Controller
         $request->password = Hash::make($request->password);
         $user->password =  $request->password;
         $user->whatsapp =  $request->whatsapp;
-        $user->avatar = "default.jpg";
         $user->points = 0;
 
         if ($request->status == "on") {
@@ -173,6 +169,20 @@ class userController extends Controller
         $user->country_id = 0;
         $user->city_id = 0;
         // dd($request->rol);
+
+        // AGREGAR AVATAR
+        if ($request->hasFile('avatar')) {
+            $image = $request->file('avatar');
+            $nombreImagen = $image->getClientOriginalName();
+            $image->move(public_path('img/profile'), $nombreImagen);
+
+            $user->avatar = $nombreImagen;
+            $user->save();
+        } else {
+            $user->avatar = "default.jpg";
+            $user->save();
+        }
+
         $user->save();
         return redirect()->route('user.index');
     }
@@ -334,6 +344,7 @@ class userController extends Controller
 
     public function usuariosUpdate(Request $request, $id)
     {
+
         $roles = Roles::all();
         $user = User::find($id);
         $user->name = $request->name;
@@ -341,15 +352,30 @@ class userController extends Controller
         $user->rol = $request->rol;
         $user->email = $request->email;
 
-        if ($request->status == null) {
-            $user->status = 0;
-        }
-        if ($request->status == "on") {
-            $user->status = 1;
-        }
+        $user->status = $request->filled('status') ? 1 : 0;
 
+        if ($request->hasFile('avatar')) {
+            $image = $request->file('avatar');
+            $nombreImagen = $image->getClientOriginalName();
+            $image->move(public_path('img/profile'), $nombreImagen);
+
+            $user->avatar = $nombreImagen;
+            $user->save();
+        }
+// dd($user);s
         $user->save();
+
         $message = "Datos cargados correctamente";
-        return view('customers.detail')->with('user', $user)->with('roles', $roles)->with('message', $message);
+        return redirect()->back()->with('user', $user)->with('roles', $roles)->with('message', $message);
+    }
+
+
+    public function profile()
+    {
+        $user = Auth::user();
+        // dd($user);
+        // $message = "Perfil actualizado";
+        $roles = Roles::all();
+        return view('customers.profile', compact('user', 'roles'));
     }
 }

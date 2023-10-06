@@ -30,10 +30,16 @@ $description= 'Ecommerce Customer List Page'
                             <h2>{{$title}}</h2>
                         </div>
 
-                        <form action="{{ route('store.user') }}" method="post">
+                        <form action="{{ route('store.user') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body p-3">
                                 <div class=" row">
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label for="formFile" class="form-label">Avatar</label>
+                                            <input class="form-control" name="avatar" type="file" id="formFile">
+                                        </div>
+                                    </div>
                                     <div class="form-group col-sm-6 mb-4">
                                         {{ Form::label('name','Nombre',['class'=>'']) }}
                                         {{ Form::text('name',null, ['class' => 'form-control' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder' => 'nombre']) }}

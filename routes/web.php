@@ -65,6 +65,9 @@ Route::group(['middleware' => ['cors']], function () {
     Route::get('/userDelete{id}', [App\Http\Controllers\userController::class, 'usersDelete'])->name('user.delete');
     Route::get('/nuevoUsuario', [App\Http\Controllers\userController::class, 'newUser'])->name('new.user');
     Route::post('/storeUsuario', [App\Http\Controllers\userController::class, 'storeUser'])->name('store.user');
+    // Route::get('/profile', [App\Http\Controllers\userController::class, 'profile'])->name('profile');
+    Route::get('/profile',[App\Http\Controllers\UserController::class, 'profile'])->name('profile');
+
 
     //usuario del formulario de anunciar
 

@@ -13,9 +13,10 @@
        <!-- User Menu Start -->
        <div class="user-container d-flex">
            <a href="#" class="d-flex user position-relative" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               <img class="profile" alt="profile" src="/img/profile/profile-1.webp" />
+               <img class="profile" alt="profile" src="{{asset('img/profile/'.auth()->user()->avatar)}}" />
+
                @if (auth()->check())
-               <div class="name">{{auth()->user()->name}} {{auth()->user()->last_name}}</div>
+               <div class="name">{{auth()->user()->name.' '.auth()->user()->last_name}}</div>
                @else
                <div class="name">No deberias estar aqui</div>
                @endif
@@ -101,6 +102,12 @@
                                <a href="/">
                                    <i data-acorn-icon="gear" class="me-2" data-acorn-size="17"></i>
                                    <span class="align-middle">Inicio</span>
+                               </a>
+                           </li>
+                           <li>
+                               <a href="{{route('profile')}}">
+                                   <i data-acorn-icon="gear" class="me-2" data-acorn-size="17"></i>
+                                   <span class="align-middle">Perfil</span>
                                </a>
                            </li>
                        </ul>
@@ -478,6 +485,8 @@
        </ul>
    </div>
    <!-- Menu End -->
+   @else
+<p>vuelve a inicio</p>
    @endif
    <!-- Mobile Buttons Start -->
    <div class="mobile-buttons-container">
