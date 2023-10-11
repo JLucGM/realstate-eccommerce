@@ -19,18 +19,20 @@ class BlogController extends Controller
     {
 
         $posts = Post::where('status', 2)->latest('id')->paginate(7);
+        $postsSide = Post::where('status', 2)->latest('id')->paginate(4);
 
-          $productFooter = Product::with(['media'])->get()->take(3);
+          $products = Product::all()->take(5);
         $tipoPropiedad = TipoPropiedad::get()->take(7);
 
         $setting =  SettingGeneral::first();
 
-        return view('frontend.indexBlog', compact('posts','productFooter','tipoPropiedad','setting'));
+        return view('frontend.indexBlog', compact('posts','products','tipoPropiedad','setting','postsSide'));
     }
     public function show(Post $post)
     {
 
-          $productFooter = Product::with(['media'])->get()->take(3);
+        $postsSide = Post::where('status', 2)->latest('id')->paginate(4);
+        $products = Product::all()->take(5);
         $tipoPropiedad = TipoPropiedad::get()->take(7);
 
         $setting =  SettingGeneral::first();
@@ -42,7 +44,7 @@ class BlogController extends Controller
             ->latest('id')
             ->take(4)
             ->get();
-        return view('frontend.showBlog', compact('post', 'similares', 'categorias','productFooter','tipoPropiedad','setting'));
+        return view('frontend.showBlog', compact('post', 'similares', 'categorias','postsSide','tipoPropiedad','setting','products'));
     }
 
 

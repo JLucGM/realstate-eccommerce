@@ -74,7 +74,7 @@ Route::group(['middleware' => ['cors']], function () {
     Route::post('/storeUsuario-anunciar', [App\Http\Controllers\userController::class, 'storeUserAnunciar'])->name('store.user-anunciar');
 
     //usuario formulario de contacto del home
-    Route::post('/storeUsuario-contacto', [App\Http\Controllers\userController::class, 'storeUserContacto'])->name('store.user-contacto');
+    Route::post('/contacto', [App\Http\Controllers\ContactoController::class, 'storeUserContacto'])->name('store.user-contacto');
 
     //Product
     Route::get('/product', [App\Http\Controllers\ProductController::class, 'index'])->name('product.index');

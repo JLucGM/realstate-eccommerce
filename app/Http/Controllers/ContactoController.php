@@ -24,18 +24,14 @@ class ContactoController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->hasRole('super Admin'))
-        {
-        $contactos = Contacto::paginate();
-
-        }else
-        {
-        $contactos = Contacto::where('vendedorAgente_id',auth()->user()->id)->paginate();
-
+        if (auth()->user()->hasRole('super Admin')) {
+            $contactos = Contacto::paginate();
+        } else {
+            $contactos = Contacto::where('vendedorAgente_id', auth()->user()->id)->paginate();
         }
-     
 
- 
+
+
         return view('contacto.index', compact('contactos'))
             ->with('i', (request()->input('page', 1) - 1) * $contactos->perPage());
     }
@@ -60,7 +56,7 @@ class ContactoController extends Controller
     public function store(Request $request)
     {
         request()->validate(Contacto::$rules);
-        $input= $request->all();
+        $input = $request->all();
         $contacto = new Contacto();
         $contacto->name = $request['name'];
         $contacto->apellido = $request['apellido'];
@@ -82,7 +78,7 @@ class ContactoController extends Controller
 
         $contacto = Contacto::create($input);
 
-       
+
 
 
 
@@ -145,5 +141,24 @@ class ContactoController extends Controller
 
         return redirect()->route('contactos.index')
             ->with('success', 'Contacto deleted successfully');
+    }
+
+    public function storeUserContacto(Request $request)
+    {
+        // Crear un nuevo registro en la tabla "contacto"
+        $contacto = new Contacto();
+        $contacto->name = $request->name;
+        $contacto->apellido = $request->apellido;
+        $contacto->email = $request->email;
+        $contacto->telefonoContacto1 = $request->telefono;
+        $contacto->direccion = $request->direccion;
+        $contacto->observaciones = $request->observaciones;
+        $contacto->origen = 'Pagina web';
+        $contacto->status = 'Interesado';
+        // Asignar otros valores a las columnas restantes si es necesario
+
+        // Guardar el registro en la base de datos
+        $contacto->save();
+        return redirect()->back()->with('success', "Mensaje enviado con exito. En breve recibira nuestra respuesta.");
     }
 }

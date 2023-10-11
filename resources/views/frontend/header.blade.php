@@ -69,14 +69,14 @@
           </li>
 
           <li class="nav-item">
-            <a class="btn nav-link " href="{{ route('contactacto.web') }}">
-              Contacto
+            <a class="btn nav-link " href="{{ route('blog.index') }}">
+              Blog
             </a>
           </li>
 
           <li class="nav-item">
-            <a class="btn nav-link " href="{{ route('blog.index') }}">
-              Blog
+            <a class="btn nav-link " href="{{ route('contactacto.web') }}">
+              Contacto
             </a>
           </li>
         </ul>
@@ -87,7 +87,7 @@
         <a href="{{route('Dashboard')}}" class="btn btn-primary ms-1 rounded-pill">Panel</a>
         @else
         <!-- Mostrar otras cosas si el usuario no está logueado -->
-        <a href="{{route('Dashboard')}}" class="btn btn-primary ms-1 rounded-pill">Login</a>
+        <a href="{{route('Dashboard')}}" class="btn ms-1 nav-link"><i class="fa-regular fa-circle-user fs-4"></i></a>
         @endif
 
       </div>
