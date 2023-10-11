@@ -79,7 +79,7 @@ Route::group(['middleware' => ['cors']], function () {
     //Product
     Route::get('/product', [App\Http\Controllers\ProductController::class, 'index'])->name('product.index');
 
-    Route::get('/propiedad-lista/{tipo}', [App\Http\Controllers\ProductController::class, 'propiedadLista'])->name('propiedad.lista');
+    Route::get('/type/{tipo}', [App\Http\Controllers\ProductController::class, 'propiedadLista'])->name('propiedad.lista');
     Route::get('/propiedad-anunciar', [App\Http\Controllers\ProductController::class, 'propiedadAnunciar'])->name('propiedad.anunciar');
 
     Route::get('producto/{id}', [App\Http\Controllers\HomeController::class, 'show'])->name('producto.show');

@@ -18,7 +18,7 @@ class UpdateSettingGeneralStatusCaracteristicas extends Migration
             $table->boolean('status_section_two')->default(1);
             $table->boolean('status_section_three')->default(1);
 
-            $table->foreign('moneda')->references('id')->on('moneda');
+            // $table->foreign('moneda')->references('id')->on('moneda');
 
         }); 
     }

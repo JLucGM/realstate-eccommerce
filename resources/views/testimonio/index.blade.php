@@ -22,14 +22,9 @@ $description= 'Ecommerce Product List Page'
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <h1>{{$title}}</h1>
 
-                    <span id="card_title">
-                        <h1>
-                            {{$title}}
-                        </h1>
-                    </span>
-
-                    <div class="float-end">
                         <a href="{{ route('testimonios.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
                             {{ 'Agregar Nuevo' }}
                         </a>
@@ -57,7 +52,7 @@ $description= 'Ecommerce Product List Page'
                                 @foreach ($testimonios as $testimonio)
                                 <tr>
                                     <td>{{ ++$i }}</td>
-                                    <td><img src="/image/testimonio/{{$testimonio->image}}" class="" style=" width: 70px; height:50px"></td>
+                                    <td><img src="/image/testimonio/{{$testimonio->image}}" class="rounded" style=" width: 70px; height:50px"></td>
                                     <td>{{ $testimonio->name }}</td>
                                     <td>{{ $testimonio->testimonio }}</td>
                                     <td class="text-end">

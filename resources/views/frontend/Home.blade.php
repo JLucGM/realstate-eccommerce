@@ -74,7 +74,7 @@ $description= $title
 
       <div class="col-4 col-md-2 mb-3">
         <label for="" class="form-label d-block">Precio {{ $setting->monedaSetting->denominacion }}</label>
-        <input type="text" id="precio" name="precio" class="form-control" value="{{ old('precio') }}">
+        <input type="text" id="precio" name="precio" class="form-control" value="{{ old('precio') }}" placeholder="Precio">
       </div>
 
 
@@ -214,7 +214,7 @@ $description= $title
   <div class="row py-4">
     <div class="col-sm-12 col-lg-3 ">
       <i class="{{ $info->icon_first }} fs-1 mb-5"></i>
-      <h2>Vende tu casa</h2>
+      <h2>{{ $info->title_first }}</h2>
       <p>
         {{ $info->sell_home }}
       </p>
@@ -222,7 +222,7 @@ $description= $title
 
     <div class="col-sm-12 col-lg-3 ">
       <i class="{{ $info->icon_second }} fs-1 mb-5"></i>
-      <h2>Alquila tu casa</h2>
+      <h2>{{ $info->title_second  }}</h2>
       <p>
         {{ $info->rent_home }}
       </p>
@@ -230,7 +230,7 @@ $description= $title
 
     <div class="col-sm-12 col-lg-3 ">
       <i class="{{ $info->icon_thrid }} fs-1 mb-5"></i>
-      <h2>Compra una casa</h2>
+      <h2>{{ $info->title_thrid  }}</h2>
       <p>
         {{ $info->buy_home }}
       </p>
@@ -238,7 +238,7 @@ $description= $title
 
     <div class="col-sm-12 col-lg-3 ">
       <i class="{{ $info->icon_fourth }} fs-1 mb-5"></i>
-      <h2>Marketing Gratuito</h2>
+      <h2>{{ $info->title_fourth  }}</h2>
       <p>
         {{ $info->marketing_free }}
       </p>
@@ -264,68 +264,26 @@ $description= $title
 
     @foreach($vendedorAgente as $agente)
     <div class="col-lg-4 col-md-6 col-sm-12">
-      <div class="card border-0 position-relative">
-        <div class="position-absolute top-50 start-0 translate-middle-y">
-          <div class="row">
-            <div class="col-7">
-              <span class="badge bg-secondary ms-2">1 anuncio</span>
-            </div>
-            <div class="col-6">
-            </div>
-          </div>
-        </div>
-        <img src="img//person3-500x328.jpg" alt="exposed brick wall in a hipster cafe" />
+      <div class="card border-0 shadow-sm position-relative">
+        <img class="profile rounded" alt="profile" src="{{asset('img/profile/'.$agente->avatar)}}" />
 
         <div class="card-content py-2">
-          <h3 class="text-center">{{ $agente->name }}</h3>
-          <h6 class="text-center">{{ $agente->getRoleNames()[0] }}</h6>
-          <p>
-            Whether it is working with a first time homebuyer, a luxury home listing or a seasoned inv ...
-          </p>
-        </div>
-
-        <div class="card-footer">
-          <div class="d-flex justify-content-between">
-            <div class="d-flex">
-              <a class="" href="https://{{ $agente->link_twitter }}" target="_blank">
-                <span class="share_list rounded-circle" data-original-title="share">
-                  <i class="fa-brands fa-twitter"></i>
-                </span>
-              </a>
-
-              <a class="" href="https://{{ $agente->link_facebook }}" target="_blank">
-                <span class="share_list rounded-circle" data-original-title="share">
-                  <i class="fa-brands fa-facebook-f"></i>
-                </span>
-              </a>
-
-              <a class="" href="https://{{ $agente->link_instagram}}" target="_blank">
-                <span class="share_list rounded-circle" data-original-title="share">
-                  <i class="fa-brands fa-instagram"></i>
-                </span>
-              </a>
-            </div>
-
-            <div class="d-flex">
-              <a class="" href="#">
-                <span class="share_list rounded-circle" data-original-title="share" style="   float: right!important; ">
-                  <i class="fa-solid fa-share-nodes"></i>
-                </span>
-              </a>
-
-              <a class="" href="#">
-                <span class="share_list rounded-circle" data-original-title="share" style="   float: right!important; ">
-                  <i class="fa-solid fa-heart"></i>
-                </span>
-              </a>
-
-              <a class="" href="#">
-                <span class="share_list rounded-circle" data-original-title="share" style="   float: right!important; ">
-                  <i class="fa-solid fa-plus"></i>
-                </span>
-              </a>
-            </div>
-          </div>
+          <h3 class="text-center">{{ $agente->name.' '.$agente->last_name}}</h3>
+          <h6 class="text-center">{{-- $agente->getRoleNames()[0] --}}</h6>
+          <table class="table table-borderless mx-2">
+            <tbody>
+              <tr>
+                <th class="d-flex align-items-center"><i class="fa-solid fa-at me-2"></i>
+                  <p class="font-normal m-0">{{ $agente->email }}</p>
+                </th>
+              </tr>
+              <tr>
+                <th class="d-flex"><i class="fa-solid fa-phone me-2"></i>
+                  <p class="font-normal m-0">{{ $agente->whatsapp }}</p>
+                </th>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -345,27 +303,21 @@ $description= $title
   <div class="row">
     @foreach ($testimonios as $t )
     <div class="col-lg-4 col-md-6 col-sm-12">
-      <div class="card border-0">
-        <div class="d-flex justify-content-center">
-          <div class="contenidocard mb-0 p-4">
-            <img src="{{ asset('image/testimonio/'.$t->image) }}" class="rounded-circle" alt="exposed brick wall in a hipster cafe" style="height: 90px; width:90px;" />
-            <p class="fs-5 mb-0">{{ $t->name }}</p>
-            <!-- <p class="fs-6 mb-0">Cliente</p> -->
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12 p-4">
-            <p class="mb-0">
-              {{ $t->testimonio }}
-            </p>
-            <!-- <div class="text-warning">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-            </div> -->
-          </div>
+      <div class="card shadow-sm border-0">
+        <div class="card-content">
+          <table class="table table-borderless mx-2">
+            <tbody>
+              <tr>
+                <td class="text-center"><img src="{{ asset('image/testimonio/'.$t->image) }}" class="rounded-circle" style="height: 120px; width:120px;" /></td>
+              </tr>
+              <tr>
+                <td>{{ $t->name }}</td>
+              </tr>
+              <tr>
+                <td>"{{ $t->testimonio }}"</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

@@ -67,7 +67,7 @@
               <li><a class="dropdown-item " href="{{ route('propiedad.lista',[$tipo='AlquilerT']) }}">Alquiler temporal</a></li>
             </ul>
           </li>
-          
+
           <li class="nav-item">
             <a class="btn nav-link " href="{{ route('contactacto.web') }}">
               Contacto
@@ -82,7 +82,14 @@
         </ul>
 
         {{--<a href="{{ route('propiedad.anunciar') }}" class="btn btn-outline-primary">Publicar</a>--}}
+        @if(auth()->check())
+        <!-- Mostrar ciertas cosas si el usuario está logueado -->
+        <a href="{{route('Dashboard')}}" class="btn btn-primary ms-1 rounded-pill">Panel</a>
+        @else
+        <!-- Mostrar otras cosas si el usuario no está logueado -->
         <a href="{{route('Dashboard')}}" class="btn btn-primary ms-1 rounded-pill">Login</a>
+        @endif
+
       </div>
     </div>
   </nav>

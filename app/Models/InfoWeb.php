@@ -44,7 +44,7 @@ class InfoWeb extends Model
      *
      * @var array
      */
-    protected $fillable = ['title_info','select_us','icon_first','icon_second','icon_thrid','icon_fourth','sell_home','rent_home','buy_home','marketing_free'];
+    protected $fillable = ['title_info','select_us','icon_first','icon_second','icon_thrid','icon_fourth','title_first','title_second','title_thrid','title_fourth','sell_home','rent_home','buy_home','marketing_free'];
 
 
 
