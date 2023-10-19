@@ -42,7 +42,7 @@ Route::group(['middleware' => ['cors']], function () {
     // Route::view('/Dashboard', 'dashboard');
 
     // Route::view('/', [App\Http\Controllers\userController::class, 'indexView']);
-    Route::get('/Dashboard', [App\Http\Controllers\userController::class, 'indexView'])->name('Dashboard');
+    Route::get('/Dashboard', [App\Http\Controllers\HomeController::class, 'indexView'])->name('Dashboard');
 
     // Route::prefix('Customers')->group(function () {
     //     Route::redirect('/', '/Customers/List');

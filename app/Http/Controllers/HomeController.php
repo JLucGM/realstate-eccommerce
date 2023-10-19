@@ -3,21 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ciudades;
+use App\Models\Contacto;
 use App\Models\Estado;
 use Illuminate\Http\Request;
 use  App\Models\Product;
 use  App\Models\Slide;
 use  App\Models\InfoWeb;
 use App\Models\Paises;
+use App\Models\Post;
 use App\Models\TipoPropiedad;
 use  App\Models\User;
 use  App\Models\Testimonio;
 use  App\Models\SettingGeneral;
-
-
-
-
-
+use App\Models\Task;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -90,4 +89,33 @@ class HomeController extends Controller
             ->with('estados', $estados)
             ->with('productFooter', $productFooter);
     }
+
+    public function indexView()
+    {
+        $message = "";
+
+        $user = Auth::user();
+
+        // Contador de usuarios
+        $users = User::all();
+        $usercount = count($users);
+        $usercount++;
+
+        // Contador de Productos (Propiedades)
+        $product = Product::all()->take(15);
+        $productcount = Product::count();
+
+        $contactos = Contacto::all();
+        $contactocount = Contacto::count();
+
+        $taskcount = Task::where('status', 'Completado')->count();
+        
+        $taskPcount = Task::where('status', 'Pendiente')->count();
+
+        $blogcount = Post::count();
+
+        return view('/dashboard')->with('message', $message)->with('contactos', $contactos)->with('blogcount', $blogcount)->with('taskPcount', $taskPcount)->with('taskcount', $taskcount)->with('contactocount', $contactocount)->with('user', $user)->with('usercount', $usercount)->with('product', $product)->with('productcount', $productcount);
+        // return view('customers.list');
+    }
+    
 }

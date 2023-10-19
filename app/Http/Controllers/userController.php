@@ -30,27 +30,28 @@ class userController extends Controller
     }
 
     //
-    public function indexView()
-    {
-        $message = "";
+    // public function indexView()
+    // {
+    //     $message = "sssss";
 
-        // Contador de usuarios
-        $users = User::all();
-        $usercount = count($users);
-        $usercount++;
+    //     // Contador de usuarios
+    //     $users = User::all();
+    //     $usercount = count($users);
+    //     $usercount++;
 
-        // Contador de Productos (Propiedades)
-        $product = Product::all();
-        $productcount = count($product);
-        $productcount++;
+    //     // Contador de Productos (Propiedades)
+    //     $product = Product::all();
+    //     $productcount = count($product);
+    //     $productcount++;
 
+    //     $user = Auth::user();
 
-        // for ($i=0; $i < $count  ; $i++) { 
-        //     $product[$i]->image = json_decode($product[$i]->image);
-        // }
-        return view('/dashboard')->with('message', $message)->with('usercount', $usercount)->with('product', $product)->with('productcount', $productcount);
-        // return view('customers.list');
-    }
+    //     // for ($i=0; $i < $count  ; $i++) { 
+    //     //     $product[$i]->image = json_decode($product[$i]->image);
+    //     // }
+    //     return view('/dashboard')->with('message', $message)->with('user', $user)->with('usercount', $usercount)->with('product', $product)->with('productcount', $productcount);
+    //     // return view('customers.list');
+    // }
 
     public function usuarioLogin()
     {

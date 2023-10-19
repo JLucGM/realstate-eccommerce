@@ -57,6 +57,13 @@ class ProductController extends Controller
         return view('products.list')->with('products', $products)->with('SettingGeneral', $SettingGeneral);
     }
 
+    public function show($id)
+    {
+        $product = Product::find($id);
+
+        return view('products.show', compact('product'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

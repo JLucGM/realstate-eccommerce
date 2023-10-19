@@ -87,7 +87,7 @@
         <a href="{{route('Dashboard')}}" class="btn btn-primary ms-1 rounded-pill">Panel</a>
         @else
         <!-- Mostrar otras cosas si el usuario no está logueado -->
-        <a href="{{route('Dashboard')}}" class="btn ms-1 nav-link"><i class="fa-regular fa-circle-user fs-4"></i></a>
+        <a href="{{route('login')}}" class="btn ms-1 nav-link"><i class="fa-regular fa-circle-user fs-4"></i></a>
         @endif
 
       </div>

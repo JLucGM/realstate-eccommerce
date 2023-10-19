@@ -3,7 +3,7 @@
        <div class="logo position-relative">
            <a href="/">
                <!-- Logo can be added directly -->
-               <img src="../image/{{ $setting->logo_empresa }}" alt="logo" />
+               {{--<img src="../image/{{ $setting->logo_empresa }}" alt="logo" />--}}
                <!-- Or added via css to provide different ones for different color themes -->
                <div class=""></div>
            </a>
@@ -249,7 +249,6 @@
            </li>
 
            <li>
-               {{-- la tabla productos sera donde guardarmeos las propiedades cabe destacar que las propiedades son los prductos de esta app --}}
                <a href="#products" data-href="{{route('product.index')}}">
                    <i data-acorn-icon="cupcake" class="icon" data-acorn-size="18"></i>
                    <span class="label">Propiedades</span>
@@ -261,30 +260,46 @@
                        </a>
                    </li>
 
+                   @hasrole('super Admin')
+                   <li>
+                       <a href="{{route('cat.index')}}">
+                           <span class="label">Categorias</span>
+                       </a>
+                   </li>
+                   @endhasrole
 
-                   {{-- <li>
-                        <a href="{{route('cupon.index')}}">
-                   <span class="label">Cupones</span>
-                   </a>
-           </li> --}}
-           {{-- <li>
-                        <a href="{{route('fidel.index')}}">
-           <span class="label">Fidelizacion</span>
-           </a>
-           </li> --}}
-           @hasrole('super Admin')
-           <li>
-               <a href="{{route('cat.index')}}">
-                   <span class="label">Categorias</span>
-               </a>
+               </ul>
            </li>
 
+           <li>
+               <a href="#crm" data-href="{{route('product.index')}}">
+                   <i data-acorn-icon="trend-up" class="icon" data-acorn-size="18"></i>
+                   <span class="label">CRM</span>
+               </a>
+               <ul id="crm">
 
-           @endhasrole
-           {{-- <li>
+
+                   <li>
+                       <a href="{{route('negocios.index')}}">
+                           <span class="label">Embudo de Ventas</span>
+                       </a>
+                   </li>
+                   <li>
+                       <a href="{{route('tasks.index')}}">
+                           <span class="label">Tareas</span>
+                       </a>
+                   </li>
+                   <li>
+                       <a href="{{route('mensajes-soportes.index')}}">
+                           <span class="label">Mensajes</span>
+                       </a>
+                   </li>
+
+
+                   {{-- <li>
                         <a href="{{route('subcat.index')}}">
-           <span class="label">Sub categorias</span>
-           </a>
+                   <span class="label">Sub categorias</span>
+                   </a>
            </li> --}}
            {{-- <li>
                         <a href="{{route('cart.index')}}">
@@ -292,50 +307,6 @@
            </a>
            </li> --}}
            {{-- <li>
-                        <a href="/Products/Detail">
-                            <span class="label">modelo</span>
-                        </a>
-                    </li> --}}
-       </ul>
-       </li>
-
-       <li>
-           {{-- la tabla productos sera donde guardarmeos las propiedades cabe destacar que las propiedades son los prductos de esta app --}}
-           <a href="#crm" data-href="{{route('product.index')}}">
-               <i data-acorn-icon="trend-up" class="icon" data-acorn-size="18"></i>
-               <span class="label">CRM</span>
-           </a>
-           <ul id="crm">
-
-
-               <li>
-                   <a href="{{route('negocios.index')}}">
-                       <span class="label">Embudo de Ventas</span>
-                   </a>
-               </li>
-               <li>
-                   <a href="{{route('tasks.index')}}">
-                       <span class="label">Tareas</span>
-                   </a>
-               </li>
-               <li>
-                   <a href="{{route('mensajes-soportes.index')}}">
-                       <span class="label">Mensajes</span>
-                   </a>
-               </li>
-
-
-               {{-- <li>
-                        <a href="{{route('subcat.index')}}">
-               <span class="label">Sub categorias</span>
-               </a>
-       </li> --}}
-       {{-- <li>
-                        <a href="{{route('cart.index')}}">
-       <span class="label">Carrito</span>
-       </a>
-       </li> --}}
-       {{-- <li>
                         <a href="/Products/Detail">
                             <span class="label">modelo</span>
                         </a>
@@ -486,7 +457,7 @@
    </div>
    <!-- Menu End -->
    @else
-<p>vuelve a inicio</p>
+   <p>vuelve a inicio</p>
    @endif
    <!-- Mobile Buttons Start -->
    <div class="mobile-buttons-container">

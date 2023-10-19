@@ -18,7 +18,7 @@
 @endsection
 
 @section('content_left')
-    <div class="min-h-100 d-flex align-items-center">
+    <!-- <div class="min-h-100 d-flex align-items-center">
         <div class="w-100 w-lg-75 w-xxl-50">
             <div>
                 <div class="mb-5">
@@ -32,12 +32,12 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 @endsection
 
 @section('content_right')
     <div class="sw-lg-70 min-h-100 bg-foreground d-flex justify-content-center align-items-center shadow-deep py-5 full-page-content-right-border">
-        <div class="sw-lg-50 px-5">
+        <div class="sw-lg-50 px-">
             <div class="sh-11">
                 <a href="/">
                            <img src="./img/logo.jpeg" alt="" class="logo" width="20%" height="auto" />
