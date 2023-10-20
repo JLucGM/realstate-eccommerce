@@ -57,7 +57,7 @@ $description= 'Ecommerce Product List Page'
                                 <tr>
                                     <td><img src="{{ asset('img/product/product_id_' . $product->id . '/' . $product->portada) }}" class="" style=" width: 70px; height:50px"></td>
                                     <td>{{ $product->name }}</td>
-                                    <td>{{ number_format($product->price, 2, ',', '.').' '.$SettingGeneral->moneda }}</td>
+                                    <td>{{ number_format($product->price, 2, ',', '.').' '.$SettingGeneral->monedaSetting->denominacion }}</td>
                                     <td>{{ $product->status }}</td>
 
                                     <td class="text-end">

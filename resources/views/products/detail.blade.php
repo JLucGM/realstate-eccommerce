@@ -96,7 +96,7 @@ $description= 'Detalles de productos'
                             <div class="row">
 
                                 <div class="col-12 col-md-3">
-                                    <label class="form-label">Precio ({{$product->moneda}})</label>
+                                    <label class="form-label">Precio</label>
                                     <input class="form-control" type="number" name="price" value="{{$product->price}}" placeholder="Precio" required>
                                 </div>
                                 <div class="col-12 col-md-3">

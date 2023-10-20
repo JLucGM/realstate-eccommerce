@@ -79,8 +79,8 @@ $description= $title
                     <div class="col-12 col-md-3">
                         <label class="form-label">Moneda</label>
                         <!-- <input class="form-control" type="text" list="monedas" name="moneda" placeholder="Moneda"> -->
-                        <select class="form-control" name="moneda">
-                            <option value="{{$SettingGeneral->moneda}}">{{$SettingGeneral->moneda}}</option>
+                        <select class="form-control" name="moneda" disabled>
+                            <option value="{{$SettingGeneral->moneda}}">{{$SettingGeneral->monedaSetting->denominacion}}</option>
                         </select>
                     </div>
 
