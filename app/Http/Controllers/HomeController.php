@@ -114,7 +114,20 @@ class HomeController extends Controller
 
         $blogcount = Post::count();
 
-        return view('/dashboard')->with('message', $message)->with('contactos', $contactos)->with('blogcount', $blogcount)->with('taskPcount', $taskPcount)->with('taskcount', $taskcount)->with('contactocount', $contactocount)->with('user', $user)->with('usercount', $usercount)->with('product', $product)->with('productcount', $productcount);
+        $setting = SettingGeneral::first();
+
+
+        return view('/dashboard')->with('message', $message)
+        ->with('contactos', $contactos)
+        ->with('blogcount', $blogcount)
+        ->with('taskPcount', $taskPcount
+        )->with('taskcount', $taskcount)
+        ->with('contactocount', $contactocount)
+        ->with('user', $user)
+        ->with('usercount', $usercount)
+        ->with('product', $product)
+        ->with('productcount', $productcount)
+        ->with('setting', $setting);
         // return view('customers.list');
     }
     

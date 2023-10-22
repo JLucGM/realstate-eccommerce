@@ -1,6 +1,6 @@
 @php
 $html_tag_data = [];
-$title = 'Agregar propiedad';
+$title = 'Registrar propiedad';
 $description= $title
 @endphp
 @extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])
@@ -20,7 +20,6 @@ $description= $title
 
 <!-- Title and Top Buttons Start -->
 <!-- Customers List Start -->
-<h1 class="success">{{$message}}</h1>
 <div class="container p-3 rounded" style="background-color: #1d1d1d;">
     <div class="card">
         <div class="card-header">
@@ -76,13 +75,13 @@ $description= $title
                 </div>
 
                 <div class="row">
-                    <div class="col-12 col-md-3">
-                        <label class="form-label">Moneda</label>
+                    <!-- <div class="col-12 col-md-3">
+                        <label class="form-label">Moneda</label> -->
                         <!-- <input class="form-control" type="text" list="monedas" name="moneda" placeholder="Moneda"> -->
-                        <select class="form-control" name="moneda" disabled>
+                        <select class="form-control" name="moneda"  hidden>
                             <option value="{{$SettingGeneral->moneda}}">{{$SettingGeneral->monedaSetting->denominacion}}</option>
-                        </select>
-                    </div>
+                         </select>
+                    <!--</div> -->
 
 
                     <div class="col-12 col-md-3">
@@ -102,14 +101,14 @@ $description= $title
 
                     @hasrole('super Admin')
 
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-6">
                         {{ Form::label('agenteVendedor_id','Asignar agente inmobiliario',['class'=>'form-label'])  }}
                         <!-- ROLE VENDEDOR -->
                         {{ Form::select('agenteVendedor_id',$asignado, null,['class' => 'form-control' . ($errors->has('agenteVendedor_id') ? ' is-invalid' : ''), 'placeholder' => 'Asignar agente']) }}
                         {!! $errors->first('agenteVendedor_id', '<div class="invalid-feedback">:message</div>') !!}
                     </div>
                     <div class="col-12 col-md-3">
-                        <label class="form-label">Destacar</label>
+                        <label class="form-label">¿Destacado?</label>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" role="switch" name="destacado" value="1" id="flexSwitchCheckDefault">
                             <label class="form-check-label" for="flexSwitchCheckDefault">Si</label>
@@ -268,6 +267,7 @@ $description= $title
                     <div class="col-12 col-md-4">
                         <label class="form-label">Pais</label>
                         <select class="form-control" name="pais" id="paisSelect">
+                            <option value="">Seleccione un pais</option>
                             @foreach($paises as $pais)
                             <option value="{{ $pais->id }}">{{ $pais->name }}</option>
                             @endforeach

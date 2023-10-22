@@ -107,11 +107,11 @@ Route::group(['middleware' => ['cors']], function () {
 
     // Route::get('/newProduct', [App\Http\Controllers\ProductController::class, 'newProduct'])->name('new.product');
     Route::post('/storeProducto', [App\Http\Controllers\ProductController::class, 'store'])->name('store.product');
-    Route::get('/productEdit{id}', [App\Http\Controllers\ProductController::class, 'productEdit'])->name('product.edit');
+    Route::get('/edit-product/{id}', [App\Http\Controllers\ProductController::class, 'productEdit'])->name('product.edit');
     Route::patch('/productUpdate{id}', [App\Http\Controllers\ProductController::class, 'productUpdate'])->name('product.update');
     Route::patch('/productJsonEdit{id}', [App\Http\Controllers\ProductController::class, 'productJsonImages'])->name('pjson.images');
 
-    Route::get('/newProduct', [App\Http\Controllers\ProductController::class, 'newProduct'])->name('new.product');
+    Route::get('/create-product', [App\Http\Controllers\ProductController::class, 'newProduct'])->name('new.product');
 
     // Payment Gateway
     Route::get('/paymentGateway', [App\Http\Controllers\PaymentGatewayController::class, 'index'])->name('paymentGateway.index');

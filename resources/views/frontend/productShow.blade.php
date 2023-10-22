@@ -38,17 +38,6 @@ $description= $title
   }
 </style>
 
-<div class="row">
-  @if ($message = Session::get('success'))
-  <div class="alert alert-success mt-5 text-center" style="z-index: 4">
-    <p>{{ $message }}</p>
-  </div>
-  @elseif($message = Session::get('error'))
-  <div class="alert alert-danger mt-5 text-center" style="z-index: 4">
-    <p>{{ $message }}</p>
-  </div>
-  @endif
-</div>
 
 @if($images && (is_array($images) || is_object($images)))
 <div class="swiper mySwiper">
@@ -92,7 +81,17 @@ Launch static backdrop modal{{ $image->id }}
 @endforeach
 @endif
 
-<!-- <div style="background-color: #fbfbfb;"> -->
+<div class="row">
+  @if ($message = Session::get('success'))
+  <div class="alert alert-success mt-5 text-center" style="z-index: 4">
+    <p>{{ $message }}</p>
+  </div>
+  @elseif($message = Session::get('error'))
+  <div class="alert alert-danger mt-5 text-center" style="z-index: 4">
+    <p>{{ $message }}</p>
+  </div>
+  @endif
+</div>
 
 <div class="container bg-white shadow-sm rounded-4 p-5 my-5">
   <div class="row ">
@@ -321,7 +320,7 @@ Launch static backdrop modal{{ $image->id }}
               </tbody>
             </table>
           </div>
-          <div class="card-footer rounded-4 rounded-top-0 bg-white px-3 pt-3">
+          <div class="card-footer rounded-bottom rounded-top-0 bg-white px-3 pt-3">
             <p class="fs-6 fw-bold link-dark">{{ $setting->monedaSetting->denominacion.' '.number_format($product->price,2,".",".")}}</p>
           </div>
           <div class="position-absolute top-10 start-90 translate-middle" style="z-index: 1;">
@@ -355,40 +354,23 @@ Launch static backdrop modal{{ $image->id }}
               <form method="POST" action="{{ route('store.user-contacto') }}" role="form" enctype="multipart/form-data">
                 @csrf
                 <input type="text" class="form-control mb-2" name="name" placeholder="Nombre">
+                <input type="text" class="form-control mb-2" name="apellido" placeholder="Apellido">
                 <input type="text" class="form-control mb-2" name="email" placeholder="Correo">
                 <input type="text" class="form-control mb-2" name="telefono" placeholder="Telefono">
-                <textarea name="mensaje" id="" placeholder="Mensaje" rows="5" class="form-control mb-2"></textarea>
+                <textarea name="observaciones" id="" placeholder="Mensaje" rows="5" class="form-control mb-2"></textarea>
 
                 <input type="hidden" name="propiedad_id" value="{{ $product->id }}" class="form-control mb-2" required name="telefono" placeholder="Telefono">
                 @if (isset($product->agente))
                 <input type="hidden" name="agente_id" value="{{ $product->agente->user_id }}" class="form-control mb-2" required name="telefono" placeholder="Telefono">
-
                 @endif
 
-                <button type="submit" class="btn btn-primary w-100 fw-bold">Enviar Correo</button>
+                <button type="submit" class="btn btn-primary w-100 fw-bold">Enviar</button>
               </form>
 
-              <div class="row">
-                <div class="col-6 pt-2">
-                  <a href="#" class="btn btn-outline-primary w-100 fw-bold">
-                    <i class="fa-solid fa-phone"></i>
-                    Llamar
-                  </a>
-                </div>
-                <div class="col-6 pt-2">
-                  <a href="https://api.whatsapp.com/send?phone=04124980849&text=Hola%20,te%20asesoramos%20por
-              %20whatsapp%20gestiona%20tu%20compra%20por%20este%20canal" target="_blank" class="btn btn-outline-primary w-100 fw-bold">
-                    <i class="fab fa-whatsapp"></i>
-                    Whatsapp
-                  </a>
-                </div>
-              </div>
             </div>
           </div>
         </div>
-
       </div>
-
     </div>
   </div>
 </div>

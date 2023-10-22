@@ -141,7 +141,7 @@ $description= 'Ecommerce Dashboard'
     <div class="row">
         <!-- Recent Orders Start -->
         <div class="col-xl-6 mb-5">
-            <h2 class="small-title">Recent Orders</h2>
+            <h2 class="small-title">Propiedades publicadas</h2>
             <div class="mb-n2 scroll-out">
                 <div class="scroll-by-count" data-count="6">
                     @foreach($product as $produc)
@@ -156,7 +156,7 @@ $description= 'Ecommerce Dashboard'
                                 </div>
                                 <div class="col-12 col-md-2 d-flex align-items-center mb-1 mb-md-0 text-alternate">
                                     <span>
-                                        <span class="text-small">{{$produc->moneda}}</span>
+                                        <span class="text-small">{{$setting->monedaSetting->denominacion}}</span>
                                         {{$produc->price}}
                                     </span>
                                 </div>
@@ -169,9 +169,33 @@ $description= 'Ecommerce Dashboard'
             </div>
         </div>
         <!-- Recent Orders End -->
-
-        <!-- Performance Start -->
+        
+        <!-- Contactos recientes Start -->
         <div class="col-xl-6 mb-5">
+            <h2 class="small-title">Contactos recientes</h2>
+            <div class="card sh-35 h-xl-100-card">
+                <div class="card-body scroll-out h-100">
+                    <div class="scroll h-100">
+                        @foreach($contactos as $contacto)
+                        <a href="{{ route('contactos.show',$contacto->id) }}" class="link-light">
+                        <div class="d-flex flex-row align-items-center justify-content-between mb-2">
+                            <div class="d-flex flex-column">
+                                <div>{{$contacto->name.' '.$contacto->apellido}}</div>
+                            </div>
+                            <div class="d-flex">
+                                <span class="badge bg-outline-secondary">{{$contacto->status}}</span>
+                            </div>
+                        </div>
+                        </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Contactos recientes End -->
+
+        {{--<!-- Performance Start -->
+         <div class="col-xl-6 mb-5">
             <div class="d-flex">
                 <div class="dropdown-as-select me-3" data-setActive="false" data-childSelector="span">
                     <a class="pe-0 pt-0 align-top lh-1 dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
@@ -205,12 +229,12 @@ $description= 'Ecommerce Dashboard'
                 </div>
             </div>
         </div>
-        <!-- Performance End -->
+        <!-- Performance End -->--}}
     </div>
 
     <div class="row gx-4 gy-5">
         <!-- Top Selling Items Start -->
-        <div class="col-xl-6 mb-5">
+        <!-- <div class="col-xl-6 mb-5">
             <h2 class="small-title">Top Selling Items</h2>
             <div class="scroll-out mb-n2">
                 <div class="scroll-by-count" data-count="4">
@@ -311,35 +335,11 @@ $description= 'Ecommerce Dashboard'
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Top Selling Items End -->
-
-        <!-- Contactos recientes Start -->
-        <div class="col-xl-6 mb-5">
-            <h2 class="small-title">Contactos recientes</h2>
-            <div class="card sh-35 h-xl-100-card">
-                <div class="card-body scroll-out h-100">
-                    <div class="scroll h-100">
-                        @foreach($contactos as $contacto)
-                        <a href="{{ route('contactos.show',$contacto->id) }}" class="link-light">
-                        <div class="d-flex flex-row align-items-center justify-content-between mb-2">
-                            <div class="d-flex flex-column">
-                                <div>{{$contacto->name.' '.$contacto->apellido}}</div>
-                            </div>
-                            <div class="d-flex">
-                                <span class="badge bg-outline-secondary">{{$contacto->status}}</span>
-                            </div>
-                        </div>
-                        </a>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Contactos recientes End -->
     </div>
 
-    <div class="row">
+    {{--<div class="row">
         <div class="col-12 col-xxl">
             <div class="row">
                 <!-- Activity Start -->
@@ -811,7 +811,7 @@ $description= 'Ecommerce Dashboard'
             </div>
         </div>
         <!-- Tips End -->
-    </div>
+    </div>--}}
     @endhasrole
 
     @hasrole('Vendedor')

@@ -184,7 +184,7 @@ class ProductController extends Controller
             $productAmenities->save();
         }
 
-        return redirect()->route('product.index');
+        return redirect()->route('product.index')->with('success', 'La propiedad se ha guardado correctamente');
     }
 
     /**
@@ -225,7 +225,7 @@ class ProductController extends Controller
 
         $product->save();
 
-        return redirect()->route('product.index');
+        return redirect()->route('product.index')->with('success', 'La propiedad se ha actualizado correctamente');
     }
 
     /**
@@ -345,13 +345,13 @@ class ProductController extends Controller
     public function propiedadLista($tipo)
     {
         if ($tipo == 'all') {
-            $products = Product::paginate(12);
+            $products = Product::where('publicar', 1)->paginate(12);
         } elseif ($tipo == 'Alquiler') {
-            $products = Product::where('status', 'En alquiler')->paginate(12);
+            $products = Product::where('status', 'En alquiler')->where('publicar', 1)->paginate(12);
         } elseif ($tipo == 'Venta') {
-            $products = Product::where('status', 'En venta')->paginate(12);
+            $products = Product::where('status', 'En venta')->where('publicar', 1)->paginate(12);
         } elseif ($tipo == 'AlquilerT') {
-            $products = Product::where('status', 'En alquiler temporal')->paginate(12);
+            $products = Product::where('status', 'En alquiler temporal')->where('publicar', 1)->paginate(12);
         }
 
         $productFooter = Product::with(['media'])->get()->take(3);

@@ -159,6 +159,6 @@ class ContactoController extends Controller
 
         // Guardar el registro en la base de datos
         $contacto->save();
-        return redirect()->back()->with('success', "Mensaje enviado con exito. En breve recibira nuestra respuesta.");
+        return redirect()->back()->with('success', "Mensaje enviado.");
     }
 }
