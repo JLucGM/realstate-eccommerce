@@ -120,14 +120,22 @@ class HomeController extends Controller
         return view('/dashboard')->with('message', $message)
         ->with('contactos', $contactos)
         ->with('blogcount', $blogcount)
-        ->with('taskPcount', $taskPcount
-        )->with('taskcount', $taskcount)
+        ->with('taskPcount', $taskPcount)
+        ->with('taskcount', $taskcount)
         ->with('contactocount', $contactocount)
         ->with('user', $user)
         ->with('usercount', $usercount)
         ->with('product', $product)
         ->with('productcount', $productcount)
         ->with('setting', $setting);
+        // return view('customers.list');
+    }
+    public function footerIndex()
+    {
+        $settingFooter = SettingGeneral::first();
+
+        return view('frontend.footer')
+        ->with('settingFooter', $settingFooter);
         // return view('customers.list');
     }
     

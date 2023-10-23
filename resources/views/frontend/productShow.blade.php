@@ -335,39 +335,38 @@ Launch static backdrop modal{{ $image->id }}
   </div>
 
   <div class="col-lg-4 col-xs-12 ps-2 p-0 mb-3 ">
-    <div class="tab-container sticky-top bg-white border-0 shadow-sm rounded-4">
-      <div class="contents">
-        <div id="content1" class="content content-active">
-          <div class="row">
-            @if (isset($product->agente))
-            <div class="text-center mt-3">
-              <img src="$product->agente->image" alt="" class="w-50 rounded">
-              <h4>{{ $product->agente->user->name }}</h4>
-              <!-- <p class="text-primary mb-0">Agente</p> -->
-            </div>
-            @endif
+    <div class="container sticky-top">
+      <div class="bg-white border-0 shadow-sm rounded-4">
+        <div class="row">
+          @if (isset($product->agente))
+          <div class="text-center mt-3">
+            <img src="{{ asset('img/profile/' . $product->agente->user->avatar) }}" alt="{{$product->agente->user->avatar}}" class="w-50 rounded">
 
-            <div class="col-12 p-5 pt-2">
-              <!-- <hr>
+            <h4>{{ $product->agente->user->name }}</h4>
+            <!-- <p class="text-primary mb-0">Agente</p> -->
+          </div>
+          @endif
+
+          <div class="col-12 p-5 pt-2">
+            <!-- <hr>
                   <a href="#" class="btn btn-primary w-100 fw-bold mb-2">PROGRAMAR UNA
                     VISITA</a> -->
-              <form method="POST" action="{{ route('store.user-contacto') }}" role="form" enctype="multipart/form-data">
-                @csrf
-                <input type="text" class="form-control mb-2" name="name" placeholder="Nombre">
-                <input type="text" class="form-control mb-2" name="apellido" placeholder="Apellido">
-                <input type="text" class="form-control mb-2" name="email" placeholder="Correo">
-                <input type="text" class="form-control mb-2" name="telefono" placeholder="Telefono">
-                <textarea name="observaciones" id="" placeholder="Mensaje" rows="5" class="form-control mb-2"></textarea>
+            <form method="POST" action="{{ route('store.user-contacto') }}" role="form" enctype="multipart/form-data">
+              @csrf
+              <input type="text" class="form-control mb-2" name="name" placeholder="Nombre">
+              <input type="text" class="form-control mb-2" name="apellido" placeholder="Apellido">
+              <input type="text" class="form-control mb-2" name="email" placeholder="Correo">
+              <input type="text" class="form-control mb-2" name="telefono" placeholder="Telefono">
+              <textarea name="observaciones" id="" placeholder="Mensaje" rows="5" class="form-control mb-2"></textarea>
 
-                <input type="hidden" name="propiedad_id" value="{{ $product->id }}" class="form-control mb-2" required name="telefono" placeholder="Telefono">
-                @if (isset($product->agente))
-                <input type="hidden" name="agente_id" value="{{ $product->agente->user_id }}" class="form-control mb-2" required name="telefono" placeholder="Telefono">
-                @endif
+              <input type="hidden" name="propiedad_id" value="{{ $product->id }}" class="form-control mb-2" required name="telefono" placeholder="Telefono">
+              @if (isset($product->agente))
+              <input type="hidden" name="agente_id" value="{{ $product->agente->user_id }}" class="form-control mb-2" required name="telefono" placeholder="Telefono">
+              @endif
 
-                <button type="submit" class="btn btn-primary w-100 fw-bold">Enviar</button>
-              </form>
+              <button type="submit" class="btn btn-primary w-100 fw-bold">Enviar</button>
+            </form>
 
-            </div>
           </div>
         </div>
       </div>

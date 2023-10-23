@@ -294,131 +294,99 @@
                            <span class="label">Mensajes</span>
                        </a>
                    </li>
+               </ul>
+           </li>
 
-
-                   {{-- <li>
-                        <a href="{{route('subcat.index')}}">
-                   <span class="label">Sub categorias</span>
-                   </a>
-           </li> --}}
-           {{-- <li>
-                        <a href="{{route('cart.index')}}">
-           <span class="label">Carrito</span>
-           </a>
-           </li> --}}
-           {{-- <li>
-                        <a href="/Products/Detail">
-                            <span class="label">modelo</span>
-                        </a>
-                    </li> --}}
-       </ul>
-       </li>
-
-
-
-       {{-- <li>
-                <a href="#orders" data-href="/Orders/List">
-                    <i data-acorn-icon="cart" class="icon" data-acorn-size="18"></i>
-                    <span class="label">Orders</span>
-                </a>
-                <ul id="orders">
-                    <li>
-                        <a href="/Orders/List">
-                            <span class="label">List</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/Orders/Detail">
-                            <span class="label">Detail</span>
-                        </a>
-                    </li>
-                </ul>
-            </li> --}}
-       <li>
-           <a href="{{route('notification.list')}}">
-               <i data-acorn-icon="bell" class="icon" data-acorn-size="18"></i>
-               <span class="label">Notificaciones</span>
-           </a>
-       </li>
-
-       <li>
-           <a href="{{route('posts.index')}}">
-               <i data-acorn-icon="book" class="icon" data-acorn-size="18"></i>
-               <span class="label">Blog</span>
-           </a>
-       </li>
-       @hasrole('super Admin')
-
-
-
-       <li>
-           <a href="#storefront" data-href="/Storefront/Home">
-               <i data-acorn-icon="screen" class="icon" data-acorn-size="18"></i>
-               <span class="label">Configuraciones</span>
-           </a>
-           <ul id="storefront">
-               {{-- <li>
-                        <a href="{{route('paymentGateway.index')}}">
-               <span class="label">Metodos de pago</span>
+           {{--<li>
+               <a href="{{route('notification.list')}}">
+                   <i data-acorn-icon="bell" class="icon" data-acorn-size="18"></i>
+                   <span class="label">Notificaciones</span>
                </a>
-       </li> --}}
-       {{-- <li>
-                        <a href="{{route('seo.index')}}">
-       <span class="label">SEO</span>
-       </a>
-       </li>
-       <li>
-           <a href="{{route('spop.index')}}">
-               <span class="label">POPUP Inicial</span>
-           </a>
-       </li>--}}
-       <li>
-           <a href="{{route('paises.index')}}">
-               <span class="label">Paises</span>
-           </a>
-       </li>
-       <li>
-           <a href="{{route('city.index')}}">
-               <span class="label">Ciudades</span>
-           </a>
-       </li>
-       <li>
-           <a href="{{route('estados.index')}}">
-               <span class="label">Estado</span>
-           </a>
-       </li>
+           </li>--}}
 
-       <li>
-           <a href="{{route('slides.index')}}">
-               <span class="label">Slide Principal</span>
-           </a>
-       </li>
+           <li>
+               <a href="{{route('posts.index')}}">
+                   <i data-acorn-icon="book" class="icon" data-acorn-size="18"></i>
+                   <span class="label">Blog</span>
+               </a>
+           </li>
+           <li>
+               <a href="#location" data-href="{{route('product.index')}}">
+                   <i class="fa-regular fa-map icon" data-acorn-size="18"></i>
+                   <span class="label">Locaciones</span>
+               </a>
+               <ul id="location">
+                   <li>
+                       <a href="{{route('paises.index')}}">
+                           <span class="label">Paises</span>
+                       </a>
+                   </li>
+                   <li>
+                       <a href="{{route('estados.index')}}">
+                           <span class="label">Estado</span>
+                       </a>
+                   </li>
+                   <li>
+                       <a href="{{route('city.index')}}">
+                           <span class="label">Ciudades</span>
+                       </a>
+                   </li>
+               </ul>
+           </li>
+           @hasrole('super Admin')
+           <li>
+               <a href="#storefront" data-href="/Storefront/Home">
+                   <i data-acorn-icon="screen" class="icon" data-acorn-size="18"></i>
+                   <span class="label">Configuraciones</span>
+               </a>
+               <ul id="storefront">
+                   {{-- <li>
+                        <a href="{{route('paymentGateway.index')}}">
+                   <span class="label">Metodos de pago</span>
+                   </a>
+           </li>
+           <li>
+               <a href="{{route('seo.index')}}">
+                   <span class="label">SEO</span>
+               </a>
+           </li>
+           <li>
+               <a href="{{route('spop.index')}}">
+                   <span class="label">POPUP Inicial</span>
+               </a>
+           </li>--}}
+           <li>
+               <a href="{{route('setting-generals.index')}}">
+                   <span class="label">Generales</span>
+               </a>
+           </li>
+           <li>
+               <a href="{{route('slides.index')}}">
+                   <span class="label">Slide Principal</span>
+               </a>
+           </li>
 
-       <li>
-           <a href="{{route('info-webs.index')}}">
-               <span class="label">Info Principal</span>
-           </a>
-       </li>
+           <li>
+               <a href="{{route('info-webs.index')}}">
+                   <span class="label">Información Principal</span>
+               </a>
+           </li>
 
-       <li>
-           <a href="{{route('testimonios.index')}}">
-               <span class="label">Testimonios</span>
-           </a>
-       </li>
+           <li>
+               <a href="{{route('testimonios.index')}}">
+                   <span class="label">Testimonios</span>
+               </a>
+           </li>
 
-       <li>
-           <a href="{{route('amenities-checks.index')}}">
-               <span class="label">Comodidades</span>
-           </a>
-       </li>
+           <li>
+               <a href="{{route('amenities-checks.index')}}">
+                   <span class="label">Comodidades</span>
+               </a>
+           </li>
 
 
 
-       <li>
-           <a href="{{route('setting-generals.index')}}">
-               <span class="label">Configuraciones Generales</span>
-           </a>
-       </li>
+
        </ul>
        </li>
 

@@ -50,7 +50,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <a class="btn" href="{{ route('home') }}">
-          <img src="{{ asset('image/' . $setting->logo_empresa) }}" alt="" class="logo" width="60px" height="auto" />
+          <img src="{{ asset('image/' . $setting->logo_empresa) }}" alt="{{$setting->name}}" class="logo" width="60px" height="auto" />
         </a>
         <ul class="navbar-nav ms-auto mt-2 pb-2 mb-lg-0">
           <li class="nav-item " style="margin-left: 25px;">

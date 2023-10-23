@@ -33,7 +33,22 @@ class SettingGeneral extends Model
      *
      * @var array
      */
-    protected $fillable = ['moneda','logo_empresa','status_section_one','status_section_two','status_section_three','link_facebook','link_instagram','link_youtube'];
+    protected $fillable = [
+      'name',
+      'moneda',
+      'logo_empresa',
+      'status_section_one',
+      'status_section_two',
+      'status_section_three',
+      'telefono',
+      'direccion',
+      'email',
+      'description',
+      'facebook',
+      'twitter',
+      'instagram',
+      'linkedin',
+    ];
 
 
     public function monedaSetting()
