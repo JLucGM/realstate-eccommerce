@@ -1,6 +1,6 @@
 @php
 $html_tag_data = [];
-$title = 'Lista de productos';
+$title = 'FAQS';
 $description= 'Ecommerce Product List Page'
 @endphp
 @extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])
@@ -12,8 +12,6 @@ $description= 'Ecommerce Product List Page'
 @endsection
 
 @section('js_page')
-<script src="/js/cs/checkall.js"></script>
-<script src="/js/pages/products.list.js"></script>
 @endsection
 
 @section('content')
@@ -22,15 +20,12 @@ $description= 'Ecommerce Product List Page'
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-
-                    <h2>{{$title}}</h2>
-
+                    <h2>{{ $title }}</h2>
                     <div class="">
-                        <a href="{{ route('paises.create') }}" class="btn btn-primary btn-sm">
-                            {{ "Agregar Nuevo"}}
+                        <a href="{{ route('faqs.create') }}" class="btn btn-primary btn-sm ">
+                            Agregar Nuevo
                         </a>
                     </div>
-
                 </div>
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success">
@@ -43,31 +38,31 @@ $description= 'Ecommerce Product List Page'
                         <table class="table table-striped table-hover">
                             <thead class="thead">
                                 <tr>
+                                    <th>No</th>
 
-                                    <th>Nombre</th>
+                                    <th>Preguntas</th>
+                                    <th>Respuestas</th>
+                                    <th>Status</th>
 
-                                    <th>
-                                        <p class="float-end mb-0">Acciones</p>
-                                    </th>
-
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($paises as $pais)
+                                @foreach ($faqs as $faq)
                                 <tr>
+                                    <td>{{ ++$i }}</td>
 
-                                    <td>{{ $pais->name }}</td>
+                                    <td>{{ $faq->question }}</td>
+                                    <td>{{ $faq->answer }}</td>
+                                    <td>{{ $faq->status }}</td>
 
-
-
-                                    <td class="text-end">
-                                        <form action="{{ route('paises.destroy',$pais->id) }}" method="POST">
-                                            {{--<a class="btn btn-sm btn-primary " href="{{ route('paises.show',$pais->id) }}"><i data-acorn-icon="eye" class="icon" data-acorn-size="10"></i></a>--}}
-                                            <a class="btn btn-sm btn-success" href="{{ route('paises.edit',$pais->id) }}"><i data-acorn-icon="edit" class="icon" data-acorn-size="10"></i></a>
-
+                                    <td>
+                                        <form action="{{ route('faqs.destroy',$faq->id) }}" method="POST">
+                                            {{--<a class="btn btn-sm btn-primary " href="{{ route('faqs.show',$faq->id) }}"><i class="fa fa-fw fa-eye"></i></a>--}}
+                                            <a class="btn btn-sm btn-success" href="{{ route('faqs.edit',$faq->id) }}"><i class="fa fa-fw fa-edit"></i></a>
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm"><i data-acorn-icon="bin" class="icon" data-acorn-size="10"></i></button>
+                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>
@@ -77,7 +72,7 @@ $description= 'Ecommerce Product List Page'
                     </div>
                 </div>
             </div>
-            {{--!! $paises->links() !!--}}
+            {!! $faqs->links() !!}
         </div>
     </div>
 </div>

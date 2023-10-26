@@ -11,6 +11,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\EstadoController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\PaisController;
 use App\Http\Controllers\ProductController;
 use App\Models\Ciudades;
@@ -88,7 +89,7 @@ Route::group(['middleware' => ['cors']], function () {
 
     Route::get('propiedadesAll', [App\Http\Controllers\ProductController::class, 'propiedadMapsAll'])->name('propiedadesMaps');
 
-    Route::post('buscarPropiedad', [App\Http\Controllers\ProductController::class, 'buscarPropiedad'])->name('buscarPropiedad');
+    Route::get('properties', [App\Http\Controllers\ProductController::class, 'buscarPropiedad'])->name('buscarPropiedad');
 
     // Notification
     Route::group(['middleware' => 'auth'], function () {
@@ -255,3 +256,10 @@ Route::resource('estados', EstadoController::class);
 // Ruta de selec dinamico estado y ciudad
 Route::get('/pais/{id}/estado', [App\Http\Controllers\ProductController::class, 'byEstado']);
 Route::get('/estado/{id}/ciudad', [App\Http\Controllers\ProductController::class, 'byEstadoCiudad']);
+
+Route::resource('faqs', FaqController::class);
+
+Route::get('faq', [App\Http\Controllers\HomeController::class, 'faq'])->name('faq.show');
+
+// Ruta de prueba, para enviar info de settingGeneral al login, BORRAR SI FALLA EL LOGIN
+Route::get('login', [App\Http\Controllers\HomeController::class, 'login'])->name('login');

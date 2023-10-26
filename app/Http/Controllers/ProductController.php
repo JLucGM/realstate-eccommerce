@@ -425,25 +425,24 @@ class ProductController extends Controller
             $productsSearch->where('price', '<=', $precio);
         }
     
-        $productsSearch = $productsSearch->get();
-
-        $products = Product::with(['media'])->get();
+        $productsSearchMap = $productsSearch->get();
+        $productsSearch = $productsSearch->paginate(12);
+        
+        $products = Product::with(['media'])->paginate(12);
         $productFooter = Product::with(['media'])->get()->take(3);
         $tipoPropiedad = TipoPropiedad::get()->take(7);
         $tipoAll = TipoPropiedad::all()->pluck('nombre', 'id');
+        $paises = Paises::all();
 
         $setting = SettingGeneral::first();
-        $max = Product::max('price');
-        $min = Product::min('price');
 
         return view('frontend.searchPropiedad')->with('productsSearch', $productsSearch)
             ->with('products', $products)
             ->with('productFooter', $productFooter)
             ->with('tipoPropiedad', $tipoPropiedad)
             ->with('setting', $setting)
-            ->with('max', $max)
-            ->with('min', $min)
-
+            ->with('paises', $paises)
+            ->with('productsSearchMap', $productsSearchMap)
             ->with('tipoAll', $tipoAll);
     }
 

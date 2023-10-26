@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-4 mb-3">
           <a class="btn" href="{{ route('home') }}">
-            <img src="{{ asset('image/' . $setting->logo_empresa) }}" alt="{{$setting->name}}" class="logo" width="60px" height="auto" />
+            <img src="{{ asset('image/' . $setting->logo_empresa) }}" alt="{{$setting->name}}" class="logo" width="50px" height="auto" />
           </a>
           <p>{{$setting->description}}</p>
 
@@ -25,7 +25,7 @@
             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Nosotros</a></li>
             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Servicios</a></li>
             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
+            <li class="nav-item mb-2"><a href="{{ route('faq.show') }}" class="nav-link p-0 text-body-secondary">FAQs</a></li>
             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
           </ul>
         </div>

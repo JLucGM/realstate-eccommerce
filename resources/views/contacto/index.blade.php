@@ -21,18 +21,16 @@ $description= 'Ecommerce Product List Page'
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
-                <div class="card-header">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="card-header d-flex justify-content-between">
 
-                        <span id="card_title">
-                            <h2>Lista de Contactos</h2>
-                        </span>
+                    <span id="card_title">
+                        <h2>Lista de Contactos</h2>
+                    </span>
 
-                        <div class="float-right">
-                            <a href="{{ route('contactos.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
-                                {{ "Agregar Nuevo"}}
-                            </a>
-                        </div>
+                    <div class="">
+                        <a href="{{ route('contactos.create') }}" class="btn btn-primary btn-sm">
+                            {{ "Agregar Nuevo"}}
+                        </a>
                     </div>
                 </div>
                 @if ($message = Session::get('success'))

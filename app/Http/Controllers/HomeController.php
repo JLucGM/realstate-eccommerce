@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ciudades;
 use App\Models\Contacto;
 use App\Models\Estado;
+use App\Models\Faq;
 use Illuminate\Http\Request;
 use  App\Models\Product;
 use  App\Models\Slide;
@@ -138,5 +139,28 @@ class HomeController extends Controller
         ->with('settingFooter', $settingFooter);
         // return view('customers.list');
     }
+
+    public function faq()
+    {
+        $faqs = Faq::all()->where('status', 'Publicar');
+        $setting = SettingGeneral::first();
+
+        return view('frontend.faq')
+        ->with('faqs', $faqs)
+        ->with('setting', $setting);
+
+    }
+
+    public function login()
+    {
+        $faqs = Faq::all()->where('status', 'Publicar');
+        $setting = SettingGeneral::first();
+
+        return view('auth.login')
+        ->with('faqs', $faqs)
+        ->with('setting', $setting);
+
+    }
+    
     
 }

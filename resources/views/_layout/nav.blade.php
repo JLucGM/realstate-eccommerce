@@ -311,6 +311,12 @@
                </a>
            </li>
            <li>
+               <a href="{{route('faqs.index')}}">
+               <i class="fa-regular fa-circle-question icon" data-acorn-size="18"></i>
+                   <span class="label">FAQS</span>
+               </a>
+           </li>
+           <li>
                <a href="#location" data-href="{{route('product.index')}}">
                    <i class="fa-regular fa-map icon" data-acorn-size="18"></i>
                    <span class="label">Locaciones</span>

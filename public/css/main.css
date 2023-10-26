@@ -1,5 +1,7 @@
  /* This file is reserved for overriding and extending the template styles. */
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap"); */
+
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Montserrat:wght@100;600;700&display=swap');
 
 .fondofooter {
     background: #001A33;
@@ -32,8 +34,9 @@ h3,
 h4,
 h5,
 h6,
-p {
-    font-family: "Nunito Sans", Sans-serif;
+p,
+a, label,button,td {
+    font-family: "League Spartan", Sans-serif!important;
 }
 
 .fs-7 {
@@ -149,12 +152,13 @@ p {
   .banner {
     position: relative;
     width: 100%;
-    min-height: 386px;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../img/team2.jpg);
+    min-height: 420px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(../img/banner-propertie2.png);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
     /* filter: brightness(80%); */
+    border-bottom: 15px!important;
   }
 
   .capacontacto {

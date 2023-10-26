@@ -2,7 +2,7 @@
 
 @php
     $title = 'Login Page';
-    $description = 'Login Page'
+    $description = 'Inicio de sesión'
 @endphp
 @extends('layout_full',['title'=>$title, 'description'=>$description])
 @section('css')
@@ -18,21 +18,24 @@
 @endsection
 
 @section('content_left')
-    <!-- <div class="min-h-100 d-flex align-items-center">
-        <div class="w-100 w-lg-75 w-xxl-50">
+    <div class="min-h-100 d-flex align-items-end">
+        <div class="w-100 w-lg-100 w-xxl-50">
             <div>
                 <div class="mb-5">
-                    <h1 class="display-3 text-white">Inmobiliaria</h1>
+                <a class="display-3 link-light link-underline link-underline-opacity-0 text-decoration-none" href="https://softandnet.com" target="_blank">Softandnet.</a>
+                    <!-- <h1 class="display-3 text-body">Softandnet</h1> -->
+                    <p class="link-light mb-0">© 2023 <a class="link-light link-underline link-underline-opacity-0 text-decoration-none" href="https://softandnet.com" target="_blank">Softandnet.</a> All right reserved.</p>
+
                 </div>
-                <p class="h6 text-white lh-1-5 mb-5">
+                <!-- <p class="h6 text-white lh-1-5 mb-5">
                    El Mejor sitio de la web para gesitinar la venta , alquiler de tu propiedad
                 </p>
                 <div class="mb-5">
                     <a class="btn btn-lg btn-outline-white" href="/">Inicio</a>
-                </div>
+                </div> -->
             </div>
         </div>
-    </div> -->
+    </div>
 @endsection
 
 @section('content_right')
@@ -40,16 +43,15 @@
         <div class="sw-lg-50 px-">
             <div class="sh-11">
                 <a href="/">
-                           <img src="./img/logo.jpeg" alt="" class="logo" width="20%" height="auto" />
-
+                <img src="{{ asset('image/' . $setting->logo_empresa) }}" alt="{{$setting->name}}" class="" width="80px" height="auto" />
                 </a>
             </div>
             <div class="mb-5">
-                <h2 class="cta-1 mb-0 text-primary">Bienvenido,</h2>
-                <h2 class="cta-1 text-primary">Empecemos!</h2>
+                <h2 class="cta-1 mb-0 text-primary">Bienvenido a,</h2>
+                <h2 class="cta-1 text-primary">{{$setting->name}}</h2>
             </div>
             <div class="mb-5">
-                <p class="h6">Utilice sus credenciales para iniciar sesión.</p>
+                <p class="h6">Utilice sus datos para iniciar sesión.</p>
                
             </div>
             <div>
@@ -69,7 +71,7 @@
                         <input  placeholder="Password" /        id="password" type="password" class="form-control pe-7 @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                         @if (Route::has('password.request'))
 
-                        <a class="text-small position-absolute t-3 e-3" href="{{ route('password.request') }}">olvidó?</a>
+                        <a class="text-small position-absolute t-3 e-3" href="{{ route('password.request') }}">¿Olvidaste tu contraseña?</a>
                                 @endif
 
                         @error('password')
@@ -78,7 +80,7 @@
                         </span>
                     @enderror
                     </div>
-                    <button type="submit" class="btn btn-lg btn-primary">Login</button>
+                    <button type="submit" class="btn btn-lg btn-primary">Inicio de sesión</button>
                 </form>
             </div>
         </div>

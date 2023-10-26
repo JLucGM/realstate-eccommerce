@@ -33,7 +33,7 @@ $description= $title
 </div>
 
 <div class="col-9 mx-auto p-3">
-  <form method="POST" action="{{ route('buscarPropiedad') }}" id="rentar" name="rentar" role="form" enctype="multipart/form-data">
+  <form method="GET" action="{{ route('buscarPropiedad') }}" id="rentar" name="rentar" role="form" enctype="multipart/form-data">
     @csrf
     <div class="row">
       <div class="col-4 col-md-2 mb-3">
@@ -213,32 +213,32 @@ $description= $title
   </div>
   <div class="row py-4">
     <div class="col-sm-12 col-lg-3 ">
-      <i class="{{ $info->icon_first }} fs-1 mb-5"></i>
-      <h2>{{ $info->title_first }}</h2>
+      <i class="{{ $info->icon_first }} fs-1 p-0 m-0"></i>
+      <h2 class="mt-5">{{ $info->title_first }}</h2>
       <p>
         {{ $info->sell_home }}
       </p>
     </div>
 
     <div class="col-sm-12 col-lg-3 ">
-      <i class="{{ $info->icon_second }} fs-1 mb-5"></i>
-      <h2>{{ $info->title_second  }}</h2>
+      <i class="{{ $info->icon_second }} fs-1 p-0 m-0"></i>
+      <h2 class="mt-5">{{ $info->title_second  }}</h2>
       <p>
         {{ $info->rent_home }}
       </p>
     </div>
 
     <div class="col-sm-12 col-lg-3 ">
-      <i class="{{ $info->icon_thrid }} fs-1 mb-5"></i>
-      <h2>{{ $info->title_thrid  }}</h2>
+      <i class="{{ $info->icon_thrid }} fs-1 p-0 m-0"></i>
+      <h2 class="mt-5">{{ $info->title_thrid  }}</h2>
       <p>
         {{ $info->buy_home }}
       </p>
     </div>
 
     <div class="col-sm-12 col-lg-3 ">
-      <i class="{{ $info->icon_fourth }} fs-1 mb-5"></i>
-      <h2>{{ $info->title_fourth  }}</h2>
+      <i class="{{ $info->icon_fourth }} fs-1 p-0 m-0"></i>
+      <h2 class="mt-5">{{ $info->title_fourth  }}</h2>
       <p>
         {{ $info->marketing_free }}
       </p>

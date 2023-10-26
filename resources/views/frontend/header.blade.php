@@ -75,6 +75,11 @@
               Blog
             </a>
           </li>
+          <li class="nav-item">
+            <a class="btn nav-link " href="{{ route('faq.show') }}">
+              FAQ
+            </a>
+          </li>
 
           <li class="nav-item">
             <a class="btn nav-link " href="{{ route('contactacto.web') }}">
