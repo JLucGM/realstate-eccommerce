@@ -20,7 +20,7 @@ class Product extends Model implements HasMedia
         'name',
      'price',
      'status',
-     'category',
+    //  'category',
      'description',
      'details',
      'portada',

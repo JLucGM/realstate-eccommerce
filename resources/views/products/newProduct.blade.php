@@ -84,7 +84,7 @@ $description= $title
                     <!--</div> -->
 
 
-                    <div class="col-12 col-md-3">
+                    {{--<div class="col-12 col-md-3">
                         <label class="form-label">Categoria</label>
                         <!-- <input class="form-control" type="text" list="categoria" name="category" placeholder="categoria"> -->
                         <select class="form-control" name="category" id="categoria">
@@ -92,9 +92,9 @@ $description= $title
                             <option value="{{$ca->id}}">{{ $ca->name }}</option>
                             @endforeach
                         </select>
-                    </div>
+                    </div>--}}
 
-                    <div class="col-12 col-md-3">
+                    <div class="col-12 col-md-6">
                         <label class="form-label">Precio</label>
                         <input class="form-control" type="number" name="price" value="" placeholder="Precio" required>
                     </div>
@@ -117,7 +117,7 @@ $description= $title
                     @endhasrole
 
                     <div class="col-12 col-md-3">
-                        <label class="form-label">Publicar el precio</label>
+                        <label class="form-label">Publicar la propiedad</label>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" role="switch" name="publicar" value="1" id="flexSwitchCheckDefault">
                             <label class="form-check-label" for="flexSwitchCheckDefault">Si</label>

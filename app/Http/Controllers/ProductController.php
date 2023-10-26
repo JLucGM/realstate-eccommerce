@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\Categorias;
+// use App\Models\Categorias;
 use App\Models\TipoPropiedad;
-use App\Models\Sub_categorias;
+// use App\Models\Sub_categorias;
 use App\Models\Monedas;
 use App\Models\User;
 use App\Models\PropiedadAgente;
@@ -83,8 +83,8 @@ class ProductController extends Controller
 
     public function newProduct()
     {
-        $categorias = Categorias::all();
-        $subcat = Sub_categorias::all();
+        // $categorias = Categorias::all();
+        // $subcat = Sub_categorias::all();
         $tipoPropiedad = TipoPropiedad::all();
         $monedas = Monedas::all();
         $amenities = Amenities::all();
@@ -100,7 +100,7 @@ class ProductController extends Controller
         return view('products.newProduct')->with('message', $message)
             ->with('amenities', $amenities)
             ->with('amenitiesCheck', $amenitiesCheck)
-            ->with('categorias', $categorias)
+            // ->with('categorias', $categorias)
             ->with('paises', $paises)
             ->with('SettingGeneral', $SettingGeneral)
             ->with('tipoPropiedad', $tipoPropiedad)
@@ -237,7 +237,7 @@ class ProductController extends Controller
     public function productEdit($id)
     {
         $product = Product::find($id);
-        $categorias = Categorias::all();
+        // // $categorias = Categorias::all();
         $images = json_decode($product->image);
         $tipoPropiedad = TipoPropiedad::all();
         $asignado = User::whereHas("roles", function ($q) {
@@ -246,7 +246,7 @@ class ProductController extends Controller
 
         $message = "";
 
-        return view('products.detail')->with('product', $product)->with('categorias', $categorias)->with('message', $message)->with('images', $images)->with('tipoPropiedad', $tipoPropiedad)->with('asignado', $asignado);
+        // // return view('products.detail')->with('product', $product)->with('categorias', $categorias)->with('message', $message)->with('images', $images)->with('tipoPropiedad', $tipoPropiedad)->with('asignado', $asignado);
     }
 
     public function productJsonImages(Request $request, $id)
@@ -255,7 +255,7 @@ class ProductController extends Controller
         $images = json_decode($product->image, false);
 
 
-        $categorias = Categorias::all();
+        // // $categorias = Categorias::all();
         if ($request->hasFile('portada')) {
             $image = $request->file('portada');
             $nombreImagen = $image->getClientOriginalName();
@@ -267,9 +267,9 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             //     $message = "No seleccionaste ningun archivo";
             //     $product = Product::find($id);
-            //     $categorias = Categorias::all();
+                // $categorias = Categorias::all();
             //     // $product->image = json_decode($product->image);
-            //     return view('products.detail')->with('product', $product)->with('categorias', $categorias)->with('message', $message);
+                // return view('products.detail')->with('product', $product)->with('categorias', $categorias)->with('message', $message);
             // } else {
             $array = [];
             $file = $request->file('image');
@@ -314,8 +314,8 @@ class ProductController extends Controller
 
         $message = "Exito al subir Archivos";
 
-        // return view('products.detail')->with('product', $product)->with('categorias', $categorias)->with('message', $message)->with('images', $images);
-        return redirect()->route('product.edit', ['id' => $product->id])->with('product', $product)->with('categorias', $categorias)->with('message', $message)->with('images', $images);
+        return view('products.detail')->with('product', $product)->with('message', $message)->with('images', $images);
+        // // return redirect()->route('product.edit', ['id' => $product->id])->with('product', $product)->with('categorias', $categorias)->with('message', $message)->with('images', $images);
     }
 
 

@@ -27,77 +27,9 @@
            @if (auth()->check())
 
            <div class="dropdown-menu dropdown-menu-end user-menu wide">
-               {{-- <div class="row mb-3 ms-0 me-0">
-                <div class="col-12 ps-1 mb-2">
-                    <div class="text-extra-small text-primary">ACCOUNT</div>
-                </div>
-                <div class="col-6 ps-1 pe-1">
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#">User Info</a>
-                        </li>
-                        <li>
-                            <a href="#">Preferences</a>
-                        </li>
-                        <li>
-                            <a href="#">Calendar</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-6 pe-1 ps-1">
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#">Security</a>
-                        </li>
-                        <li>
-                            <a href="#">Billing</a>
-                        </li>
-                    </ul>
-                </div>
-            </div> --}}
-               {{-- <div class="row mb-1 ms-0 me-0">
-                <div class="col-12 p-1 mb-2 pt-2">
-                    <div class="text-extra-small text-primary">APPLICATION</div>
-                </div>
-                <div class="col-6 ps-1 pe-1">
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#">Themes</a>
-                        </li>
-                        <li>
-                            <a href="#">Language</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-6 pe-1 ps-1">
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#">Devices</a>
-                        </li>
-                        <li>
-                            <a href="#">Storage</a>
-                        </li>
-                    </ul>
-                </div>
-            </div> --}}
                <div class="row mb-1 ms-0 me-0">
-                   {{-- <div class="col-12 p-1 mb-3 pt-3">
-                    <div class="separator-light"></div>
-                </div> --}}
                    <div class="col-6 ps-1 pe-1">
                        <ul class="list-unstyled">
-                           {{-- <li>
-                            <a href="#">
-                                <i data-acorn-icon="help" class="me-2" data-acorn-size="17"></i>
-                                <span class="align-middle">Help</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i data-acorn-icon="file-text" class="me-2" data-acorn-size="17"></i>
-                                <span class="align-middle">Docs</span>
-                            </a>
-                        </li> --}}
                            <li>
                                <a href="/">
                                    <i data-acorn-icon="gear" class="me-2" data-acorn-size="17"></i>
@@ -114,12 +46,6 @@
                    </div>
                    <div class="col-6 pe-1 ps-1">
                        <ul class="list-unstyled">
-                           {{-- <li>
-                            <a href="/">
-                                <i data-acorn-icon="gear" class="me-2" data-acorn-size="17"></i>
-                                <span class="align-middle">Pantalla de Inicio</span>
-                            </a>
-                        </li> --}}
                            <li>
                                <a href="{{route('login.destroy')}}">
                                    <i data-acorn-icon="logout" class="me-2" data-acorn-size="17"></i>
@@ -155,13 +81,8 @@
            <li class="list-inline-item">
                <a href="#" data-bs-toggle="dropdown" data-bs-target="#notifications" aria-haspopup="true" aria-expanded="false" class="notification-button">
                    <div class="position-relative d-inline-flex">
-                       <i data-acorn-icon="bell" data-acorn-size="18">
-                       </i>
+                       <i data-acorn-icon="bell" data-acorn-size="18"></i>
                        <span class="mx-2 position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info"> {{ count(auth()->user()->unreadNotifications) }}</span>
-
-
-
-
                    </div>
                </a>
                <div class="dropdown-menu dropdown-menu-end wide notification-dropdown scroll-out" id="notifications">
@@ -173,8 +94,6 @@
 
                            @forelse(auth()->user()->unreadNotifications as $notification)
                            <li>
-
-
 
                            <li class="mb-3 pb-3 border-bottom border-separator-light d-flex">
                                <img src="/img/profile/profile-1.webp" class="me-3 sw-4 sh-4 rounded-xl align-self-center" alt="..." />
@@ -259,15 +178,6 @@
                            <span class="label">Lista</span>
                        </a>
                    </li>
-
-                   @hasrole('super Admin')
-                   <li>
-                       <a href="{{route('cat.index')}}">
-                           <span class="label">Categorias</span>
-                       </a>
-                   </li>
-                   @endhasrole
-
                </ul>
            </li>
 
@@ -277,7 +187,6 @@
                    <span class="label">CRM</span>
                </a>
                <ul id="crm">
-
 
                    <li>
                        <a href="{{route('negocios.index')}}">
@@ -297,22 +206,32 @@
                </ul>
            </li>
 
-           {{--<li>
-               <a href="{{route('notification.list')}}">
-                   <i data-acorn-icon="bell" class="icon" data-acorn-size="18"></i>
-                   <span class="label">Notificaciones</span>
-               </a>
-           </li>--}}
-
            <li>
-               <a href="{{route('posts.index')}}">
-                   <i data-acorn-icon="book" class="icon" data-acorn-size="18"></i>
+               <a href="#blog" data-href="{{route('user.index')}}">
+                   <i data-acorn-icon="user" class="icon" data-acorn-size="18"></i>
                    <span class="label">Blog</span>
                </a>
+               <ul id="blog">
+                   @hasrole('super Admin')
+                   <li>
+                       <a href="{{route('posts.index')}}">
+                           <span class="label">Post</span>
+                       </a>
+                   </li>
+                   @endhasrole
+                   @hasrole('super Admin')
+                   <li>
+                       <a href="{{route('cat.index')}}">
+                           <span class="label">Categorias</span>
+                       </a>
+                   </li>
+                   @endhasrole
+
+               </ul>
            </li>
            <li>
                <a href="{{route('faqs.index')}}">
-               <i class="fa-regular fa-circle-question icon" data-acorn-size="18"></i>
+                   <i class="fa-regular fa-circle-question icon" data-acorn-size="18"></i>
                    <span class="label">FAQS</span>
                </a>
            </li>
@@ -346,87 +265,42 @@
                    <span class="label">Configuraciones</span>
                </a>
                <ul id="storefront">
-                   {{-- <li>
-                        <a href="{{route('paymentGateway.index')}}">
-                   <span class="label">Metodos de pago</span>
-                   </a>
-           </li>
-           <li>
-               <a href="{{route('seo.index')}}">
-                   <span class="label">SEO</span>
-               </a>
-           </li>
-           <li>
-               <a href="{{route('spop.index')}}">
-                   <span class="label">POPUP Inicial</span>
-               </a>
-           </li>--}}
-           <li>
-               <a href="{{route('setting-generals.index')}}">
-                   <span class="label">Generales</span>
-               </a>
-           </li>
-           <li>
-               <a href="{{route('slides.index')}}">
-                   <span class="label">Slide Principal</span>
-               </a>
-           </li>
+                   <li>
+                       <a href="{{route('setting-generals.index')}}">
+                           <span class="label">Generales</span>
+                       </a>
+                   </li>
+                   <li>
+                       <a href="{{route('slides.index')}}">
+                           <span class="label">Slide Principal</span>
+                       </a>
+                   </li>
 
-           <li>
-               <a href="{{route('info-webs.index')}}">
-                   <span class="label">Información Principal</span>
-               </a>
-           </li>
+                   <li>
+                       <a href="{{route('info-webs.index')}}">
+                           <span class="label">Información Principal</span>
+                       </a>
+                   </li>
 
-           <li>
-               <a href="{{route('testimonios.index')}}">
-                   <span class="label">Testimonios</span>
-               </a>
+                   <li>
+                       <a href="{{route('testimonios.index')}}">
+                           <span class="label">Testimonios</span>
+                       </a>
+                   </li>
+
+                   <li>
+                       <a href="{{route('amenities-checks.index')}}">
+                           <span class="label">Comodidades</span>
+                       </a>
+                   </li>
+
+
+
+
+               </ul>
            </li>
 
-           <li>
-               <a href="{{route('amenities-checks.index')}}">
-                   <span class="label">Comodidades</span>
-               </a>
-           </li>
-
-
-
-
-       </ul>
-       </li>
-
-       @endhasrole
-       {{-- <li>
-                <a href="/Shipping">
-                    <i data-acorn-icon="shipping" class="icon" data-acorn-size="18"></i>
-                    <span class="label">Shipping</span>
-                </a>
-            </li>
-            <li>
-                <a href="/Discount">
-                    <i data-acorn-icon="tag" class="icon" data-acorn-size="18"></i>
-                    <span class="label">Discount</span>
-                </a>
-            </li>
-            <li>
-                <a href="/Settings">
-                    <i data-acorn-icon="gear" class="icon" data-acorn-size="18"></i>
-                    <span class="label">Settings</span>
-                </a>
-            </li> --}}
-       {{-- <li>
-                <a href="{{route('login.destroy')}}">
-       <i data-acorn-icon="gear" class="icon" data-acorn-size="18"></i>
-       <span class="label">Cerrar sesión</span>
-       </a>
-       </li> --}}
-       {{-- <li>
-                <a href="/">
-                    <i data-acorn-icon="gear" class="icon" data-acorn-size="18"></i>
-                    <span class="label">Pantalla principal</span>
-                </a>
-            </li> --}}
+           @endhasrole
        </ul>
    </div>
    <!-- Menu End -->

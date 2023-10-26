@@ -91,7 +91,7 @@
         {{--<a href="{{ route('propiedad.anunciar') }}" class="btn btn-outline-primary">Publicar</a>--}}
         @if(auth()->check())
         <!-- Mostrar ciertas cosas si el usuario está logueado -->
-        <a href="{{route('Dashboard')}}" class="btn btn-primary ms-1 rounded-pill">Panel</a>
+        <a href="{{route('Dashboard')}}" class="btn btn-outline-primary ms-1 rounded-pill">Panel</a>
         @else
         <!-- Mostrar otras cosas si el usuario no está logueado -->
         <a href="{{route('login')}}" class="btn ms-1 nav-link"><i class="fa-regular fa-circle-user fs-4"></i></a>
