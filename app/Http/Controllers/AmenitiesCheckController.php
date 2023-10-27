@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AmenitiesCheck;
 use App\Models\Amenities;
-
+use App\Models\AmenitiesCheck;
 use Illuminate\Http\Request;
 
-use App\Http\Requests\StoreAmenitiesCheckRequest;
-use App\Http\Requests\UpdateAmenitiesCheckRequest;
-
-class  AmenitiesCheckController extends Controller
+/**
+ * Class AmenitiesCheckController
+ * @package App\Http\Controllers
+ */
+class AmenitiesCheckController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class  AmenitiesCheckController extends Controller
      */
     public function index()
     {
-           $amenitiesChecks = AmenitiesCheck::paginate();
+        $amenitiesChecks = AmenitiesCheck::paginate();
 
         return view('amenities-check.index', compact('amenitiesChecks'))
             ->with('i', (request()->input('page', 1) - 1) * $amenitiesChecks->perPage());
@@ -32,84 +32,82 @@ class  AmenitiesCheckController extends Controller
      */
     public function create()
     {
-       $amenitiesCheck = new AmenitiesCheck();
-       $amenities = Amenities::all()->pluck('name','id');
+        $amenitiesCheck = new AmenitiesCheck();
+        $amenities = Amenities::all();
         return view('amenities-check.create', compact('amenitiesCheck','amenities'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreAmenitiesCheckRequest  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAmenitiesCheckRequest $request)
-{
-    $amenitiesCheck = new AmenitiesCheck;
+    public function store(Request $request)
+    {
+        request()->validate(AmenitiesCheck::$rules);
 
-    $amenitiesCheck->name = $request->name;
-    $amenitiesCheck->status = $request->amenities_id;
-    $amenitiesCheck->icon = $request->icon;
+        $amenitiesCheck = AmenitiesCheck::create($request->all());
 
-    $amenitiesCheck->save();
-
-    return redirect()->route('amenities-checks.index')
-        ->with('success', 'Amenities Check created successfully');
-}
+        return redirect()->route('amenities-checks.index')
+            ->with('success', 'AmenitiesCheck created successfully.');
+    }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\AmenitiesCheck  $amenitiesCheck
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(AmenitiesCheck $amenitiesCheck)
+    public function show($id)
     {
-        //
+        $amenitiesCheck = AmenitiesCheck::find($id);
+
+        return view('amenities-check.show', compact('amenitiesCheck'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\AmenitiesCheck  $amenitiesCheck
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-         $amenitiesCheck = AmenitiesCheck::find($id);
-       $amenities = Amenities::all()->pluck('name','id');
+        $amenitiesCheck = AmenitiesCheck::find($id);
+        $amenities = Amenities::all();
 
-         return view('amenities-check.edit',compact('amenitiesCheck','amenities'));
+
+        return view('amenities-check.edit', compact('amenitiesCheck','amenities'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateAmenitiesCheckRequest  $request
-     * @param  \App\Models\AmenitiesCheck  $amenitiesCheck
+     * @param  \Illuminate\Http\Request $request
+     * @param  AmenitiesCheck $amenitiesCheck
      * @return \Illuminate\Http\Response
      */
-   
+    public function update(Request $request, AmenitiesCheck $amenitiesCheck)
+    {
+        request()->validate(AmenitiesCheck::$rules);
 
-     public function update(UpdateAmenitiesCheckRequest $request, AmenitiesCheck $amenitiesCheck)
-{
-    $amenitiesCheck->update($request->all());
+        $amenitiesCheck->update($request->all());
 
-    return redirect()->route('amenities-checks.index')
-        ->with('success', 'Amenities Check updated successfully');
-}
+        return redirect()->route('amenities-checks.index')
+            ->with('success', 'AmenitiesCheck updated successfully');
+    }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\AmenitiesCheck  $amenitiesCheck
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
-    public function destroy(AmenitiesCheck $amenitiesCheck)
-{
-    $amenitiesCheck->delete();
+    public function destroy($id)
+    {
+        $amenitiesCheck = AmenitiesCheck::find($id)->delete();
 
-    return redirect()->route('amenities-checks.index')
-        ->with('success', 'Amenities Check deleted successfully');
-}
+        return redirect()->route('amenities-checks.index')
+            ->with('success', 'AmenitiesCheck deleted successfully');
+    }
 }

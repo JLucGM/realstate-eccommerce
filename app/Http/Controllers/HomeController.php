@@ -103,7 +103,7 @@ class HomeController extends Controller
         $usercount++;
 
         // Contador de Productos (Propiedades)
-        $product = Product::all()->take(15);
+        $product = Product::latest()->take(20)->get();
         $productcount = Product::count();
 
         $contactos = Contacto::all();
@@ -117,6 +117,8 @@ class HomeController extends Controller
 
         $setting = SettingGeneral::first();
 
+        $posts = Post::all();
+
 
         return view('/dashboard')->with('message', $message)
         ->with('contactos', $contactos)
@@ -128,7 +130,8 @@ class HomeController extends Controller
         ->with('usercount', $usercount)
         ->with('product', $product)
         ->with('productcount', $productcount)
-        ->with('setting', $setting);
+        ->with('setting', $setting)
+        ->with('posts', $posts);
         // return view('customers.list');
     }
     public function footerIndex()

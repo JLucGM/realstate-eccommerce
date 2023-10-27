@@ -49,7 +49,7 @@ $description= 'Ecommerce Dashboard'
     <div class="row">
         <div class="col-12">
             <div class="d-flex">
-                <div class="dropdown-as-select me-3" data-setActive="false" data-childSelector="span">
+                <!-- <div class="dropdown-as-select me-3" data-setActive="false" data-childSelector="span">
                     <a class="pe-0 pt-0 align-top lh-1 dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
                         <span class="small-title"></span>
                     </a>
@@ -61,7 +61,7 @@ $description= 'Ecommerce Dashboard'
                             <a class="dropdown-item text-medium" href="#" aria-selected="false" role="tab">Yearly</a>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <h2 class="small-title">Stats</h2>
             </div>
             <div class="mb-5">
@@ -141,26 +141,25 @@ $description= 'Ecommerce Dashboard'
     <div class="row">
         <!-- Recent Orders Start -->
         <div class="col-xl-6 mb-5">
-            <h2 class="small-title">Propiedades publicadas</h2>
+            <h2 class="small-title">Posts publicadas</h2>
             <div class="mb-n2 scroll-out">
                 <div class="scroll-by-count" data-count="6">
-                    @foreach($product as $produc)
+                    @foreach($posts as $post)
                     <div class="card mb-2 sh-15 sh-md-6">
                         <div class="card-body pt-0 pb-0 h-100">
                             <div class="row g-0 h-100 align-content-center">
                                 <div class="col-10 col-md-4 d-flex align-items-center mb-3 mb-md-0 h-md-100">
-                                    <a href="{{ route('producto.show',$produc->id) }}" class="body-link stretched-link">{{$produc->name}}</a>
+                                    <a href="{{ route('blog.show',$post) }}" class="body-link stretched-link">{{$post->name}}</a>
                                 </div>
                                 <div class="col-2 col-md-3 d-flex align-items-center text-muted mb-1 mb-md-0 justify-content-end justify-content-md-start">
-                                    <span class="badge bg-outline-primary me-1">{{$produc->status}}</span>
+                                    @if($post->status == 1)
+                                    <span class="badge bg-outline-warning me-1">Borrador</span>
+                                    @else($post->status == 2)
+                                    <span class="badge bg-outline-primary me-1">Publicado</span>
+                                    @endif
                                 </div>
-                                <div class="col-12 col-md-2 d-flex align-items-center mb-1 mb-md-0 text-alternate">
-                                    <span>
-                                        <span class="text-small">{{$setting->monedaSetting->denominacion}}</span>
-                                        {{$produc->price}}
-                                    </span>
-                                </div>
-                                <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end mb-1 mb-md-0 text-alternate">{{$produc->created_at->format('d/m/Y')}}</div>
+                                
+                                <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end mb-1 mb-md-0 text-alternate">{{$post->created_at->format('d/m/Y')}}</div>
                             </div>
                         </div>
                     </div>
@@ -169,7 +168,7 @@ $description= 'Ecommerce Dashboard'
             </div>
         </div>
         <!-- Recent Orders End -->
-        
+
         <!-- Contactos recientes Start -->
         <div class="col-xl-6 mb-5">
             <h2 class="small-title">Contactos recientes</h2>
@@ -178,14 +177,14 @@ $description= 'Ecommerce Dashboard'
                     <div class="scroll h-100">
                         @foreach($contactos as $contacto)
                         <a href="{{ route('contactos.show',$contacto->id) }}" class="link-light">
-                        <div class="d-flex flex-row align-items-center justify-content-between mb-2">
-                            <div class="d-flex flex-column">
-                                <div>{{$contacto->name.' '.$contacto->apellido}}</div>
+                            <div class="d-flex flex-row align-items-center justify-content-between mb-2">
+                                <div class="d-flex flex-column">
+                                    <div>{{$contacto->name.' '.$contacto->apellido}}</div>
+                                </div>
+                                <div class="d-flex">
+                                    <span class="badge bg-outline-secondary">{{$contacto->status}}</span>
+                                </div>
                             </div>
-                            <div class="d-flex">
-                                <span class="badge bg-outline-secondary">{{$contacto->status}}</span>
-                            </div>
-                        </div>
                         </a>
                         @endforeach
                     </div>
@@ -234,108 +233,43 @@ $description= 'Ecommerce Dashboard'
 
     <div class="row gx-4 gy-5">
         <!-- Top Selling Items Start -->
-        <!-- <div class="col-xl-6 mb-5">
-            <h2 class="small-title">Top Selling Items</h2>
+        <div class="col-xl-12 mb-5">
+            <h2 class="small-title">Propiedades recientes</h2>
             <div class="scroll-out mb-n2">
                 <div class="scroll-by-count" data-count="4">
+                    @foreach($product as $produc)
                     <div class="card mb-2">
                         <div class="row g-0 sh-14 sh-md-10">
                             <div class="col-auto">
                                 <a href="/Products/Detail">
-                                    <img src="/img/product/small/product-3.webp" alt="alternate text" class="card-img card-img-horizontal sw-11" />
+                                    <img src="{{ asset('img/product/product_id_' . $produc->id . '/' . $produc->portada) }}" alt="alternate text" class="card-img card-img-horizontal sw-11" />
                                 </a>
                             </div>
                             <div class="col">
                                 <div class="card-body pt-0 pb-0 h-100">
                                     <div class="row g-0 h-100 align-content-center">
-                                        <div class="col-12 col-md-9 d-flex align-items-center mb-2 mb-md-0">
-                                            <a href="/Products/Detail">Good Glass Teapot</a>
+                                        <div class="col-12 col-md-5 d-flex align-items-center mb-2 mb-md-0">
+                                            <a href="/Products/Detail">{{$produc->name}}</a>
                                         </div>
-                                        <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">4.024 Sales</div>
+                                        <div class="col-md-2">
+                                            <span class="badge bg-outline-primary me-1">{{$produc->status}}</span>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <span class="text-muted">
+                                                {{$setting->monedaSetting->denominacion.' '.number_format($produc->price,2,".",".")}}
+                                            </span>
+                                        </div>
+                                        <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">{{$produc->created_at->format('d/m/Y')}}</div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
-                    <div class="card mb-2">
-                        <div class="row g-0 sh-14 sh-md-10">
-                            <div class="col-auto">
-                                <a href="/Products/Detail">
-                                    <img src="/img/product/small/product-2.webp" alt="alternate text" class="card-img card-img-horizontal sw-11" />
-                                </a>
-                            </div>
-                            <div class="col">
-                                <div class="card-body pt-0 pb-0 h-100">
-                                    <div class="row g-0 h-100 align-content-center">
-                                        <div class="col-12 col-md-9 d-flex align-items-center mb-2 mb-md-0">
-                                            <a href="/Products/Detail">Aromatic Green Candle</a>
-                                        </div>
-                                        <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">2.701 Sales</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-2">
-                        <div class="row g-0 sh-14 sh-md-10">
-                            <div class="col-auto">
-                                <a href="/Products/Detail">
-                                    <img src="/img/product/small/product-7.webp" alt="alternate text" class="card-img card-img-horizontal sw-11" />
-                                </a>
-                            </div>
-                            <div class="col">
-                                <div class="card-body pt-0 pb-0 h-100">
-                                    <div class="row g-0 h-100 align-content-center">
-                                        <div class="col-12 col-md-9 d-flex align-items-center mb-2 mb-md-0">
-                                            <a href="/Products/Detail">White Coffee Mug</a>
-                                        </div>
-                                        <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">1.972 Sales</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-2">
-                        <div class="row g-0 sh-14 sh-md-10">
-                            <div class="col-auto">
-                                <a href="/Products/Detail">
-                                    <img src="/img/product/small/product-6.webp" alt="alternate text" class="card-img card-img-horizontal sw-11" />
-                                </a>
-                            </div>
-                            <div class="col">
-                                <div class="card-body pt-0 pb-0 h-100">
-                                    <div class="row g-0 h-100 align-content-center">
-                                        <div class="col-12 col-md-9 d-flex align-items-center mb-2 mb-md-0">
-                                            <a href="/Products/Detail">Wireless On-Ear Headphones</a>
-                                        </div>
-                                        <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">1.543 Sales</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-2">
-                        <div class="row g-0 sh-14 sh-md-10">
-                            <div class="col-auto">
-                                <a href="/Products/Detail">
-                                    <img src="/img/product/small/product-8.webp" alt="alternate text" class="card-img card-img-horizontal sw-11" />
-                                </a>
-                            </div>
-                            <div class="col">
-                                <div class="card-body pt-0 pb-0 h-100">
-                                    <div class="row g-0 h-100 align-content-center">
-                                        <div class="col-12 col-md-9 d-flex align-items-center mb-2 mb-md-0">
-                                            <a href="/Products/Detail">Geometric Chandelier</a>
-                                        </div>
-                                        <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end text-muted text-medium">1.352 Sales</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
-        </div> -->
+        </div>
         <!-- Top Selling Items End -->
     </div>
 

@@ -151,11 +151,7 @@
                    </li>
                    @endhasrole
 
-                   <li>
-                       <a href="{{route('contactos.index')}}">
-                           <span class="label">Contactos</span>
-                       </a>
-                   </li>
+
 
                    @hasrole('super Admin')
                    <li>
@@ -178,6 +174,11 @@
                            <span class="label">Lista</span>
                        </a>
                    </li>
+                   <li>
+                       <a href="{{route('amenities-checks.index')}}">
+                           <span class="label">Comodidades</span>
+                       </a>
+                   </li>
                </ul>
            </li>
 
@@ -187,7 +188,11 @@
                    <span class="label">CRM</span>
                </a>
                <ul id="crm">
-
+                   <li>
+                       <a href="{{route('contactos.index')}}">
+                           <span class="label">Contactos</span>
+                       </a>
+                   </li>
                    <li>
                        <a href="{{route('negocios.index')}}">
                            <span class="label">Embudo de Ventas</span>
@@ -236,6 +241,12 @@
                </a>
            </li>
            <li>
+               <a href="{{route('testimonios.index')}}">
+                   <i class="fa-regular fa-comment-dots icon" data-acorn-size="18"></i>
+                   <span class="label">Testimonios</span>
+               </a>
+           </li>
+           <li>
                <a href="#location" data-href="{{route('product.index')}}">
                    <i class="fa-regular fa-map icon" data-acorn-size="18"></i>
                    <span class="label">Locaciones</span>
@@ -281,21 +292,6 @@
                            <span class="label">Información Principal</span>
                        </a>
                    </li>
-
-                   <li>
-                       <a href="{{route('testimonios.index')}}">
-                           <span class="label">Testimonios</span>
-                       </a>
-                   </li>
-
-                   <li>
-                       <a href="{{route('amenities-checks.index')}}">
-                           <span class="label">Comodidades</span>
-                       </a>
-                   </li>
-
-
-
 
                </ul>
            </li>

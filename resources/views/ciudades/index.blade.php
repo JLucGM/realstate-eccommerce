@@ -12,8 +12,8 @@ $description= 'Lista de ciudades'
 @endsection
 
 @section('js_page')
-<script src="/js/cs/checkall.js"></script>
-<script src="/js/pages/products.list.js"></script>
+{{--<script src="/js/cs/checkall.js"></script>
+<script src="/js/pages/products.list.js"></script>--}}
 @endsection
 
 

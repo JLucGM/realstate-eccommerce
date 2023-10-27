@@ -1,7 +1,7 @@
 @php
-    $html_tag_data = [];
-    $title = 'Lista de productos';
-    $description= 'Ecommerce Product List Page'
+$html_tag_data = [];
+$title = 'Actualizar verificación de comodidades';
+$description= 'Actualizar verificación de comodidades'
 @endphp
 @extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])
 
@@ -10,6 +10,12 @@
 
 @section('js_vendor')
 @endsection
+
+@section('js_page')
+<script src="/js/cs/checkall.js"></script>
+<script src="/js/pages/products.list.js"></script>
+@endsection
+
 @section('content')
     <section class="content container-fluid">
         <div class="">
@@ -19,11 +25,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span id="card_title">
-                               <h2>
-                                {{"Editar Comodidad"}}
-                                </h2> 
-                            </span>
+                        <h2 class="card-title">{{$title}}</h2>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('amenities-checks.update', $amenitiesCheck->id) }}"  role="form" enctype="multipart/form-data">

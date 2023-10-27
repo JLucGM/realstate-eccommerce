@@ -39,10 +39,14 @@ class AmenitiesCheck extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function amenities()
+    public function propiedadAmenities()
+    {
+        return $this->hasMany('App\Models\PropiedadAmenity', 'amenities_checks_id', 'id');
+    }
+    
+    public function amenitiess()
     {
         return $this->belongsTo('App\Models\Amenities','amenities_id','id');
     }
-    
 
 }
