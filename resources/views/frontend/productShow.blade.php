@@ -44,8 +44,9 @@ $description= $title
   <div class="swiper-wrapper">
     @foreach($images as $image)
     <div class="swiper-slide">
-      <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#{{ $image->id }}">
-        <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $image->name) }}" class="w-100 mb-2" alt="Imagen de la propiedad">
+      <button type="button" class="btn p-0 btn-slide" data-bs-toggle="modal" data-bs-target="#{{ $image->id }}">
+        <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $image->name) }}" class="w-100 mb-2 img-slide" alt="Imagen de la propiedad">
+        <i class="icon fa-solid fa-camera"></i> 
       </button>
     </div>
     @endforeach
@@ -359,9 +360,9 @@ Launch static backdrop modal{{ $image->id }}
               <input type="text" class="form-control mb-2" name="telefono" placeholder="Telefono">
               <textarea name="observaciones" id="" placeholder="Mensaje" rows="5" class="form-control mb-2"></textarea>
 
-              <input type="hidden" name="propiedad_id" value="{{ $product->id }}" class="form-control mb-2" required name="telefono" placeholder="Telefono">
+              <input type="hidden" name="propiedad_id" value="{{ $product->id }}" class="form-control mb-2" required>
               @if (isset($product->agente))
-              <input type="hidden" name="agente_id" value="{{ $product->agente->user_id }}" class="form-control mb-2" required name="telefono" placeholder="Telefono">
+              <input type="hidden" name="agente_id" value="{{ $product->agente->user_id }}" class="form-control mb-2" required>
               @endif
 
               <button type="submit" class="btn btn-primary w-100 fw-bold">Enviar</button>

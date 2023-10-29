@@ -15,7 +15,7 @@ class userSeeder extends Seeder
      */
     public function run()
     {
-        $rolSuperAdmin = Role::create(['name' => 'super admin']);
+        $rolSuperAdmin = Role::create(['name' => 'super Admin']);
         $rolAdmin = Role::create(['name' => 'admin']);
         $rolCliente = Role::create(['name' => 'cliente']);
         $rolArrendador = Role::create(['name' => 'arredador']);
@@ -26,39 +26,45 @@ class userSeeder extends Seeder
                 'name' => 'Usuario 1',
                 'email' => 'sadmin@admin.com',
                 'password' => bcrypt('123456789'),
-                'point' => 0,
+                'points' => 0,
+                'whatsapp' => 0,
+                'avatar' => 'default.jpg',
                 'rol' => $rolSuperAdmin->name,
             ],
             [
                 'name' => 'Usuario 2',
                 'email' => 'admin@admin.com',
                 'password' => bcrypt('123456789'),
-                                'point' => 0,
-
+                'points' => 0,
+                'whatsapp' => 0,
+                'avatar' => 'default.jpg',
                 'rol' => $rolAdmin->name,
             ],
             [
                 'name' => 'Usuario 3',
                 'email' => 'cliente@admin.com',
                 'password' => bcrypt('123456789'),
-                                'point' => 0,
-
+                'points' => 0,
+                'whatsapp' => 0,
+                'avatar' => 'default.jpg',
                 'rol' => $rolCliente->name,
             ],
             [
                 'name' => 'Usuario 4',
                 'email' => 'arrendador@admin.com',
                 'password' => bcrypt('123456789'),
-                'point' => 0,
-
+                'points' => 0,
+                'whatsapp' => 0,
+                'avatar' => 'default.jpg',
                 'rol' => $rolArrendador->name,
             ],
             [
                 'name' => 'Usuario 5',
                 'email' => 'vendedor@admin.com',
                 'password' => bcrypt('123456789'),
-                'point' => 0,
-
+                'points' => 0,
+                'whatsapp' => 0,
+                'avatar' => 'default.jpg',
                 'rol' => $rolVendedor->name,
             ],
             // Agrega más usuarios y roles según tus necesidades

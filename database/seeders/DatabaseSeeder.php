@@ -14,5 +14,15 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
+        $this->call(userSeeder::class);
+        $this->call(SettingGeneralSeeder::class);
+        $this->call(MonedasSeeder::class);
+        $this->call(InfoWebSeeder::class);
+        $this->call(PaisSeeder::class);
+        $this->call(EstadoSeeder::class);
+        $this->call(CiudadesSeeder::class);
+        $this->call(TipoPropiedadSeeder::class);
+        $this->call(AmenitiesSeeder::class);
+        $this->call(AmenitiesCheckSeeder::class);
     }
 }

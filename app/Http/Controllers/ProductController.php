@@ -201,7 +201,7 @@ class ProductController extends Controller
 
         $product->name = $request->name;
         $product->price = $request->price;
-        $product->category = $request->category;
+        // $product->category = $request->category;
         $product->tipoPropiedad_id = $request->t_propiedades;
         $product->status = $request->status;
         $product->statusActual = $request->statusActual;
@@ -246,7 +246,7 @@ class ProductController extends Controller
 
         $message = "";
 
-        // // return view('products.detail')->with('product', $product)->with('categorias', $categorias)->with('message', $message)->with('images', $images)->with('tipoPropiedad', $tipoPropiedad)->with('asignado', $asignado);
+        return view('products.detail')->with('product', $product)->with('message', $message)->with('images', $images)->with('tipoPropiedad', $tipoPropiedad)->with('asignado', $asignado);
     }
 
     public function productJsonImages(Request $request, $id)

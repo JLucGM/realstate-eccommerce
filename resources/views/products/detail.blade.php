@@ -84,14 +84,14 @@ $description= 'Detalles de productos'
                                 </div>
                             </div>
 
-                            <div class="mb-3">
+                            {{--<div class="mb-3">
                                 <label class="form-label">Categoria</label>
                                 <select class="form-select" id="categoria" name="category">
                                     @foreach ($categorias as $categoria)
                                     <option value="{{$categoria->id}}" {{ $categoria->id == $product->category ? 'selected' : '' }}>{{$categoria->name}}</option>
                                     @endforeach
                                 </select>
-                            </div>
+                            </div>--}}
 
                             <div class="row">
 

@@ -17,6 +17,7 @@ class CategoriasSeeder extends Seeder
         $categorias = [
             [
                 'name' => 'Sin categoria',
+                'status' => 1,
             ],            
         ];
 

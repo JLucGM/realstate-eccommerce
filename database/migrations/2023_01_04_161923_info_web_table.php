@@ -15,11 +15,11 @@ class InfoWebTable extends Migration
     {
         Schema::create('info_web', function (Blueprint $table) {
             $table->id();
-            $table->string('select_us');
-            $table->string('sell_home');
-            $table->string('rent_home');
-            $table->string('buy_home');
-            $table->string('marketing_free');
+            $table->text('select_us');
+            $table->text('sell_home');
+            $table->text('rent_home');
+            $table->text('buy_home');
+            $table->text('marketing_free');
 
 
             $table->timestamps();

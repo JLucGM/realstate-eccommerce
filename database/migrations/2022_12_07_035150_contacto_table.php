@@ -19,7 +19,7 @@ class ContactoTable extends Migration
             $table->string('apellido');
             $table->string('email');
             $table->string('telefonoContacto1');
-            $table->string('telefonoContacto2');
+            $table->string('telefonoContacto2')->nullable();
             $table->string('origen');
             
             $table->string('status');

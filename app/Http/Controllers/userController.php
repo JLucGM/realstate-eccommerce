@@ -231,22 +231,6 @@ class userController extends Controller
         return redirect()->back()->with('success', "Solicitud realizada con exito en breve recibira un correo con las indicaciones a seguir");
     }
 
-//     public function storeUserContacto(Request $request)
-//     {
-// // Crear un nuevo registro en la tabla "contacto"
-// $contacto = new Contacto();
-// $contacto->name = $request->name;
-// $contacto->apellido = $request->apellido;
-// $contacto->email = $request->email;
-// $contacto->telefonoContacto1 = $request->telefono;
-// $contacto->direccion = $request->direccion;
-// $contacto->observaciones = $request->observaciones;
-// // Asignar otros valores a las columnas restantes si es necesario
-
-// // Guardar el registro en la base de datos
-// $contacto->save();
-//         return redirect()->back()->with('success', "Solicitud realizada con exito en breve recibira un correo con las indicaciones a seguir");
-//     }
 
     public function usuariosEdit($id)
     {

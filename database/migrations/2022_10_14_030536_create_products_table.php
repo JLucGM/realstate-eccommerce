@@ -26,7 +26,7 @@ class CreateProductsTable extends Migration
             $table->longText('details');//ficha cliente
             $table->string('sku');//eliminar
             $table->string('barcode');//eliminar
-            $table->longText('image');
+            $table->longText('image')->nullable();
             $table->string('attributes');//eliminar
             $table->string('meta_title');//eliminar
             $table->string('meta_description');//eliminar
