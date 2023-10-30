@@ -21,58 +21,52 @@ class userSeeder extends Seeder
         $rolArrendador = Role::create(['name' => 'arredador']);
         $rolVendedor = Role::create(['name' => 'vendedor']);
 
-        $usuarios = [
-            [
+        
+            User::create([
                 'name' => 'Usuario 1',
                 'email' => 'sadmin@admin.com',
                 'password' => bcrypt('123456789'),
                 'points' => 0,
                 'whatsapp' => 0,
                 'avatar' => 'default.jpg',
-                'rol' => $rolSuperAdmin->name,
-            ],
-            [
+            ])->assignRole($rolSuperAdmin);
+            
+            User::create([
                 'name' => 'Usuario 2',
                 'email' => 'admin@admin.com',
                 'password' => bcrypt('123456789'),
                 'points' => 0,
                 'whatsapp' => 0,
                 'avatar' => 'default.jpg',
-                'rol' => $rolAdmin->name,
-            ],
-            [
+            ])->assignRole($rolAdmin);
+            
+            User::create([
                 'name' => 'Usuario 3',
                 'email' => 'cliente@admin.com',
                 'password' => bcrypt('123456789'),
                 'points' => 0,
                 'whatsapp' => 0,
                 'avatar' => 'default.jpg',
-                'rol' => $rolCliente->name,
-            ],
-            [
+            ])->assignRole($rolCliente);
+
+            User::create([
                 'name' => 'Usuario 4',
                 'email' => 'arrendador@admin.com',
                 'password' => bcrypt('123456789'),
                 'points' => 0,
                 'whatsapp' => 0,
                 'avatar' => 'default.jpg',
-                'rol' => $rolArrendador->name,
-            ],
-            [
+            ])->assignRole($rolArrendador);
+
+            User::create([
                 'name' => 'Usuario 5',
                 'email' => 'vendedor@admin.com',
                 'password' => bcrypt('123456789'),
                 'points' => 0,
                 'whatsapp' => 0,
                 'avatar' => 'default.jpg',
-                'rol' => $rolVendedor->name,
-            ],
-            // Agrega más usuarios y roles según tus necesidades
-        ];
+            ])->assignRole($rolVendedor);
+        
 
-        foreach ($usuarios as $usuarioData) {
-            $usuario = User::create($usuarioData);
-            $usuario->assignRole($usuarioData['rol']);
-        }
     }
 }

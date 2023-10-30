@@ -24,5 +24,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TipoPropiedadSeeder::class);
         $this->call(AmenitiesSeeder::class);
         $this->call(AmenitiesCheckSeeder::class);
+        $this->call(CategoriasSeeder::class);
     }
 }

@@ -28,7 +28,7 @@
             {!! $errors->first('product_id', '<div class="invalid-feedback">:message</div>') !!}
         </div>
 
-        {{--<input type="hidden" name="contacto_id" id="" value="{{ $id }}">--}}
+        <input type="hidden" name="contacto_id" id="" value="{{ $id }}">
 
     </div>
     <div class="">

@@ -46,7 +46,7 @@ $description= $title
     <div class="swiper-slide">
       <button type="button" class="btn p-0 btn-slide" data-bs-toggle="modal" data-bs-target="#{{ $image->id }}">
         <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $image->name) }}" class="w-100 mb-2 img-slide" alt="Imagen de la propiedad">
-        <i class="icon fa-solid fa-camera"></i> 
+        <i class="icon-slide fa-solid fa-camera"></i> 
       </button>
     </div>
     @endforeach
