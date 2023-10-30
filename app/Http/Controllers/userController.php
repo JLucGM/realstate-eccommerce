@@ -138,55 +138,34 @@ class userController extends Controller
 
     public function storeUser(Request $request)
     {
-        $users = User::all();
         $user = new User;
         $user->name = $request->name;
         $user->last_name = $request->last_name;
-
-        $count = count($users);
-
-        for ($i = 0; $i < $count; $i++) {
-            if ($users[$i]->email == $request->email) {
-                $message = "El correo ya existe!";
-                return view('/Dashboard')->with('message', $message);
-            }
-        }
-
-        // dd("entro");
         $user->email = $request->email;
-        $request->password = Hash::make($request->password);
-        $user->password =  $request->password;
-        $user->whatsapp =  $request->whatsapp;
+        $user->password = Hash::make($request->password);
+        $user->whatsapp = $request->whatsapp;
         $user->points = 0;
-
-        if ($request->status == "on") {
-            $user->status = 1;
-        }
-
-        $selectedRole = $request->input('rol');
-        $role = Role::where('name', $selectedRole)->first();
-        $user->assignRole($role);
-
+        $user->status = $request->status == "on" ? 1 : 0;
         $user->country_id = 0;
         $user->city_id = 0;
-        // dd($request->rol);
+        $user->assignRole($request->rol) ;
 
+    
         // AGREGAR AVATAR
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
             $nombreImagen = $image->getClientOriginalName();
             $image->move(public_path('img/profile'), $nombreImagen);
-
             $user->avatar = $nombreImagen;
-            $user->save();
         } else {
             $user->avatar = "default.jpg";
-            $user->save();
         }
-
+    
         $user->save();
+    
         return redirect()->route('user.index');
     }
+    
 
 
     public function storeUserAnunciar(Request $request)
