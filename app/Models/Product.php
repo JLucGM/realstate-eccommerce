@@ -13,8 +13,30 @@ class Product extends Model implements HasMedia
     use HasFactory , InteractsWithMedia;
   
 
+    static $rules = [
+      'name' => 'required',
+      'agenteVendedor_id' => 'required',
+      'price' => 'required',
+      'description' => 'required',
+      'details' => 'required',
+      'dormitorios' => 'required',
+      'ambientes' => 'required',
+      'toilet' => 'required',
+      'cocheras' => 'required',
+      'metrosCuadradosC' => 'required',
+      'metrosCuadradosT' => 'required',
+      'expensas' => 'required',
+      'portada' => 'required',
+      'image' => 'required',
+      'pais' => 'required',
+      'region' => 'required',
+      'ciudad' => 'required',
+      'latitud' => 'required',
+      'longitud' => 'required',
+      'direccion' => 'required',
+  
+  ];
   public $table = 'products';
-
 
   public $fillable = [
         'name',

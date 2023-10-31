@@ -13,6 +13,10 @@ class PropiedadAmenities extends Model
 
      public $timestamps = false;
 
+     static $rules = [
+        'user_id' => 'required',
+        'amenities_checks_id' => 'required',
+     ];
         public $fillable = [
         'user_id',
         'amenities_checks_id',

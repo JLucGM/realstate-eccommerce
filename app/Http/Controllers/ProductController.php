@@ -118,6 +118,8 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        request()->validate(Product::$rules);
+
         $input = $request->all();
         // dd($input);
         $amenitiesAll = json_decode($input['comodidades']);
