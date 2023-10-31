@@ -1,67 +1,73 @@
+@php
+$html_tag_data = [];
+$title = 'Lista de tags';
+$description= 'Ecommerce Customer List Page'
+@endphp
+@extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])
 
+@section('css')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+@endsection
 
-@extends('layouts.app')
+@section('js_vendor')
+@endsection
+
+@section('js_page')
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function() {
+        new DataTable('#tabla-tags');
+    });
+</script>
+@endsection
 
 @section('content')
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>etiquetas</h1>
-                </div>
-                <div class="col-sm-6">
-                    <a class="btn btn-success float-right"
-                       href="{{ route('tags.create') }}">
-                        Agregar
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+
+                <div class="card-header d-flex justify-content-between">
+                    <h2>{{$title}}</h2>
+                    <a class="btn btn-success float-right" href="{{ route('tags.create') }}">
+                        Crear
                     </a>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <div class="content px-3">
+                <div class="card-body">
+                    <table class="table table-striped table-hover" id="tabla-tags">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nombre</th>
+                                <th class="text-end">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($tags as $tag)
+                            <tr>
+                                <td>{{++$i}}</td>
+                                <td>{{$tag->name}}</td>
 
-
-
-        <div class="clearfix"></div>
-
-        <div class="card">
-
-            <div class="card-body">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th colspan="2"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($tags as $tag)
-
-                        <tr>
-                            <td>{{$tag->id}}</td>
-                            <td>{{$tag->name}}</td>
-
-
-                            <td width="10px"> <a class="btn btn-success btn-sm" href="{{route('tags.edit',$tag)}}">Editar</a></td>
-
-
-                            <td width="10px"> <form action="{{route('tags.destroy',$tag)}}" method="POST">
-                                @csrf
-                                @method('delete')
-                                <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
-                            </form></td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-
-                </table>
-
+                                <td class="text-end">
+                                    <form action="{{route('tags.destroy',$tag)}}" method="POST">
+                                        <a class="btn btn-success btn-sm" href="{{route('tags.edit',$tag)}}"><i class="fa fa-fw fa-edit"></i></a>
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-fw fa-trash"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
 @endsection
-
-

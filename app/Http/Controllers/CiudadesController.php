@@ -28,7 +28,7 @@ class CiudadesController extends Controller
         //     dd($nombreEstado);
         // }
         
-        return view('ciudades.index', compact('ciudades'));
+        return view('ciudades.index', compact('ciudades'))->with('i', (request()->input('page', 1) - 1));
     }
 
     /**

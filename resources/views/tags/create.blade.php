@@ -1,35 +1,43 @@
+@php
+$html_tag_data = [];
+$title = 'Crear tag';
+$description= 'Ecommerce Customer List Page'
+@endphp
+@extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])
 
+@section('css')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+@endsection
 
+@section('js_vendor')
+@endsection
 
-@extends('layouts.app')
+@section('js_page')
+@endsection
 
 @section('content')
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-12">
-                    <h1>Crear Etiqueta</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2>{{$title}}</h2>
+                </div>
+                <div class="card-body">
+                    {!! Form::open(['route'=>'tags.store']) !!}
+
+                    @include('tags.partials.form')
+
+                    <div class="card-footer">
+                        {!! Form::submit('guardar',['class'=>'btn btn-primary']) !!}
+                    </div>
+
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
-    </section>
-    <div class="content px-3">
-        @include('adminlte-templates::common.errors')
-        <div class="card">
-            <div class="card-body">
-                {!! Form::open(['route'=>'tags.store']) !!}
-
-
-                    @include('blog..tags.partials.form')
-
-
-                {!! Form::submit('guardar',['class'=>'btn btn-primary']) !!}
-
-
-                {!! Form::close() !!}
-            </div>
-        </div>
     </div>
+</div>
 @endsection
 
 
@@ -46,7 +54,7 @@
 </script>
 
 <script>
-    $(document).ready( function() {
+    $(document).ready(function() {
         $("#name").stringToSlug({
             setEvents: 'keyup keydown blur',
             getPut: '#slug',

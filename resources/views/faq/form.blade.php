@@ -11,7 +11,7 @@
         <div class="col-12">
             <div class="form-group mb-4">
                 {{ Form::label('Answer') }}
-                {{ Form::text('answer', $faq->answer, ['class' => 'form-control' . ($errors->has('answer') ? ' is-invalid' : ''), 'placeholder' => 'Answer']) }}
+                {{ Form::textarea('answer', $faq->answer, ['class' => 'form-control' . ($errors->has('answer') ? ' is-invalid' : ''), 'placeholder' => 'Answer']) }}
                 {!! $errors->first('answer', '<div class="invalid-feedback">:message</div>') !!}
             </div>
         </div>

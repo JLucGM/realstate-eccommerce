@@ -1,20 +1,28 @@
  @php
  $html_tag_data = [];
- $title = 'Lista de Propiedades';
+ $title = 'Lista de propiedades';
  $description= 'Ecommerce Product List Page'
  @endphp
  @extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])
 
  @section('css')
- @endsection
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+@endsection
 
- @section('js_vendor')
- @endsection
+@section('js_vendor')
+@endsection
 
- @section('js_page')
- <!-- <script src="/js/cs/checkall.js"></script>
-<script src="/js/pages/products.list.js"></script> -->
- @endsection
+@section('js_page')
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function() {
+        new DataTable('#tabla-product');
+    });
+</script>
+@endsection
+
 
 
 
@@ -27,7 +35,7 @@
                      <h1 class="card_title">{{$title}}</h1>
 
                      <a href="{{route('new.product')}}" class="btn btn-primary btn-sm float-right" data-placement="left">
-                         {{"Agregar Nuevo" }}
+                         {{"Crear" }}
                      </a>
                  </div>
                  @if ($message = Session::get('success'))
@@ -38,9 +46,10 @@
 
                  <div class="card-body">
                      <div class="table-responsive">
-                         <table class="table table-striped table-hover">
+                         <table class="table table-striped table-hover" id="tabla-product">
                              <thead>
                                  <tr>
+                                     <th>No</th>
                                      <th>Portada</th>
                                      <th>Nombre de la propiedad</th>
                                      <th>Precio</th>
@@ -52,6 +61,7 @@
                                  @foreach ($products as $product)
 
                                  <tr>
+                                     <td>{{++$i}}</td>
                                      <td><img src="{{ asset('img/product/product_id_' . $product->id . '/' . $product->portada) }}" class="" style=" width: 70px; height:50px"></td>
                                      <td>{{ $product->name }}</td>
                                      <td>{{ number_format($product->price, 2, ',', '.').' '.$SettingGeneral->monedaSetting->denominacion }}</td>
@@ -72,7 +82,6 @@
                      </div>
                  </div>
              </div>
-             {!! $products->links() !!}
          </div>
      </div>
  </div>

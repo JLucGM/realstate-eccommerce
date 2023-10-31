@@ -13,7 +13,7 @@ class TagController extends Controller
     {
 
         $tags = Tag::all();
-       return view('tags.index',compact('tags'));
+       return view('tags.index',compact('tags'))->with('i', (request()->input('page', 1) - 1));
     }
 
     /**

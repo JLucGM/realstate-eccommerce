@@ -1,6 +1,6 @@
 @php
 $html_tag_data = [];
-$title = 'Registrar propiedad';
+$title = 'Crear propiedad';
 $description= $title
 @endphp
 @extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])

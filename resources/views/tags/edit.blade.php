@@ -1,36 +1,40 @@
+@php
+$html_tag_data = [];
+$title = 'Editar tag';
+$description= 'Ecommerce Customer List Page'
+@endphp
+@extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])
 
+@section('css')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+@endsection
 
+@section('js_vendor')
+@endsection
 
-
-
-
-@extends('layouts.app')
+@section('js_page')
+@endsection
 
 @section('content')
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-12">
-                    <h1>editar Etiqueta</h1>
-                </div>
-            </div>
+<div class="content px-3">
+    <div class="card">
+        <div class="card-header">
+            <h2>{{$title}}</h2>
         </div>
-    </section>
-    <div class="content px-3">
-        @include('adminlte-templates::common.errors')
-        <div class="card">
-            <div class="card-body">
-                {!! Form::model($tag, ['route'=>['tags.update',$tag],'method'=>'put']) !!}
+        <div class="card-body">
+            {!! Form::model($tag, ['route'=>['tags.update',$tag],'method'=>'put']) !!}
 
-                    @include('blog..tags.partials.form')
+            @include('tags.partials.form')
 
+            <div class="card-footer">
                 {!! Form::submit('Actualizar',['class'=>'btn btn-primary']) !!}
-
-
-                {!! Form::close() !!}
             </div>
+
+
+            {!! Form::close() !!}
         </div>
     </div>
+</div>
 @endsection
 
 
@@ -47,7 +51,7 @@
 </script>
 
 <script>
-    $(document).ready( function() {
+    $(document).ready(function() {
         $("#name").stringToSlug({
             setEvents: 'keyup keydown blur',
             getPut: '#slug',

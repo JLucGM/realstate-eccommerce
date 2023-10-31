@@ -1,6 +1,6 @@
 @php
     $html_tag_data = [];
-    $title = 'Crear Negocio';
+    $title = 'Crear negocio de propiedad';
     $description= 'Ecommerce Product List Page'
 @endphp
 @extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])

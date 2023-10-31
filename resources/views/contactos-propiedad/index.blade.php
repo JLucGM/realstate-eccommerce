@@ -1,20 +1,28 @@
 @php
 $html_tag_data = [];
-$title = 'Contacto por propiedad';
+$title = 'Seguimiento de contacto por propiedad';
 $description= 'Ecommerce Product List Page'
 @endphp
 @extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])
 
 @section('css')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 @endsection
 
 @section('js_vendor')
 @endsection
 
 @section('js_page')
-<script src="/js/cs/checkall.js"></script>
-<script src="/js/pages/products.list.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function() {
+        new DataTable('#tabla-contacto-propiedad');
+    });
+</script>
 @endsection
+
 
 @section('content')
 <div class="container-fluid">
@@ -43,7 +51,7 @@ $description= 'Ecommerce Product List Page'
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover">
+                        <table class="table table-striped table-hover" id="tabla-contacto-propiedad">
                             <thead class="thead">
                                 <tr>
                                     <th>No</th>
@@ -51,6 +59,7 @@ $description= 'Ecommerce Product List Page'
                                     <th>Tipo de relación</th>
                                     <th>Propiedad de interes</th>
                                     <th>Observaciones</th>
+                                    <th class="text-end">Acciones</th>
 
                                 </tr>
                             </thead>
@@ -63,7 +72,7 @@ $description= 'Ecommerce Product List Page'
                                     <td>{{ $contactosPropiedad->product->name }}</td>
                                     <td>{{ $contactosPropiedad->observaciones }}</td>
 
-                                    <td>
+                                    <td class="text-end">
                                         <form action="{{ route('contactos-propiedads.destroy',$contactosPropiedad->id) }}" method="POST">
                                             {{--<a class="btn btn-sm btn-primary " href="{{ route('contactos-propiedads.show',$contactosPropiedad->id) }}"><i data-acorn-icon="eye" class="icon" data-acorn-size="10"></i></a>--}}
                                             <a class="btn btn-sm btn-success" href="{{ route('contactos-propiedads.edit',$contactosPropiedad->id) }}"><i data-acorn-icon="edit" class="icon" data-acorn-size="10"></i></a>

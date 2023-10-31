@@ -111,7 +111,7 @@ class userController extends Controller
     public function usuarios()
     {
         $users = User::all();
-        $users = User::ordenar($users)->paginate(10);
+        // $users = User::ordenar($users)->paginate(10);
         $roles = Roles::all();
 
         $count = count($users);
@@ -125,7 +125,7 @@ class userController extends Controller
             }
         }
 
-        return view('customers.list')->with('users', $users);
+        return view('customers.list')->with('users', $users)->with('i', (request()->input('page', 1) - 1));
     }
 
     public function newUser()

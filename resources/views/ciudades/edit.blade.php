@@ -12,13 +12,11 @@ $description= 'Ecommerce Customer List Page'
 @endsection
 
 @section('js_page')
-<script src="/js/cs/checkall.js"></script>
-<script src="/js/pages/customers.list.js"></script>
 @endsection
 
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <!-- Title and Top Buttons Start -->
     <!-- Customers List Start -->
     <h1 class="success">{{$message}}</h1>
@@ -27,7 +25,7 @@ $description= 'Ecommerce Customer List Page'
             <div class="card">
 
                 <div class="card-header">
-                    <h2>Editar Ciudad</h2>
+                    <h2>{{$title}}</h2>
                 </div>
 
                 {!! Form::model($city, ['route' => ['city.update', $city->id], 'method' => 'patch']) !!}

@@ -11,7 +11,7 @@ class PaisController extends Controller
     public function index()
     {
         $paises = Paises::all();
-        return view('paises.index', compact('paises'));
+        return view('paises.index', compact('paises'))->with('i', (request()->input('page', 1) - 1));
     }
 
     public function show($id)
@@ -49,9 +49,9 @@ class PaisController extends Controller
 }
 
 
-    public function destroy(Paises $paises)
+    public function destroy($id)
     {
-        $paises->delete();
+        Paises::find($id)->delete();
         return redirect()->route('paises.index');
     }
 }

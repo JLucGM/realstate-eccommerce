@@ -18,10 +18,10 @@ class TestimonioController extends Controller
      */
     public function index()
     {
-        $testimonios = Testimonio::paginate();
+        $testimonios = Testimonio::all();
 
         return view('testimonio.index', compact('testimonios'))
-            ->with('i', (request()->input('page', 1) - 1) * $testimonios->perPage());
+            ->with('i', (request()->input('page', 1) - 1));
     }
 
     /**

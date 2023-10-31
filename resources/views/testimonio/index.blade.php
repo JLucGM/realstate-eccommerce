@@ -6,14 +6,21 @@ $description= 'Ecommerce Product List Page'
 @extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])
 
 @section('css')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 @endsection
 
 @section('js_vendor')
 @endsection
 
 @section('js_page')
-<script src="/js/cs/checkall.js"></script>
-<script src="/js/pages/products.list.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function() {
+        new DataTable('#tabla-testimonio');
+    });
+</script>
 @endsection
 
 @section('content')
@@ -26,7 +33,7 @@ $description= 'Ecommerce Product List Page'
                         <h1>{{$title}}</h1>
 
                         <a href="{{ route('testimonios.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
-                            {{ 'Agregar Nuevo' }}
+                            {{ 'Crear' }}
                         </a>
                     </div>
                 </div>
@@ -38,21 +45,21 @@ $description= 'Ecommerce Product List Page'
 
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover">
+                        <table class="table table-striped table-hover" id="tabla-testimonio">
                             <thead class="thead">
                                 <tr>
                                     <th>No</th>
                                     <th>Imagen</th>
                                     <th>Nombre</th>
                                     <th>Testimonio</th>
-                                    <th>Acciones</th>
+                                    <th class="text-end">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($testimonios as $testimonio)
                                 <tr>
                                     <td>{{ ++$i }}</td>
-                                    <td><img src="/image/testimonio/{{$testimonio->image}}" class="rounded" style=" width: 70px; height:50px"></td>
+                                    <td><img src="/image/testimonio/{{$testimonio->image}}" style=" width: 70px; height:50px"></td>
                                     <td>{{ $testimonio->name }}</td>
                                     <td>{{ $testimonio->testimonio }}</td>
                                     <td class="text-end">
@@ -70,7 +77,6 @@ $description= 'Ecommerce Product List Page'
                     </div>
                 </div>
             </div>
-            {!! $testimonios->links() !!}
         </div>
     </div>
 </div>

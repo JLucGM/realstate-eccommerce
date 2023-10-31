@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contacto;
+use App\Models\Paises;
 use App\Models\User;
 
 use Illuminate\Support\Facades\Hash;
@@ -25,15 +26,15 @@ class ContactoController extends Controller
     public function index()
     {
         if (auth()->user()->hasRole('super Admin')) {
-            $contactos = Contacto::paginate();
+            $contactos = Contacto::all();
         } else {
-            $contactos = Contacto::where('vendedorAgente_id', auth()->user()->id)->paginate();
+            $contactos = Contacto::where('vendedorAgente_id', auth()->user()->id)->all();
         }
 
 
 
         return view('contacto.index', compact('contactos'))
-            ->with('i', (request()->input('page', 1) - 1) * $contactos->perPage());
+            ->with('i', (request()->input('page', 1) - 1) );
     }
 
     /**
@@ -44,7 +45,8 @@ class ContactoController extends Controller
     public function create()
     {
         $contacto = new Contacto();
-        return view('contacto.create', compact('contacto'));
+        $paises = Paises::all();
+        return view('contacto.create', compact('contacto','paises'));
     }
 
     /**

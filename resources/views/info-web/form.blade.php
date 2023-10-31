@@ -97,7 +97,7 @@
 
         <p>Para seleccionar tus iconos entrar en esta dirección y copia la sección class <a href="https://icons.getbootstrap.com" target="_blank">Iconos Bootstrap</a>, <a href="https://fontawesome.com/search?q=car&o=r&m=free" target="_blank">Iconos Font Awesome</a></p>
     </div>
-    <div class="mt-4">
+    <div class="card-footer">
         <button class="btn btn-primary" type="submit" class="form-submit">Guardar</button>
 
     </div>

@@ -6,15 +6,23 @@ $description= 'Verificación de comodidades'
 @extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])
 
 @section('css')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 @endsection
 
 @section('js_vendor')
 @endsection
 
 @section('js_page')
-<script src="/js/cs/checkall.js"></script>
-<script src="/js/pages/products.list.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function() {
+        new DataTable('#tabla-amenities-check');
+    });
+</script>
 @endsection
+
 
 @section('content')
     <div class="container-fluid">
@@ -26,11 +34,9 @@ $description= 'Verificación de comodidades'
 
                             <h2 >{{ $title }}</h2>
 
-                             <div class="">
                                 <a href="{{ route('amenities-checks.create') }}" class="btn btn-primary btn-sm">
                                   Crear
                                 </a>
-                              </div>
                         </div>
                     </div>
                     @if ($message = Session::get('success'))
@@ -41,16 +47,14 @@ $description= 'Verificación de comodidades'
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <table class="table table-striped table-hover" id="tabla-amenities-check">
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-                                        
-										<th>Name</th>
-										<th>Amenities Id</th>
-										<th>Icon</th>
-
-                                        <th></th>
+										<th>Nombre</th>
+										<th>Comodidades generales</th>
+										<th>Icono</th>
+                                        <th class="text-end">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -62,13 +66,13 @@ $description= 'Verificación de comodidades'
 											<td>{{ $amenitiesCheck->amenitiess->name }}</td>
 											<td>{{ $amenitiesCheck->icon }}</td>
 
-                                            <td>
+                                            <td class="text-end">
                                                 <form action="{{ route('amenities-checks.destroy',$amenitiesCheck->id) }}" method="POST">
                                                     {{--<a class="btn btn-sm btn-primary " href="{{ route('amenities-checks.show',$amenitiesCheck->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>--}}
-                                                    <a class="btn btn-sm btn-success" href="{{ route('amenities-checks.edit',$amenitiesCheck->id) }}"><i class="fa fa-fw fa-edit"></i> Edit</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('amenities-checks.edit',$amenitiesCheck->id) }}"><i class="fa fa-fw fa-edit"></i></a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -78,7 +82,6 @@ $description= 'Verificación de comodidades'
                         </div>
                     </div>
                 </div>
-                {!! $amenitiesChecks->links() !!}
             </div>
         </div>
     </div>

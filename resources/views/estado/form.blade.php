@@ -28,8 +28,7 @@
     </div>
 
 
-</div>
-<div class="mt-3">
-    <button type="submit" class="btn btn-primary">Guardar</button>
-</div>
+    <div class="card-footer">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
 </div>

@@ -6,14 +6,21 @@ $description= 'Ecommerce Product List Page'
 @extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])
 
 @section('css')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 @endsection
 
 @section('js_vendor')
 @endsection
 
 @section('js_page')
-<!-- <script src="/js/cs/checkall.js"></script>
-    <script src="/js/pages/products.list.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function() {
+        new DataTable('#tabla-slide');
+    });
+</script>
 @endsection
 
 @section('content')
@@ -21,14 +28,12 @@ $description= 'Ecommerce Product List Page'
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between">
                     <h1>{{ $title }}</h1>
 
-                    <div class="float-end">
-                        <a href="{{ route('slides.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
-                            {{ "Agregar Nuevo" }}
-                        </a>
-                    </div>
+                    <a href="{{ route('slides.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
+                        {{ "Crear" }}
+                    </a>
 
                 </div>
                 @if ($message = Session::get('success'))
@@ -39,29 +44,32 @@ $description= 'Ecommerce Product List Page'
 
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover">
+                        <table class="table table-striped table-hover" id="tabla-slide">
                             <thead class="thead">
                                 <tr>
                                     <th>No</th>
                                     <th>Imagen</th>
                                     <th>Titulo</th>
                                     <th>Texto</th>
-                                    <th>Estatus</th>
-                                    <th>Acciones</th>
+                                    <th>Status</th>
+                                    <th class="text-end">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($slides as $slide)
                                 <tr>
                                     <td>{{ ++$i }}</td>
-
                                     <td><img src="/image/sliders/{{$slide->image}}" class="" style=" width: 70px; height:50px"></td>
-
                                     <td>{{ $slide->title }}</td>
-
                                     <td>{{ $slide->texto }}</td>
 
-                                    <td>{{ $slide->active }}</td>
+                                    <td>
+                                        @if($slide->active == 1)
+                                        <span class="badge bg-success">Publicado</span>
+                                        @else($slide->active == 0)
+                                        <span class="badge bg-danger">Inactivo</span>
+                                        @endif
+                                    </td>
 
                                     <td class="text-end">
                                         <form action="{{ route('slides.destroy',$slide->id) }}" method="POST">
@@ -79,7 +87,6 @@ $description= 'Ecommerce Product List Page'
                     </div>
                 </div>
             </div>
-            {!! $slides->links() !!}
         </div>
     </div>
 </div>

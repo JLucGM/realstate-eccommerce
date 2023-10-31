@@ -1,20 +1,28 @@
 @php
 $html_tag_data = [];
-$title = 'Lista de productos';
+$title = 'Lista de contactos';
 $description= 'Ecommerce Product List Page'
 @endphp
 @extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])
 
 @section('css')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 @endsection
 
 @section('js_vendor')
 @endsection
 
 @section('js_page')
-<script src="/js/cs/checkall.js"></script>
-<script src="/js/pages/products.list.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function() {
+        new DataTable('#tabla-contacto');
+    });
+</script>
 @endsection
+
 
 @section('content')
 <div class="container-fluid">
@@ -22,16 +30,8 @@ $description= 'Ecommerce Product List Page'
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-
-                    <span id="card_title">
-                        <h2>Lista de Contactos</h2>
-                    </span>
-
-                    <div class="">
-                        <a href="{{ route('contactos.create') }}" class="btn btn-primary btn-sm">
-                            {{ "Agregar Nuevo"}}
-                        </a>
-                    </div>
+                    <h2>{{$title}}</h2>
+                    <a href="{{ route('contactos.create') }}" class="btn btn-primary btn-sm">{{ "Crear"}}</a>
                 </div>
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success">
@@ -41,7 +41,7 @@ $description= 'Ecommerce Product List Page'
 
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover">
+                        <table class="table table-striped table-hover" id="tabla-contacto">
                             <thead class="thead">
                                 <tr>
                                     <th>No</th>
@@ -50,7 +50,7 @@ $description= 'Ecommerce Product List Page'
                                     <th>Telefono</th>
                                     <th>Origen</th>
                                     <th>Status</th>
-                                    <th>Acciones</th>
+                                    <th class="text-end">Acciones</th>
 
                                 </tr>
                             </thead>
@@ -82,7 +82,6 @@ $description= 'Ecommerce Product List Page'
                     </div>
                 </div>
             </div>
-            {!! $contactos->links() !!}
         </div>
     </div>
 </div>

@@ -3,21 +3,21 @@
 
         <div class="form-group col-12 col-sm-6" >
             <div class="mb-3">
-                <label for="form-control" class="form-label">name</label>
+                <label for="form-control" class="form-label">Nombre</label>
                 <input value="{{ $settingGeneral->name }}" class="form-control" name="name" type="text">
             </div>
         </div>
 
         <div class="form-group col-12 col-sm-6" >
             <div class="mb-3">
-                <label for="form-control" class="form-label">telefono</label>
+                <label for="form-control" class="form-label">Teléfono</label>
                 <input value="{{ $settingGeneral->telefono }}" class="form-control" name="telefono" type="text">
             </div>
         </div>
 
         <div class="form-group col-12 col-sm-6" >
             <div class="mb-3">
-                <label for="form-control" class="form-label">email</label>
+                <label for="form-control" class="form-label">Email</label>
                 <input value="{{ $settingGeneral->email }}" class="form-control" name="email" type="text">
             </div>
         </div>
@@ -34,42 +34,41 @@
         
         <div class="form-group col-12 col-sm-6" >
             <div class="mb-3">
-                <label for="form-control" class="form-label">direccion</label>
+                <label for="form-control" class="form-label">Dirección</label>
                 <textarea name="direccion" class="form-control" rows="2">{{ $settingGeneral->direccion }}</textarea>
             </div>
         </div>
 
         <div class="form-group col-12 col-sm-6" >
             <div class="mb-3">
-                <label for="form-control" class="form-label">description</label>
+                <label for="form-control" class="form-label">Descripción</label>
                 <textarea name="description" class="form-control" rows="2">{{ $settingGeneral->description }}</textarea>
             </div>
         </div>
         <div class="form-group col-12 col-sm-6" >
             <div class="mb-3">
-                <label for="form-control" class="form-label">facebook</label>
+                <label for="form-control" class="form-label">Facebook</label>
                 <input value="{{ $settingGeneral->facebook }}" class="form-control" name="facebook" type="text">
             </div>
         </div>
         <div class="form-group col-12 col-sm-6" >
             <div class="mb-3">
-                <label for="form-control" class="form-label">twitter</label>
+                <label for="form-control" class="form-label">Twitter</label>
                 <input value="{{ $settingGeneral->twitter }}" class="form-control" name="twitter" type="text">
             </div>
         </div>
         <div class="form-group col-12 col-sm-6" >
             <div class="mb-3">
-                <label for="form-control" class="form-label">instagram</label>
+                <label for="form-control" class="form-label">Instagram</label>
                 <input value="{{ $settingGeneral->instagram }}" class="form-control" name="instagram" type="text">
             </div>
         </div>
         <div class="form-group col-12 col-sm-6" >
             <div class="mb-3">
-                <label for="form-control" class="form-label">linkedin</label>
+                <label for="form-control" class="form-label">Linkedin</label>
                 <input value="{{ $settingGeneral->linkedin }}" class="form-control" name="linkedin" type="text">
             </div>
         </div>
-
 
         <div class="form-group col-12 col-sm-6" >
             <div class="mb-3">
@@ -103,7 +102,7 @@
         </div>
     </div>
 
-    <div class="">
+    <div class="card-footer">
         <button class="btn btn-primary" type="submit" class="form-submit">Guardar</button>
     </div>
 

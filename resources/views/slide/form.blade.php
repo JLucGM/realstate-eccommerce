@@ -32,8 +32,7 @@
         </div>
     </div>
 
-
-    <div class="mt-4">
+    <div class="card-footer">
         <button class="btn btn-primary" type="submit" class="form-submit">Guardar</button>
     </div>
 </div>

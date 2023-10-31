@@ -19,10 +19,10 @@ class AmenitiesCheckController extends Controller
      */
     public function index()
     {
-        $amenitiesChecks = AmenitiesCheck::paginate();
+        $amenitiesChecks = AmenitiesCheck::all();
 
         return view('amenities-check.index', compact('amenitiesChecks'))
-            ->with('i', (request()->input('page', 1) - 1) * $amenitiesChecks->perPage());
+            ->with('i', (request()->input('page', 1) - 1) );
     }
 
     /**

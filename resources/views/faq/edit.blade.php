@@ -15,27 +15,25 @@ $description= 'Ecommerce Product List Page'
 @endsection
 
 @section('content')
-    <section class="content container-fluid">
-        <div class="">
-            <div class="col-md-12">
+<div class="content container-fluid">
+    <div class="col-md-12">
 
-                @includeif('partials.errors')
+        @includeif('partials.errors')
 
-                <div class="card card-default">
-                    <div class="card-header">
-                        <span class="card-title">Update Faq</span>
-                    </div>
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('faqs.update', $faq->id) }}"  role="form" enctype="multipart/form-data">
-                            {{ method_field('PATCH') }}
-                            @csrf
+        <div class="card card-default">
+            <div class="card-header">
+                <h2 class="card-title">{{$title}}</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ route('faqs.update', $faq->id) }}" role="form" enctype="multipart/form-data">
+                    {{ method_field('PATCH') }}
+                    @csrf
 
-                            @include('faq.form')
+                    @include('faq.form')
 
-                        </form>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
-    </section>
+    </div>
+</div>
 @endsection

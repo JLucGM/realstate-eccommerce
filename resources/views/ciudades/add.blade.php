@@ -1,6 +1,6 @@
 @php
 $html_tag_data = [];
-$title = 'Añadir ciudad';
+$title = 'Crear ciudad';
 $description= 'Añadiendo ciudad'
 @endphp
 @extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])
@@ -19,7 +19,7 @@ $description= 'Añadiendo ciudad'
 
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <!-- Title and Top Buttons Start -->
     <!-- Customers List Start -->
     <h1 class="success">{{$message}}</h1>
@@ -45,22 +45,16 @@ $description= 'Añadiendo ciudad'
                                 {{ Form::label('estadoPerteneciente','Estado perteneciente',['class'=>'form-label']) }}
                                 <select class="form-control" name="estado_id" id="estado_id">
                                     @foreach ($estados as $estado)
-                                    <option value="{{$estado->id}}" >{{$estado->name}}</option>
+                                    <option value="{{$estado->id}}">{{$estado->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
 
-                            {{--<div class="col-12 col-md-6">
-            {{ Form::label('País perteneciente') }}
-            <select class="form-control" name="pais_id" id="rol">
-                @foreach ($estados as $estado)
-                <option value="{{$estado->id}}" {{ $estado->id == $estado->estado->id ? 'selected' : '' }}>{{$estado->name}}</option>
-                @endforeach
-            </select>
-        </div>--}}
-                            <div class="">
-                                <button class="btn btn-primary" type="submit" class="form-submit">Guardar</button>
-                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary" type="submit" class="form-submit">Guardar</button>
+                    </div>
                 </form>
             </div>
         </div>

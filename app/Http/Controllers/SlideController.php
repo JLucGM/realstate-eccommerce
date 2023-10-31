@@ -18,10 +18,10 @@ class SlideController extends Controller
      */
     public function index()
     {
-        $slides = Slide::paginate();
+        $slides = Slide::all();
 
         return view('slide.index', compact('slides'))
-            ->with('i', (request()->input('page', 1) - 1) * $slides->perPage());
+            ->with('i', (request()->input('page', 1) - 1));
     }
 
     /**

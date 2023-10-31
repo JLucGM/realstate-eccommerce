@@ -18,7 +18,7 @@ class PostController extends Controller
     {
         $posts = Post::all();
 
-        return view('posts.index',compact('posts'));
+        return view('posts.index',compact('posts'))->with('i', (request()->input('page', 1) - 1) );
     }
 
     /**

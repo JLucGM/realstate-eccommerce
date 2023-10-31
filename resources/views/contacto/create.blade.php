@@ -1,6 +1,6 @@
 @php
     $html_tag_data = [];
-    $title = 'Crear Contacto';
+    $title = 'Crear contacto';
     $description= 'Crear Contacto'
 @endphp
 @extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])
@@ -12,8 +12,8 @@
 @endsection
 
 @section('js_page')
-    <script src="/js/cs/checkall.js"></script>
-    <script src="/js/pages/products.list.js"></script>
+    <!-- <script src="/js/cs/checkall.js"></script>
+    <script src="/js/pages/products.list.js"></script> -->
 @endsection
 
 @section('content')

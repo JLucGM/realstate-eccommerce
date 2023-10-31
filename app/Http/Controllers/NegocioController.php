@@ -25,11 +25,11 @@ class NegocioController extends Controller
      */
     public function index()
     {
-        $negocios = Negocio::paginate();
+        $negocios = Negocio::all();
         $SettingGeneral = SettingGeneral::first();
 // dd($settingGeneral);
         return view('negocio.index', compact('negocios','SettingGeneral'))
-            ->with('i', (request()->input('page', 1) - 1) * $negocios->perPage());
+            ->with('i', (request()->input('page', 1) - 1));
     }
 
     /**

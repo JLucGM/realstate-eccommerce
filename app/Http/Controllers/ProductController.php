@@ -41,20 +41,20 @@ class ProductController extends Controller
         if (auth()->user()->hasRole('super Admin')) {
             $products = Product::with(['media'])->get();
 
-            $products = Product::ordenar($products)->paginate(10);
+            // $products = Product::ordenar($products);
         } else {
 
             $products = Product::join('propiedad_agente', 'propiedad_agente.product_id', '=', 'products.id')
                 ->select('products.*')
                 ->where('user_id', auth()->user()->id)
-                ->orderBy('id', 'desc')->paginate(10);
+                ->orderBy('id', 'desc');
         }
 
 
         // dd($SettingGeneral);
 
 
-        return view('products.list')->with('products', $products)->with('SettingGeneral', $SettingGeneral);
+        return view('products.list')->with('products', $products)->with('SettingGeneral', $SettingGeneral)->with('i', (request()->input('page', 1) - 1));
     }
 
     public function show($id)

@@ -22,7 +22,7 @@ class EstadoController extends Controller
         $estados = Estado::paginate();
 
         return view('estado.index', compact('estados'))
-            ->with('i', (request()->input('page', 1) - 1) * $estados->perPage());
+            ->with('i', (request()->input('page', 1) - 1));
     }
 
     /**

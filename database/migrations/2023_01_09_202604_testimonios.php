@@ -17,7 +17,7 @@ class Testimonios extends Migration
             $table->id();
             $table->string('name');
             $table->string('image');
-            $table->string('testimonio');
+            $table->text('testimonio');
 
             $table->timestamps();
         });

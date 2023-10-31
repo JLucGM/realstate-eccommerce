@@ -195,7 +195,7 @@
                    </li>
                    <li>
                        <a href="{{route('negocios.index')}}">
-                           <span class="label">Embudo de Ventas</span>
+                           <span class="label">Negociaciones</span>
                        </a>
                    </li>
                    <li>
@@ -228,6 +228,13 @@
                    <li>
                        <a href="{{route('cat.index')}}">
                            <span class="label">Categorias</span>
+                       </a>
+                   </li>
+                   @endhasrole
+                   @hasrole('super Admin')
+                   <li>
+                       <a href="{{route('tags.index')}}">
+                           <span class="label">tags</span>
                        </a>
                    </li>
                    @endhasrole
