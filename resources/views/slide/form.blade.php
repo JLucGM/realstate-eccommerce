@@ -1,5 +1,6 @@
 <div class="p-1">
     <div class=" row">
+    @dump($errors->all())
 
         <div class="form-group col-12 col-md-6 mb-4">
             {{ Form::label('title','Titulo Principal',['class'=>'mb-1']) }}
@@ -17,7 +18,7 @@
             {!! Form::label('image', 'Imagen:') !!}
             <div class="input-group">
                 <div class="custom-file">
-                    {!! Form::file('image', ['class' => 'custom-file-inpust form-control','id'=>'image']) !!}
+                    {!! Form::file('image', ['class' => 'form-control'. ($errors->has('image') ? ' is-invalid' : ''),'accept'=>'image/*','id'=>'image'],) !!}
                 </div>
             </div>
             <p>Resolución recomendada: 1280x620px</p>

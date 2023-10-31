@@ -10,6 +10,12 @@ class Post extends Model
 {
     use HasFactory;
 
+    static $rules = [
+        'name'=> 'required',
+        'status'=>'required|in:1,2',
+        'img' => 'required|image|max:1024',
+        ];
+
     protected $guarded = ['id','created_at','updated_at'];
     protected $dateformat = 'd-m-y';
 

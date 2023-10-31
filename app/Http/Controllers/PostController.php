@@ -18,7 +18,7 @@ class PostController extends Controller
     {
         $posts = Post::all();
 
-        return view('posts.index',compact('posts'))->with('i', (request()->input('page', 1) - 1) );
+        return view('posts.index', compact('posts'))->with('i', (request()->input('page', 1) - 1));
     }
 
     /**
@@ -29,13 +29,12 @@ class PostController extends Controller
     public function create()
     {
 
-        $categories = Categorias::pluck('name','id');
+        $categories = Categorias::pluck('name', 'id');
 
         $tags = Tag::all();
 
 
-        return view('posts.create',compact('categories','tags'));
-
+        return view('posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -47,55 +46,27 @@ class PostController extends Controller
     public function store(Request $request)
     {
 
-    
-
-
-
-
-        $request->validate([
-            'name'=> 'required',
-            // 'slug'=> 'required|unique:posts',
-            'status'=>'required|in:1,2',
-            'img' => 'required|image|max:1024',
-            ]
-        );
-
+        request()->validate(Post::$rules);
 
         $input = $request->all();
-
-     
-
         $slug = strtolower($input['name']);
-
-      
-
-
-        $slugFinal =str_replace(' ', '-', $slug);
-
-
-    
+        $slugFinal = str_replace(' ', '-', $slug);
 
         $input['slug'] = $slugFinal;
 
-
         $path = 'img/posts/';
 
-        if(isset($input['img'])){
+        if (isset($input['img'])) {
             $file = $input['img'];
             $filenameWithExt = $file->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $file->getClientOriginalExtension();
-            $fileNameToStore = time().'.'.$input['img']->getClientOriginalExtension();
+            $fileNameToStore = time() . '.' . $input['img']->getClientOriginalExtension();
             $input["img"] = $fileNameToStore;
             $file->move($path, $fileNameToStore);
         }
 
         $post =  Post::create($input);
-
-
-        
-
-
 
         if ($request->tags) {
             $post->tags()->attach($request->tags);
@@ -111,8 +82,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('posts.show',compact('post'));
-
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -123,14 +93,13 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-       
 
-        $categories = Categorias::pluck('name','id');
+
+        $categories = Categorias::pluck('name', 'id');
 
         $tags = Tag::all();
 
-        return view('posts.edit',compact('post','categories','tags'));
-
+        return view('posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -143,41 +112,42 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
 
-        $request->validate([
-            'name'=> 'required',
-            // 'slug'=> 'required',
-            'status'=>'required|in:1,2',
+        $request->validate(
+            [
+                'name' => 'required',
+                // 'slug'=> 'required',
+                'status' => 'required|in:1,2',
             ]
         );
 
 
         $input = $request->all();
 
-         $slug = strtolower($input['name']);
-
-      
+        $slug = strtolower($input['name']);
 
 
-        $slugFinal =str_replace(' ', '-', $slug);
 
 
-    
+        $slugFinal = str_replace(' ', '-', $slug);
+
+
+
 
         $input['slug'] = $slugFinal;
 
         $path = 'img/posts/';
 
-        if(isset($input['img'])){
+        if (isset($input['img'])) {
             $file = $input['img'];
             $filenameWithExt = $file->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $file->getClientOriginalExtension();
-            $fileNameToStore = time().'.'.$input['img']->getClientOriginalExtension();
+            $fileNameToStore = time() . '.' . $input['img']->getClientOriginalExtension();
             $input["img"] = $fileNameToStore;
             $file->move($path, $fileNameToStore);
         }
 
-      
+
 
         $post->update($input);
 
@@ -188,7 +158,6 @@ class PostController extends Controller
 
 
         return redirect()->route('posts.index')->with('success', 'Post actualizado con exito.');
-
     }
 
     /**
@@ -202,9 +171,6 @@ class PostController extends Controller
 
         $post->delete();
 
-        return redirect()->route('posts.index')->with('info','el Post se elimino con exito');
-
-
+        return redirect()->route('posts.index')->with('info', 'el Post se elimino con exito');
     }
-
 }

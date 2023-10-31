@@ -11,6 +11,9 @@ class Ciudades extends Model
 
     public $table = 'ciudades';
     
+    static $rules = [
+		'name' => 'required',
+    ];
 
     public $fillable = [
         'name',

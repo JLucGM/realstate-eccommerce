@@ -12,8 +12,6 @@ $description= 'Crear tarea'
 @endsection
 
 @section('js_page')
-<script src="/js/cs/checkall.js"></script>
-<script src="/js/pages/products.list.js"></script>
 @endsection
 
 @section('content')
@@ -27,10 +25,7 @@ $description= 'Crear tarea'
                 <div class="card-header">
                     <span class="card-title">
                         
-                        <h2>
-                            Crear Tarea
-                            
-                        </h2>
+                        <h2>{{$title}}</h2>
                     </span>
                 </div>
                 <div class="card-body">

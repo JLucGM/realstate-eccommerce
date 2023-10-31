@@ -29,6 +29,8 @@ class Negocio extends Model
 {
     
     static $rules = [
+        'name' => 'required',
+        'presupuestoTotal' => 'required'
     ];
 
     protected $perPage = 20;

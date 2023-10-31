@@ -43,6 +43,7 @@ class SlideController extends Controller
      */
     public function store(Request $request)
     {
+        request()->validate(Slide::$rules);
 
         $input =$request->all();
 

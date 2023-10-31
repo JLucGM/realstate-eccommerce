@@ -29,15 +29,15 @@ $description= 'Añadiendo ciudad'
                 <div class="card-header">
                     <h2>{{$title}}</h2>
                 </div>
+                <div class="card-body">
                 <form action="{{ route('city.store') }}" method="post">
                     @csrf
 
-                    <div class=" p-3">
                         <div class="row">
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     {{ Form::label('name','Nombre',['class'=>'form-label']) }}
-                                    {{ Form::text('name',null,['class' => 'form-control' . ($errors->has('email') ? ' is-invalid' : ''), 'placeholder' => 'correo']) }}
+                                    {{ Form::text('name',null,['class' => 'form-control' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder' => 'correo']) }}
                                     {!! $errors->first('name', '<div class="invalid-feedback">:message</div>') !!}
                                 </div>
                             </div>
@@ -51,11 +51,11 @@ $description= 'Añadiendo ciudad'
                             </div>
 
                         </div>
-                    </div>
-                    <div class="card-footer">
+                    <div class="card-footer mt-2">
                         <button class="btn btn-primary" type="submit" class="form-submit">Guardar</button>
                     </div>
                 </form>
+                </div>
             </div>
         </div>
     </div>

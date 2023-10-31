@@ -38,6 +38,8 @@ class CategoriasController extends Controller
      */
     public function store(Request $request)
     {
+        request()->validate(Categorias::$rules);
+
         $cat = new Categorias;
 
         $cat->name = $request->name;

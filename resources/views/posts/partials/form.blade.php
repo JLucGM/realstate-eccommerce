@@ -3,10 +3,10 @@
 
         <div class="form-group col-12 mb-3">
             {!! Form::label('img', 'Portada', ['class'=>'form-label'] ) !!}
-            {!! Form::file('img', ['class'=>'form-control','accept'=>'image/*']) !!}
+            {!! Form::file('img', ['class'=>'form-control'. ($errors->has('name') ? ' is-invalid' : ''),'accept'=>'image/*']) !!}
             <div class="col-auto">
                 <span id="passwordHelpInline" class="form-text">
-                    Imagen que se mostrara en el Post max 1 mg
+                    Imagen que se mostrará en el Post max 1 mg
                 </span>
             </div>
             @error('file')
@@ -16,7 +16,7 @@
 
         <div class="form-group col-12 mb-3">
             {!! Form::label('name', 'Nombre', ['class'=>'form-label']) !!}
-            {!! Form::text('name', null, ['class'=>'form-control','placeholder'=>'introduce el nombre del Post']) !!}
+            {!! Form::text('name', null, ['class'=>'form-control'. ($errors->has('name') ? ' is-invalid' : ''),'placeholder'=>'introduce el nombre del Post']) !!}
             @error('name')
             <small class="text-danger">{{$message}}</small>
             @enderror

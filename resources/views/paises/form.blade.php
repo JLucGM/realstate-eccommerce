@@ -2,7 +2,7 @@
   <div class=" row">
 
     <div class="form-group col-sm-6 mb-4">
-      {{ Form::label('Nombre','Nombre',['class'=>'mb-4']) }}
+      {{ Form::label('Nombre','Nombre',['class'=>'form-label']) }}
       {{ Form::text('name', $pais->name, ['class' => 'form-control' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder' => 'Nombre']) }}
       {!! $errors->first('name', '<div class="invalid-feedback">:message</div>') !!}
     </div>

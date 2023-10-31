@@ -29,6 +29,8 @@ class PaisController extends Controller
 
     public function store(Request $request)
     {
+        request()->validate(Paises::$rules);
+
         Paises::create($request->all());
         return redirect()->route('paises.index');
     }

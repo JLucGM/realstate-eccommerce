@@ -11,6 +11,10 @@ class Paises extends Model
 
     protected $table = 'paises';
 
+    static $rules = [
+		'name' => 'required',
+    ];
+
     protected $fillable = [
         'name',
     ];

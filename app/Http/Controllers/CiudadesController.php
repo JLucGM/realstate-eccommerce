@@ -53,6 +53,9 @@ class CiudadesController extends Controller
      */
     public function store(Request $request)
     {
+
+        request()->validate(Ciudades::$rules);
+
         $city = new Ciudades;
 
     

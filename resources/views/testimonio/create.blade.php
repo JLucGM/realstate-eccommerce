@@ -23,7 +23,7 @@
 
                 @includeif('partials.errors')
 
-                <div class="card card-default">
+                <div class="card ">
                     <div class="card-header">
                           <span id="card_title">
                                <h1>
