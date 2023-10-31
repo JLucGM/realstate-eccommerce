@@ -59,7 +59,7 @@
                     @csrf
                     <div class="mb-3 filled form-group tooltip-end-top">
                         <i data-acorn-icon="email"></i>
-                        <input  placeholder="Email"  id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus />
+                        <input  placeholder="Email"  id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email" autofocus />
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -68,7 +68,7 @@
                     </div>
                     <div class="mb-3 filled form-group tooltip-end-top">
                         <i data-acorn-icon="lock-off"></i>
-                        <input  placeholder="Password" /        id="password" type="password" class="form-control pe-7 @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                        <input  placeholder="Password" /        id="password" type="password" class="form-control pe-7 @error('password') is-invalid @enderror" name="password"  autocomplete="current-password">
                         @if (Route::has('password.request'))
 
                         <a class="text-small position-absolute t-3 e-3" href="{{ route('password.request') }}">¿Olvidaste tu contraseña?</a>

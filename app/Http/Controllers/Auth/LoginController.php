@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Faq;
+use App\Models\SettingGeneral;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+
 
 class LoginController extends Controller
 {
@@ -37,4 +41,24 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function logins()
+    {
+        $faqs = Faq::all()->where('status', 'Publicar');
+        $setting = SettingGeneral::first();
+
+        return view('auth.login')
+        ->with('faqs', $faqs)
+        ->with('setting', $setting);
+
+    }
+    // public function login(Request $request)
+    // {
+    //     $request->validate([
+    //         'email' => 'required|email',
+    //         'password' => 'required',
+    //     ]);
+
+    // }
+
 }

@@ -154,16 +154,16 @@ class HomeController extends Controller
 
     }
 
-    public function login()
-    {
-        $faqs = Faq::all()->where('status', 'Publicar');
-        $setting = SettingGeneral::first();
+    // public function login()
+    // {
+    //     $faqs = Faq::all()->where('status', 'Publicar');
+    //     $setting = SettingGeneral::first();
 
-        return view('auth.login')
-        ->with('faqs', $faqs)
-        ->with('setting', $setting);
+    //     return view('auth.login')
+    //     ->with('faqs', $faqs)
+    //     ->with('setting', $setting);
 
-    }
+    // }
     
     
 }

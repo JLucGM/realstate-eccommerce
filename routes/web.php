@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactoController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\EstadoController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\PaisController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use App\Models\Ciudades;
 use App\Models\Estado;
@@ -262,4 +264,4 @@ Route::resource('faqs', FaqController::class);
 Route::get('faq', [App\Http\Controllers\HomeController::class, 'faq'])->name('faq.show');
 
 // Ruta de prueba, para enviar info de settingGeneral al login, BORRAR SI FALLA EL LOGIN
-Route::get('login', [App\Http\Controllers\HomeController::class, 'login'])->name('login');
+Route::get('login', [AuthLoginController::class, 'logins'])->name('login');

@@ -38,24 +38,26 @@ $description= 'Ecommerce Customer List Page'
                                         <div class="mb-3">
                                             <label for="formFile" class="form-label">Avatar</label>
                                             <input class="form-control" name="avatar" type="file" id="formFile">
+                                            {!! $errors->first('avatar', '<div class="invalid-feedback">:message</div>') !!}
+
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-6 mb-4">
                                         {{ Form::label('name','Nombre',['class'=>'']) }}
-                                        {{ Form::text('name',null, ['class' => 'form-control' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder' => 'nombre']) }}
+                                        {{ Form::text('name',null, ['class' => 'form-control' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder' => 'Nombre']) }}
                                         {!! $errors->first('name', '<div class="invalid-feedback">:message</div>') !!}
                                     </div>
 
                                     <div class="form-group col-sm-6 mb-4">
                                         {{ Form::label('last_name','Apellido',['class'=>'']) }}
-                                        {{ Form::text('last_name',null, ['class' => 'form-control' . ($errors->has('last_name') ? ' is-invalid' : ''), 'placeholder' => 'apellido']) }}
+                                        {{ Form::text('last_name',null, ['class' => 'form-control' . ($errors->has('last_name') ? ' is-invalid' : ''), 'placeholder' => 'Apellido']) }}
                                         {!! $errors->first('last_name', '<div class="invalid-feedback">:message</div>') !!}
                                     </div>
 
 
                                     <div class="form-group col-sm-6 mb-4">
                                         {{ Form::label('rol','Rol',['class'=>'']) }}
-                                        <select class="form-control" name="rol" id="rol">
+                                        <select class="form-control" name="rol">
                                             @foreach ($roles as $rol)
                                             <option value="{{$rol->name}}">{{$rol->name}}</option>
                                             @endforeach

@@ -138,6 +138,14 @@ class userController extends Controller
 
     public function storeUser(Request $request)
     {
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'email' => 'required|email|unique:users,email',
+            'whatsapp' => 'required|max:255',
+            'password' => 'required|min:8',
+        ]);
+
         $user = new User;
         $user->name = $request->name;
         $user->last_name = $request->last_name;
