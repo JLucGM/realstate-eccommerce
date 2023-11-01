@@ -18,8 +18,8 @@ $description= $title
       <p>{{ $message }}</p>
     </div>
     @elseif($message = Session::get('error'))
-    <div class="alert alert-danger mt-5">
-      <p>{{ $message }}</p>
+    <div class="alert alert-danger mt-5 ">
+      <p class="text-center">{{ $message }}</p>
     </div>
     @endif
   </div>
@@ -35,33 +35,39 @@ $description= $title
         <div class="row">
           <div class="col-lg-6 col-sm-12 pt-2">
             <div class="form-group">
-              <input type="text" required class="form-control" name="name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nombre">
+              <input type="text" class="form-control {{ ($errors->has('name') ? ' is-invalid' : '') }}" name="name" placeholder="Nombre">
+              {!! $errors->first('name', '<div class="invalid-feedback">:message</div>') !!}
             </div>
           </div>
           <div class="col-lg-6 col-sm-12 pt-2">
             <div class="form-group">
-              <input type="text" required class="form-control" name="apellido" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="apellido">
+              <input type="text" class="form-control {{ ($errors->has('apellido') ? ' is-invalid' : '') }}" name="apellido" placeholder="apellido">
+              {!! $errors->first('apellido', '<div class="invalid-feedback">:message</div>') !!}
             </div>
           </div>
           <div class="col-lg-6 col-sm-12 pt-2">
             <div class="form-group">
-              <input type="number" required class="form-control" name="telefono" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Telefono">
+              <input type="text" class="form-control {{ ($errors->has('telefonoContacto1') ? ' is-invalid' : '') }}" name="telefonoContacto1" placeholder="Telefono">
+              {!! $errors->first('telefonoContacto1', '<div class="invalid-feedback">:message</div>') !!}
             </div>
           </div>
           <div class="col-lg-6 col-sm-12  pt-2">
             <div class="form-group">
-              <input type="email" required class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Correo">
+              <input type="email" class="form-control {{ ($errors->has('email') ? ' is-invalid' : '') }}" name="email" placeholder="Correo">
+              {!! $errors->first('email', '<div class="invalid-feedback">:message</div>') !!}
             </div>
           </div>
           <div class="col-lg-12 col-sm-12 pt-2">
             <div class="form-group">
-              <input type="text" required class="form-control" name="direccion" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Dirección de interes">
+              <input type="text" class="form-control {{ ($errors->has('direccion') ? ' is-invalid' : '') }}" name="direccion" placeholder="Dirección de interes">
+              {!! $errors->first('direccion', '<div class="invalid-feedback">:message</div>') !!}
             </div>
           </div>
 
           <div class="col-12  pt-2">
             <div class="form-group">
-              <input type="text" required class="form-control" name="observaciones" id="text" placeholder="Mensaje">
+              <input type="text" class="form-control {{ ($errors->has('observaciones') ? ' is-invalid' : '') }}" name="observaciones" id="text" placeholder="Mensaje">
+              {!! $errors->first('observaciones', '<div class="invalid-feedback">:message</div>') !!}
             </div>
           </div>
         </div>

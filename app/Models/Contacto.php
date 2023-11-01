@@ -35,9 +35,8 @@ class Contacto extends Model
 		'apellido' => 'required',
 		'email' => 'required',
 		'telefonoContacto1' => 'required',
-		'telefonoContacto2' => 'required',
-		'origen' => 'required',
-		'status' => 'required',
+    'direccion' => 'required',
+    'observaciones' => 'required',
     ];
 
     protected $perPage = 20;

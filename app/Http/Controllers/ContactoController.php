@@ -147,12 +147,14 @@ class ContactoController extends Controller
 
     public function storeUserContacto(Request $request)
     {
+        request()->validate(Contacto::$rules);
+
         // Crear un nuevo registro en la tabla "contacto"
         $contacto = new Contacto();
         $contacto->name = $request->name;
         $contacto->apellido = $request->apellido;
         $contacto->email = $request->email;
-        $contacto->telefonoContacto1 = $request->telefono;
+        $contacto->telefonoContacto1 = $request->telefonoContacto1;
         $contacto->direccion = $request->direccion;
         $contacto->observaciones = $request->observaciones;
         $contacto->origen = 'Pagina web';

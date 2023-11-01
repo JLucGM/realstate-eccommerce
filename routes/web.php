@@ -185,7 +185,7 @@ Route::group(['middleware' => ['cors']], function () {
     Route::resource('contactos', ContactoController::class);
     Route::resource('contactos-propiedads', ContactosPropiedadController::class);
     Route::get('contactos-propiedad/{id}', [ContactosPropiedadController::class, 'index'])->name('contactos-propiedad.index');
-    Route::get('/contacto-web', [App\Http\Controllers\ContactosPropiedadController::class, 'contactoWeb'])->name('contactacto.web');
+    Route::get('/contacto', [App\Http\Controllers\ContactosPropiedadController::class, 'contactoWeb'])->name('contactacto.web');
 
     Route::resource('tasks', TaskController::class);
 
