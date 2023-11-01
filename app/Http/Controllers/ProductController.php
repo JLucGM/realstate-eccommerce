@@ -22,6 +22,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Ciudades;
 use App\Models\Estado;
+use App\Models\Page;
 use App\Models\Paises;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -366,15 +367,13 @@ class ProductController extends Controller
 
         $setting = SettingGeneral::first();
 
-        $max = Product::max('price');
-        $min = Product::min('price');
+        $pages = Page::where('status', 1)->get();
 
         return view('frontend.PropiedadesLista')->with('products', $products)
             ->with('productFooter', $productFooter)
             ->with('tipoPropiedad', $tipoPropiedad)
             ->with('tipoAll', $tipoAll)
-            ->with('max', $max)
-            ->with('min', $min)
+            ->with('pages', $pages)
             ->with('paises', $paises)
             ->with('estado', $estado)
             ->with('ciudades', $ciudades)
@@ -409,6 +408,7 @@ class ProductController extends Controller
 
     public function buscarPropiedad(Request $request)
     {
+        
         $input = $request->all();
         $productsSearch = Product::with(['media']);
         if (isset($input['region'])) {
@@ -435,6 +435,8 @@ class ProductController extends Controller
         $tipoPropiedad = TipoPropiedad::get()->take(7);
         $tipoAll = TipoPropiedad::all()->pluck('nombre', 'id');
         $paises = Paises::all();
+        $pages = Page::where('status', 1)->get();
+
 
         $setting = SettingGeneral::first();
 
@@ -445,6 +447,7 @@ class ProductController extends Controller
             ->with('setting', $setting)
             ->with('paises', $paises)
             ->with('productsSearchMap', $productsSearchMap)
+            ->with('pages', $pages)
             ->with('tipoAll', $tipoAll);
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categorias;
+use App\Models\Page;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\Product;
@@ -26,7 +27,9 @@ class BlogController extends Controller
 
         $setting =  SettingGeneral::first();
 
-        return view('frontend.indexBlog', compact('posts','products','tipoPropiedad','setting','postsSide'));
+        $pages = Page::where('status', 1)->get();
+
+        return view('frontend.indexBlog', compact('posts','products','tipoPropiedad','setting','postsSide','pages'));
     }
     public function show(Post $post)
     {
@@ -38,13 +41,16 @@ class BlogController extends Controller
         $setting =  SettingGeneral::first();
 
         $categorias = Categorias::all();
+
+        $pages = Page::where('status', 1)->get();
+
         $similares = Post::where('category_id', $post->category_id)
             ->where('status', 2)
             ->where('id', '!=', $post->id)
             ->latest('id')
             ->take(4)
             ->get();
-        return view('frontend.showBlog', compact('post', 'similares', 'categorias','postsSide','tipoPropiedad','setting','products'));
+        return view('frontend.showBlog', compact('post', 'similares', 'categorias','postsSide','tipoPropiedad','setting','products','pages'));
     }
 
 

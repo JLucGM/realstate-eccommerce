@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use  App\Models\Product;
 use  App\Models\Slide;
 use  App\Models\InfoWeb;
+use App\Models\Page;
 use App\Models\Paises;
 use App\Models\Post;
 use App\Models\TipoPropiedad;
@@ -29,6 +30,7 @@ class HomeController extends Controller
         $paises = Paises::all();
         $estado = Estado::all();
         $ciudades = Ciudades::all();
+        $pages = Page::where('status', 1)->get();
 
         $vendedorAgente =  User::whereHas("roles", function ($q) {
             $q->where("name", "Arrendador")->orWhere("name", 'Vendedor');
@@ -48,7 +50,8 @@ class HomeController extends Controller
         $max = Product::max('price');
         $min = Product::min('price');
 
-        return view('frontend.Home')->with('products', $products)
+        return view('frontend.Home')
+        ->with('products', $products)
             ->with('productsDestacados', $productsDestacados)
             ->with('slides', $slides)
             ->with('paises', $paises)
@@ -60,8 +63,7 @@ class HomeController extends Controller
             ->with('tipoPropiedad', $tipoPropiedad)
             ->with('tipoAll', $tipoAll)
             ->with('setting', $setting)
-            ->with('max', $max)
-            ->with('min', $min)
+            ->with('pages', $pages)
             ->with('testimonios', $testimonios);
     }
 
@@ -76,6 +78,8 @@ class HomeController extends Controller
         $paises = Paises::all();
         $ciudades = Ciudades::all();
         $estados = Estado::all();
+        $pages = Page::where('status', 1)->get();
+
 
         $products = Product::where('tipoPropiedad_id', $product->tipoPropiedad_id)->take(6)->get();
         $productFooter = Product::with(['media'])->get()->take(2);
@@ -88,6 +92,7 @@ class HomeController extends Controller
             ->with('paises', $paises)
             ->with('ciudades', $ciudades)
             ->with('estados', $estados)
+            ->with('pages', $pages)
             ->with('productFooter', $productFooter);
     }
 
@@ -100,7 +105,6 @@ class HomeController extends Controller
         // Contador de usuarios
         $users = User::all();
         $usercount = count($users);
-        $usercount++;
 
         // Contador de Productos (Propiedades)
         $product = Product::latest()->take(20)->get();
@@ -117,7 +121,7 @@ class HomeController extends Controller
 
         $setting = SettingGeneral::first();
 
-        $posts = Post::all();
+        $posts = Post::latest()->take(20);
 
 
         return view('/dashboard')->with('message', $message)
@@ -147,9 +151,11 @@ class HomeController extends Controller
     {
         $faqs = Faq::all()->where('status', 'Publicar');
         $setting = SettingGeneral::first();
+        $pages = Page::where('status', 1)->get();
 
         return view('frontend.faq')
         ->with('faqs', $faqs)
+        ->with('pages', $pages)
         ->with('setting', $setting);
 
     }

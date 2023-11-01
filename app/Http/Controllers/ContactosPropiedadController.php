@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ContactosPropiedad;
+use App\Models\Page;
 use App\Models\Product;
 use App\Models\TipoPropiedad;
 use Illuminate\Http\Request;
@@ -121,11 +122,13 @@ $user = User::all();
     {
         $productFooter = Product::with(['media'])->get()->take(3);
         $tipoPropiedad = TipoPropiedad::get()->take(7);
+        $pages = Page::where('status', 1)->get();
 
         $setting =  SettingGeneral::first();
 
         return view('frontend.Contacto')->with('productFooter', $productFooter)
         ->with('tipoPropiedad', $tipoPropiedad)
+        ->with('pages', $pages)
         ->with('setting', $setting);
 
     }

@@ -1,6 +1,5 @@
 <div class="p-1">
     <div class=" row">
-    @dump($errors->all())
 
         <div class="form-group col-12 col-md-6 mb-4">
             {{ Form::label('title','Titulo Principal',['class'=>'mb-1']) }}

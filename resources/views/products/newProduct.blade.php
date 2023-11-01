@@ -31,7 +31,6 @@ $description= $title
             <div class="card-body">
 
                 <h1 class="my-3 small-title">Información de la propiedad</h1>
-@dump($errors->all())
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <label class="form-label">Nombre del producto</label>

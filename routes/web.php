@@ -15,6 +15,7 @@ use App\Http\Controllers\EstadoController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\PaisController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Models\Ciudades;
 use App\Models\Estado;
@@ -265,3 +266,7 @@ Route::get('faq', [App\Http\Controllers\HomeController::class, 'faq'])->name('fa
 
 // Ruta de prueba, para enviar info de settingGeneral al login, BORRAR SI FALLA EL LOGIN
 Route::get('login', [AuthLoginController::class, 'logins'])->name('login');
+
+Route::resource('pages', PageController::class);
+
+Route::get('/page/{slug}', [App\Http\Controllers\PageController::class, 'page'])->name('page');

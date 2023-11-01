@@ -254,6 +254,12 @@
                </a>
            </li>
            <li>
+               <a href="{{route('pages.index')}}">
+                   <i class="fa-regular fa-comment-dots icon" data-acorn-size="18"></i>
+                   <span class="label">Pages</span>
+               </a>
+           </li>
+           <li>
                <a href="#location" data-href="{{route('product.index')}}">
                    <i class="fa-regular fa-map icon" data-acorn-size="18"></i>
                    <span class="label">Locaciones</span>

@@ -25,5 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AmenitiesSeeder::class);
         $this->call(AmenitiesCheckSeeder::class);
         $this->call(CategoriasSeeder::class);
+        $this->call(PagesSeeder::class);
     }
 }

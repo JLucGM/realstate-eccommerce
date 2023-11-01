@@ -20,13 +20,11 @@
         </div>
 
         <div class="col-6 col-md-2 mb-3">
-          <h5>Useful Links</h5>
+          <h5>Páginas de interes</h5>
           <ul class="nav flex-column">
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Nosotros</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Servicios</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
-            <li class="nav-item mb-2"><a href="{{ route('faq.show') }}" class="nav-link p-0 text-body-secondary">FAQs</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+            @foreach($pages as $page)
+            <li class="nav-item mb-2"><a href="{{ route('page',$page->slug) }}" class="nav-link p-0 text-body-secondary">{{$page->name}}</a></li>
+            @endforeach
           </ul>
         </div>
 
