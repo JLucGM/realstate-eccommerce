@@ -45,10 +45,16 @@ class ProductController extends Controller
             // $products = Product::ordenar($products);
         } else {
 
-            $products = Product::join('propiedad_agente', 'propiedad_agente.product_id', '=', 'products.id')
-                ->select('products.*')
-                ->where('user_id', auth()->user()->id)
-                ->orderBy('id', 'desc');
+            // $products = Product::join('propiedad_agente', 'propiedad_agente.product_id', '=', 'products.id')
+            //     ->select('products.*')
+            //     ->where('user_id', auth()->user()->id)
+            //     ->orderBy('id', 'desc');
+            // $user_id = 1; // ID del agente
+
+$products = Product::join('propiedad_agente', 'propiedad_agente.product_id', '=', 'products.id')
+    ->where('propiedad_agente.user_id', auth()->user()->id)
+    ->get();
+
         }
 
 
@@ -82,7 +88,7 @@ class ProductController extends Controller
     //     return $country;
     // }
 
-    public function newProduct()
+    public function create()
     {
         // $categorias = Categorias::all();
         // $subcat = Sub_categorias::all();
@@ -94,7 +100,7 @@ class ProductController extends Controller
         $SettingGeneral = SettingGeneral::first();
 
         $asignado = User::whereHas("roles", function ($q) {
-            $q->Where('name', 'Vendedor');
+            $q->Where('name', 'vendedor');
         })->pluck('name', 'id');
 
         $message = "";
@@ -172,7 +178,8 @@ class ProductController extends Controller
             $propiedadAgente->user_id = $input['agenteVendedor_id'];
             $propiedadAgente->product_id = $product->id;
             $propiedadAgente->save();
-        } else {
+        } 
+        else {
             $propiedadAgente = new PropiedadAgente();
             $propiedadAgente->user_id = auth()->user()->id;
             $propiedadAgente->product_id = $product->id;
@@ -199,18 +206,33 @@ class ProductController extends Controller
     public function productUpdate(request $request, $id)
     {
 
+        // dd($request->input());
         $product = Product::find($id);
         // dd($product);
 
         $product->name = $request->name;
         $product->price = $request->price;
         // $product->category = $request->category;
-        $product->tipoPropiedad_id = $request->t_propiedades;
         $product->status = $request->status;
-        $product->statusActual = $request->statusActual;
         $product->description = $request->description;
         $product->details = $request->details;
+        $product->statusActual = $request->statusActual;
+        $product->publicar = $request->publicar;
+        $product->dormitorios = $request->dormitorios;
+        $product->ambientes = $request->ambientes;
+        $product->toilet = $request->toilet;
         $product->metrosCuadradosT = $request->metrosCuadradosT;
+        $product->metrosCuadradosC = $request->metrosCuadradosC;
+        $product->estrenar = $request->estrenar;
+        $product->expensas = $request->expensas;
+        $product->cocheras = $request->cocheras;
+        $product->pais = $request->pais;
+        $product->region = $request->region;
+        $product->ciudad = $request->ciudad;
+        $product->latitud = $request->latitud;
+        $product->longitud = $request->longitud;
+        $product->direccion = $request->direccion;
+        $product->tipoPropiedad_id = $request->t_propiedades;
 
         if ($request->hasFile('image')) {
             $images = []; // Crear un arreglo vacío para almacenar los nombres de las imágenes
@@ -243,19 +265,32 @@ class ProductController extends Controller
         // // $categorias = Categorias::all();
         $images = json_decode($product->image);
         $tipoPropiedad = TipoPropiedad::all();
+        $paises = Paises::all();
+        $estado = Estado::all();
+        $ciudades = Ciudades::all();
+
         $asignado = User::whereHas("roles", function ($q) {
             $q->Where('name', 'Vendedor');
         })->pluck('name', 'id');
 
-        $message = "";
+        $message = '';
 
-        return view('products.detail')->with('product', $product)->with('message', $message)->with('images', $images)->with('tipoPropiedad', $tipoPropiedad)->with('asignado', $asignado);
+        return view('products.detail')
+            ->with('product', $product)
+            ->with('paises', $paises)
+            ->with('estado', $estado)
+            ->with('ciudades', $ciudades)
+            ->with('images', $images)
+            ->with('tipoPropiedad', $tipoPropiedad)
+            ->with('message', $message)
+            ->with('asignado', $asignado);
     }
 
     public function productJsonImages(Request $request, $id)
     {
         $product = Product::find($id);
         $images = json_decode($product->image, false);
+        $tipoPropiedad = TipoPropiedad::all();
 
 
         // // $categorias = Categorias::all();
@@ -270,9 +305,9 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             //     $message = "No seleccionaste ningun archivo";
             //     $product = Product::find($id);
-                // $categorias = Categorias::all();
+            // $categorias = Categorias::all();
             //     // $product->image = json_decode($product->image);
-                // return view('products.detail')->with('product', $product)->with('categorias', $categorias)->with('message', $message);
+            // return view('products.detail')->with('product', $product)->with('categorias', $categorias)->with('message', $message);
             // } else {
             $array = [];
             $file = $request->file('image');
@@ -317,7 +352,7 @@ class ProductController extends Controller
 
         $message = "Exito al subir Archivos";
 
-        return view('products.detail')->with('product', $product)->with('message', $message)->with('images', $images);
+        return view('products.detail')->with('product', $product)->with('message', $message)->with('images', $images)->with('tipoPropiedad', $tipoPropiedad);
         // // return redirect()->route('product.edit', ['id' => $product->id])->with('product', $product)->with('categorias', $categorias)->with('message', $message)->with('images', $images);
     }
 
@@ -408,7 +443,7 @@ class ProductController extends Controller
 
     public function buscarPropiedad(Request $request)
     {
-        
+
         $input = $request->all();
         $productsSearch = Product::with(['media']);
         if (isset($input['region'])) {
@@ -417,19 +452,19 @@ class ProductController extends Controller
         if (isset($input['ciudad'])) {
             $productsSearch->where('ciudad', $input['ciudad']);
         }
-    
+
         if (isset($input['tipo_propiedad'])) {
             $productsSearch->where('tipoPropiedad_id', $input['tipo_propiedad']);
         }
-    
+
         if (isset($input['precio'])) {
             $precio = str_replace(',', '', $input['precio']); // Eliminar las comas del valor ingresado
             $productsSearch->where('price', '<=', $precio);
         }
-    
+
         $productsSearchMap = $productsSearch->get();
         $productsSearch = $productsSearch->paginate(12);
-        
+
         $products = Product::with(['media'])->paginate(12);
         $productFooter = Product::with(['media'])->get()->take(3);
         $tipoPropiedad = TipoPropiedad::get()->take(7);
@@ -451,12 +486,12 @@ class ProductController extends Controller
             ->with('tipoAll', $tipoAll);
     }
 
-    public function productDelete($id)
+    public function Delete($id)
     {
         $product = Product::find($id);
         $product->delete();
         $message = "Eliminado con exito";
-        return redirect()->route('product.index');
+        return redirect()->route('product.index')->with('success', 'La propiedad se ha eliminado correctamente');
     }
 
     public function byEstado($id)

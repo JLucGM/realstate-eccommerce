@@ -87,4 +87,10 @@ class User extends Authenticatable
         }
     }
 
+    public function productos()
+{
+    return $this->belongsToMany(Product::class, 'propiedad_agente', 'user_id', 'product_id');
+}
+
+
 }

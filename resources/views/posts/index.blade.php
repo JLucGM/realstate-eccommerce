@@ -33,7 +33,9 @@ $description= 'Ecommerce Product List Page'
                 <div class="card-header d-flex justify-content-between">
                     <h2>{{$title}}</h2>
 
+                    @can('admin.posts.create')
                     <a href="{{route('posts.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">{{"Crear" }}</a>
+                    @endcan
                 </div>
 
                 @if ($message = Session::get('success'))
@@ -71,9 +73,13 @@ $description= 'Ecommerce Product List Page'
                                 <td class="text-end">
                                     <form action="{{route('posts.destroy',$post)}}" method="POST">
                                         @csrf
+                                        @can('admin.posts.edit')
                                         <a class="btn btn-success btn-sm" href="{{route('posts.edit',$post)}}"><i class="fa fa-fw fa-edit"></i></a>
+                                        @endcan
                                         @method('delete')
+                                        @can('admin.posts.delete')
                                         <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-fw fa-trash"></i></button>
+                                        @endcan
                                     </form>
                                 </td>
                             </tr>

@@ -31,10 +31,11 @@ $description= 'Lista de ciudades'
                 <div class="card-header d-flex justify-content-between">
 
                     <h2>{{$title}}</h2>
-
+                    @can('admin.ciudades.create')
                     <a href="{{route('city.create')}}" class="btn btn-primary btn-sm float-right" data-placement="left">
                         {{"Crear" }}
                     </a>
+                    @endcan
                 </div>
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success">
@@ -67,10 +68,13 @@ $description= 'Lista de ciudades'
 
                                     <td class="text-end">
                                         <form action="{{ route('city.delete',$city->id) }}" method="GET">
+                                            @can('admin.ciudades.edit')
                                             <a class="btn btn-sm btn-success" href="{{ route('city.edit',$city->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
+                                            @endcan
                                             @csrf
-
+                                            @can('admin.ciudades.delete')
                                             <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> </button>
+                                            @endcan
                                         </form>
                                     </td>
                                 </tr>

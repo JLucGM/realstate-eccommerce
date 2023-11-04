@@ -21,19 +21,17 @@ $description= 'Ecommerce Product List Page'
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
-                <div class="card-header">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h2 id="card_title">{{$title}}</h2>
+                <div class="card-header d-flex justify-content-between">
+                    <h2 id="card_title">{{$title}}</h2>
 
-                        <div class="float-end">
-                            @if ($settingCount < 0) <a href="{{ route('setting-generals.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
-                                {{ __('Agregar Nuevo') }}
-                                </a>
-                                @else
-                                creado borrar mensaje luego
-                                @endif
-                        </div>
-                    </div>
+                    @can('admin.setting-generals.create')
+                    @if ($settingCount < 0) <a href="{{ route('setting-generals.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
+                        {{ __('Agregar Nuevo') }}
+                        </a>
+                        @else
+                        creado borrar mensaje luego
+                        @endif
+                        @endcan
                 </div>
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success">
@@ -64,10 +62,14 @@ $description= 'Ecommerce Product List Page'
                                     <td>{{ $settingGeneral->monedaSetting->tipo.' '.$settingGeneral->monedaSetting->denominacion }}</td>
                                     <td>
                                         <form action="{{ route('setting-generals.destroy',$settingGeneral->id) }}" method="POST">
+                                        @can('admin.setting-generals.edit')
                                             <a class="btn btn-sm btn-success" href="{{ route('setting-generals.edit',$settingGeneral->id) }}"><i class="fa fa-fw fa-edit"></i></a>
+                                            @endcan
                                             @csrf
                                             @method('DELETE')
+                                            @can('admin.setting-generals.delete')
                                             <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+                                            @endcan
                                         </form>
                                     </td>
                                 </tr>

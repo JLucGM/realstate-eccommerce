@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ciudades;
 use App\Models\Contacto;
+use App\Models\Estado;
 use App\Models\Paises;
 use App\Models\User;
 
@@ -11,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 
 
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 /**
  * Class ContactoController
@@ -28,13 +31,13 @@ class ContactoController extends Controller
         if (auth()->user()->hasRole('super Admin')) {
             $contactos = Contacto::all();
         } else {
-            $contactos = Contacto::where('vendedorAgente_id', auth()->user()->id)->all();
+            $contactos = Contacto::where('vendedorAgente_id', auth()->user()->id)->get();
         }
 
 
 
         return view('contacto.index', compact('contactos'))
-            ->with('i', (request()->input('page', 1) - 1) );
+            ->with('i', (request()->input('page', 1) - 1));
     }
 
     /**
@@ -46,7 +49,10 @@ class ContactoController extends Controller
     {
         $contacto = new Contacto();
         $paises = Paises::all();
-        return view('contacto.create', compact('contacto','paises'));
+        $ciudades = Estado::all();
+        $estado = Ciudades::all();
+
+        return view('contacto.create', compact('contacto', 'paises','ciudades','estado'));
     }
 
     /**
@@ -72,9 +78,18 @@ class ContactoController extends Controller
         $contacto->ciudad = ($request['ciudad']);
         $contacto->direccion = ($request['direccion']);
         $contacto->observaciones = ($request['observaciones']);
-        $contacto->save();
-        // $user->assignRole('cliente');
-        // $input['user_id'] = $user->id;
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->last_name = $request->apellido;
+        $user->email = $request->email;
+        $user->whatsapp = $request->telefonoContacto1;
+        $user->points = '0';
+        $user->password = bcrypt('123456789');
+
+        $role = Role::where('name', 'cliente')->first();
+        $user->assignRole($role);
+        $user->save();
 
         $input['vendedorAgente_id'] = auth()->user()->id;
 
@@ -111,8 +126,11 @@ class ContactoController extends Controller
     public function edit($id)
     {
         $contacto = Contacto::find($id);
+        $paises = Paises::all();
+        $ciudades = Estado::all();
+        $estado = Ciudades::all();
 
-        return view('contacto.edit', compact('contacto'));
+        return view('contacto.edit', compact('contacto','paises','ciudades','estado'));
     }
 
     /**
@@ -147,22 +165,40 @@ class ContactoController extends Controller
 
     public function storeUserContacto(Request $request)
     {
-        request()->validate(Contacto::$rules);
+        // METODO PARA FORMULARIO DE CONTACTO DE FFRONTEND.SHOWPRODUCT
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'apellido' => 'required',
+            'email' => 'required|email',
+            'telefono' => 'required',
+            'observaciones' => 'required',
+        ]);
 
-        // Crear un nuevo registro en la tabla "contacto"
         $contacto = new Contacto();
         $contacto->name = $request->name;
         $contacto->apellido = $request->apellido;
         $contacto->email = $request->email;
-        $contacto->telefonoContacto1 = $request->telefonoContacto1;
-        $contacto->direccion = $request->direccion;
+        $contacto->telefonoContacto1 = $request->telefono;
         $contacto->observaciones = $request->observaciones;
+        $contacto->vendedorAgente_id = $request->agente_id;
         $contacto->origen = 'Pagina web';
         $contacto->status = 'Interesado';
-        // Asignar otros valores a las columnas restantes si es necesario
 
-        // Guardar el registro en la base de datos
+        // Asigna otros valores a las columnas restantes si es necesario
         $contacto->save();
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->last_name = $request->apellido;
+        $user->email = $request->email;
+        $user->whatsapp = $request->telefono;
+        $user->points = '0';
+        $user->password = bcrypt('123456789');
+
+        $role = Role::where('name', 'cliente')->first();
+        $user->assignRole($role);
+        $user->save();
+
         return redirect()->back()->with('success', "Mensaje enviado.");
     }
 }

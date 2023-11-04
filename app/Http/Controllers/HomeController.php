@@ -71,8 +71,9 @@ class HomeController extends Controller
     {
         $tipoPropiedad = TipoPropiedad::get()->take(7);
 
-        // $product = Product::where('id', $id)->with(['media'])->first();
-        $product = Product::find($id);
+        $product = Product::where('id', $id)->with(['media'])->first();
+        $producto = Product::with('usuarios')->find($id); //rescata la informacion de la tabla agentepropiedad
+        // $product = Product::find($id);
         $images = json_decode($product->image, false);
         $setting = SettingGeneral::first();
         $paises = Paises::all();
@@ -85,6 +86,7 @@ class HomeController extends Controller
         $productFooter = Product::with(['media'])->get()->take(2);
         return view('frontend.productShow')
             ->with('product', $product)
+            ->with('producto', $producto)
             ->with('products', $products)
             ->with('images', $images)
             ->with('tipoPropiedad', $tipoPropiedad)

@@ -46,7 +46,7 @@ $description= $title
     <div class="swiper-slide">
       <button type="button" class="btn p-0 btn-slide" data-bs-toggle="modal" data-bs-target="#{{ $image->id }}">
         <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $image->name) }}" class="w-100 mb-2 img-slide" alt="Imagen de la propiedad">
-        <i class="icon-slide fa-solid fa-camera"></i> 
+        <i class="icon-slide fa-solid fa-camera"></i>
       </button>
     </div>
     @endforeach
@@ -339,11 +339,10 @@ Launch static backdrop modal{{ $image->id }}
     <div class="container sticky-top">
       <div class="bg-white border-0 shadow-sm rounded-4">
         <div class="row">
-          @if (isset($product->agente))
+          @if ($producto->usuarios->count() > 0)
           <div class="text-center mt-3">
             <img src="{{ asset('img/profile/' . $product->agente->user->avatar) }}" alt="{{$product->agente->user->avatar}}" class="w-50 rounded">
-
-            <h4>{{ $product->agente->user->name }}</h4>
+            <h4>{{ $producto->usuarios->first()->name.' '.$producto->usuarios->first()->last_name }}</h4>
             <!-- <p class="text-primary mb-0">Agente</p> -->
           </div>
           @endif
@@ -354,15 +353,30 @@ Launch static backdrop modal{{ $image->id }}
                     VISITA</a> -->
             <form method="POST" action="{{ route('store.user-contacto') }}" role="form" enctype="multipart/form-data">
               @csrf
-              <input type="text" class="form-control mb-2" name="name" placeholder="Nombre">
-              <input type="text" class="form-control mb-2" name="apellido" placeholder="Apellido">
-              <input type="text" class="form-control mb-2" name="email" placeholder="Correo">
-              <input type="text" class="form-control mb-2" name="telefono" placeholder="Telefono">
-              <textarea name="observaciones" id="" placeholder="Mensaje" rows="5" class="form-control mb-2"></textarea>
+              <div class="mb-2">
+                <input type="text" value="{{old('name')}}" class="form-control mb-2 {{ ($errors->has('name') ? ' is-invalid' : '') }}" name="name" placeholder="Nombre">
+                {!! $errors->first('name', '<div class="invalid-feedback">:message</div>') !!}
+              </div>
 
-              <input type="hidden" name="propiedad_id" value="{{ $product->id }}" class="form-control mb-2" required>
-              @if (isset($product->agente))
-              <input type="hidden" name="agente_id" value="{{ $product->agente->user_id }}" class="form-control mb-2" required>
+              <div class="mb-2">
+                <input type="text" value="{{old('apellido')}}" class="form-control mb-2 {{ ($errors->has('apellido') ? ' is-invalid' : '') }}" name="apellido" placeholder="Apellido">
+                {!! $errors->first('apellido', '<div class="invalid-feedback">:message</div>') !!}
+              </div>
+              <div class="mb-2">
+                <input type="text" value="{{old('email')}}" class="form-control mb-2 {{ ($errors->has('email') ? ' is-invalid' : '') }}" name="email" placeholder="Correo">
+                {!! $errors->first('email', '<div class="invalid-feedback">:message</div>') !!}
+              </div>
+              <div class="mb-2">
+                <input type="text" value="{{old('telefono')}}" class="form-control mb-2 {{ ($errors->has('telefono') ? ' is-invalid' : '') }}" name="telefono" placeholder="Telefono">
+                {!! $errors->first('telefono', '<div class="invalid-feedback">:message</div>') !!}
+              </div>
+              <div class="mb-2">
+                <textarea name="observaciones" id="" placeholder="Mensaje" rows="5" class="form-control mb-2 {{ ($errors->has('observaciones') ? ' is-invalid' : '') }}">{{old('observaciones')}}</textarea>
+                {!! $errors->first('observaciones', '<div class="invalid-feedback">:message</div>') !!}
+              </div>
+
+              @if ($producto->usuarios->count() > 0)
+              <input type="hidden" name="agente_id" value="{{ $producto->usuarios->first()->id }}" class="form-control mb-2" required>
               @endif
 
               <button type="submit" class="btn btn-primary w-100 fw-bold">Enviar</button>
@@ -377,6 +391,18 @@ Launch static backdrop modal{{ $image->id }}
 
 </div>
 </div>
+
+<h1>Información del Producto</h1>
+<p>Nombre del Producto: {{ $producto->name }}</p>
+
+<h2>Usuario Asignado</h2>
+@if ($producto->usuarios->count() > 0)
+<p>Nombre del Usuario: {{ $producto->usuarios->first()->name }}</p>
+<p>id del Usuario: {{ $producto->usuarios->first()->id }}</p>
+@else
+<p>No hay usuario asignado a este producto.</p>
+@endif
+
 <!-- </div> -->
 
 <!-- Swiper JS -->

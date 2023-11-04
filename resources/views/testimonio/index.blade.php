@@ -32,9 +32,11 @@ $description= 'Ecommerce Product List Page'
                     <div class="d-flex justify-content-between">
                         <h1>{{$title}}</h1>
 
+                        @can('admin.testimonios.create')
                         <a href="{{ route('testimonios.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
                             {{ 'Crear' }}
                         </a>
+                        @endcan
                     </div>
                 </div>
                 @if ($message = Session::get('success'))
@@ -64,10 +66,14 @@ $description= 'Ecommerce Product List Page'
                                     <td>{{ $testimonio->testimonio }}</td>
                                     <td class="text-end">
                                         <form action="{{ route('testimonios.destroy',$testimonio->id) }}" method="POST">
+                                            @can('admin.testimonios.edit')
                                             <a class="btn btn-sm btn-success" href="{{ route('testimonios.edit',$testimonio->id) }}"><i class="fa fa-fw fa-edit"></i></a>
+                                            @endcan
                                             @csrf
                                             @method('DELETE')
+                                            @can('admin.testimonios.delete')
                                             <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+                                            @endcan
                                         </form>
                                     </td>
                                 </tr>

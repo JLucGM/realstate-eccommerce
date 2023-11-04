@@ -18,10 +18,10 @@ class FaqController extends Controller
      */
     public function index()
     {
-        $faqs = Faq::paginate();
+        $faqs = Faq::all();
 
         return view('faq.index', compact('faqs'))
-            ->with('i', (request()->input('page', 1) - 1) * $faqs->perPage());
+            ->with('i', (request()->input('page', 1) - 1) );
     }
 
     /**

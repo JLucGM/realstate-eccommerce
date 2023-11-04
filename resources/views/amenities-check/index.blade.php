@@ -25,64 +25,70 @@ $description= 'Verificación de comodidades'
 
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
 
-                            <h2 >{{ $title }}</h2>
+                        <h2>{{ $title }}</h2>
 
-                                <a href="{{ route('amenities-checks.create') }}" class="btn btn-primary btn-sm">
-                                  Crear
-                                </a>
-                        </div>
+                        @can('admin.amenities-checks.create')
+                        <a href="{{ route('amenities-checks.create') }}" class="btn btn-primary btn-sm">
+                            Crear
+                        </a>
+                        @endcan
                     </div>
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
+                </div>
+                @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                </div>
+                @endif
 
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover" id="tabla-amenities-check">
-                                <thead class="thead">
-                                    <tr>
-                                        <th>No</th>
-										<th>Nombre</th>
-										<th>Comodidades generales</th>
-										<th>Icono</th>
-                                        <th class="text-end">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($amenitiesChecks as $amenitiesCheck)
-                                        <tr>
-                                            <td>{{ ++$i }}</td>
-                                            
-											<td>{{ $amenitiesCheck->name }}</td>
-											<td>{{ $amenitiesCheck->amenitiess->name }}</td>
-											<td>{{ $amenitiesCheck->icon }}</td>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="tabla-amenities-check">
+                            <thead class="thead">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nombre</th>
+                                    <th>Comodidades generales</th>
+                                    <th>Icono</th>
+                                    <th class="text-end">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($amenitiesChecks as $amenitiesCheck)
+                                <tr>
+                                    <td>{{ ++$i }}</td>
 
-                                            <td class="text-end">
-                                                <form action="{{ route('amenities-checks.destroy',$amenitiesCheck->id) }}" method="POST">
-                                                    {{--<a class="btn btn-sm btn-primary " href="{{ route('amenities-checks.show',$amenitiesCheck->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>--}}
-                                                    <a class="btn btn-sm btn-success" href="{{ route('amenities-checks.edit',$amenitiesCheck->id) }}"><i class="fa fa-fw fa-edit"></i></a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                                    <td>{{ $amenitiesCheck->name }}</td>
+                                    <td>{{ $amenitiesCheck->amenitiess->name }}</td>
+                                    <td>{{ $amenitiesCheck->icon }}</td>
+
+                                    <td class="text-end">
+                                        <form action="{{ route('amenities-checks.destroy',$amenitiesCheck->id) }}" method="POST">
+                                            {{--<a class="btn btn-sm btn-primary " href="{{ route('amenities-checks.show',$amenitiesCheck->id) }}"><i class="fa fa-fw fa-eye"></i> Show</a>--}}
+                                            @csrf
+                                            @can('admin.amenities-checks.edit')
+                                            <a class="btn btn-sm btn-success" href="{{ route('amenities-checks.edit',$amenitiesCheck->id) }}"><i class="fa fa-fw fa-edit"></i></a>
+                                            @endcan
+                                            @method('DELETE')
+                                            @can('admin.amenities-checks.delete')
+                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+                                            @endcan
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection

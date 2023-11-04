@@ -25,7 +25,7 @@ $description= 'Ecommerce Customer List Page'
             <div class="card">
                 <div class="card-header">
                     <h2>{{$title}}</h2>                    
-                    <h4 class="text-success mb-0">{{$message}}</h4>
+                    <h4 class="text-success mb-0"></h4>
                 </div>
                 
                 {!! Form::model($user, ['route' => ['user.update', $user->id], 'method' => 'patch','enctype' => 'multipart/form-data']) !!}

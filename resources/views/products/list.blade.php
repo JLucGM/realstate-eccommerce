@@ -33,10 +33,11 @@
              <div class="card">
                  <div class="card-header d-flex justify-content-between">
                      <h1 class="card_title">{{$title}}</h1>
-
+                     @can('admin.products.create')
                      <a href="{{route('new.product')}}" class="btn btn-primary btn-sm float-right" data-placement="left">
                          {{"Crear" }}
                      </a>
+                     @endcan
                  </div>
                  @if ($message = Session::get('success'))
                  <div class="alert alert-success">
@@ -69,10 +70,13 @@
 
                                      <td class="text-end">
                                          <form action="{{ route('propiedad.delete', $product->id) }}" method="GET">
-                                             <a class="btn btn-sm btn-success" href="{{ route('product.edit',$product->id) }}"><i class="fa fa-fw fa-edit"></i></a>
                                              @csrf
-
+                                             @can('admin.products.edit')
+                                             <a class="btn btn-sm btn-success" href="{{ route('product.edit',$product->id) }}"><i class="fa fa-fw fa-edit"></i></a>
+                                             @endcan
+                                             @can('admin.products.delete')
                                              <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> </button>
+                                             @endcan
                                          </form>
                                      </td>
                                  </tr>

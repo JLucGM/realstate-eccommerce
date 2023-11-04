@@ -60,9 +60,9 @@ Route::group(['middleware' => ['cors']], function () {
     Route::get('/rolesDelete{id}', [App\Http\Controllers\RolesController::class, 'rolesDelete'])->name('roles.delete');
 
     // User
-    Route::get('/Usuarios', [App\Http\Controllers\userController::class, 'usuarios'])->name('user.index');
-    Route::get('/UsuariosEdit{id}', [App\Http\Controllers\userController::class, 'usuariosEdit'])->name('user.edit');
-    Route::patch('/UsuariosUpdate{id}', [App\Http\Controllers\userController::class, 'usuariosUpdate'])->name('user.update');
+    Route::get('/user', [App\Http\Controllers\userController::class, 'usuarios'])->name('user.index');
+    Route::get('/user-edit/{id}', [App\Http\Controllers\userController::class, 'usuariosEdit'])->name('user.edit');
+    Route::patch('/user-update/{id}', [App\Http\Controllers\userController::class, 'usuariosUpdate'])->name('user.update');
     Route::get('/UsuarioLogin', [App\Http\Controllers\userController::class, 'usuarioLogin'])->name('user.login');
     Route::get('/logout', [App\Http\Controllers\userController::class, 'destroy'])->name('login.destroy');
     Route::post('/register', [App\Http\Controllers\userController::class, 'store'])->name('register.store');
@@ -81,17 +81,24 @@ Route::group(['middleware' => ['cors']], function () {
     Route::post('/contacto', [App\Http\Controllers\ContactoController::class, 'storeUserContacto'])->name('store.user-contacto');
 
     //Product
-    Route::get('/product', [App\Http\Controllers\ProductController::class, 'index'])->name('product.index');
-
-    Route::get('/type/{tipo}', [App\Http\Controllers\ProductController::class, 'propiedadLista'])->name('propiedad.lista');
-    Route::get('/propiedad-anunciar', [App\Http\Controllers\ProductController::class, 'propiedadAnunciar'])->name('propiedad.anunciar');
-
+    Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('product.index');
     Route::get('producto/{id}', [App\Http\Controllers\HomeController::class, 'show'])->name('producto.show');
+    Route::get('productoDelete/{id}', [App\Http\Controllers\ProductController::class, 'Delete'])->name('propiedad.delete');
 
-    Route::get('productoDelete/{id}', [App\Http\Controllers\ProductController::class, 'productDelete'])->name('propiedad.delete');
-
+    Route::post('/storeProducto', [App\Http\Controllers\ProductController::class, 'store'])->name('store.product');
+    Route::patch('/productUpdate{id}', [App\Http\Controllers\ProductController::class, 'productUpdate'])->name('product.update');
+    // Rutas auxiliares
+    Route::patch('/productJsonEdit{id}', [App\Http\Controllers\ProductController::class, 'productJsonImages'])->name('pjson.images');
+    Route::get('/create-product', [App\Http\Controllers\ProductController::class, 'create'])->name('new.product');
+    Route::get('/edit-product/{id}', [App\Http\Controllers\ProductController::class, 'productEdit'])->name('product.edit');
+    
+    
+    
+    
+    // RUTAS DE FRONTDEND
+    Route::get('/propiedad-anunciar', [App\Http\Controllers\ProductController::class, 'propiedadAnunciar'])->name('propiedad.anunciar');// Ruta sin usar
     Route::get('propiedadesAll', [App\Http\Controllers\ProductController::class, 'propiedadMapsAll'])->name('propiedadesMaps');
-
+    Route::get('/type/{tipo}', [App\Http\Controllers\ProductController::class, 'propiedadLista'])->name('propiedad.lista');
     Route::get('properties', [App\Http\Controllers\ProductController::class, 'buscarPropiedad'])->name('buscarPropiedad');
 
     // Notification
@@ -109,13 +116,6 @@ Route::group(['middleware' => ['cors']], function () {
     //store a push subscriber.
     Route::post('/push', [App\Http\Controllers\PushController::class, 'store']);
 
-    // Route::get('/newProduct', [App\Http\Controllers\ProductController::class, 'newProduct'])->name('new.product');
-    Route::post('/storeProducto', [App\Http\Controllers\ProductController::class, 'store'])->name('store.product');
-    Route::get('/edit-product/{id}', [App\Http\Controllers\ProductController::class, 'productEdit'])->name('product.edit');
-    Route::patch('/productUpdate{id}', [App\Http\Controllers\ProductController::class, 'productUpdate'])->name('product.update');
-    Route::patch('/productJsonEdit{id}', [App\Http\Controllers\ProductController::class, 'productJsonImages'])->name('pjson.images');
-
-    Route::get('/create-product', [App\Http\Controllers\ProductController::class, 'newProduct'])->name('new.product');
 
     // Payment Gateway
     Route::get('/paymentGateway', [App\Http\Controllers\PaymentGatewayController::class, 'index'])->name('paymentGateway.index');
@@ -212,31 +212,31 @@ Route::group(['middleware' => ['cors']], function () {
     Route::resource('tags', TagController::class)->names('tags');
     Route::resource('posts', PostController::class)->names('posts');
 
-    Route::view('/Shipping', 'shipping');
-    Route::view('/Discount', 'discount');
+    // Route::view('/Shipping', 'shipping');
+    // Route::view('/Discount', 'discount');
 
-    Route::prefix('Products')->group(function () {
-        Route::redirect('/', '/Products/List');
-        Route::view('List', 'products/list');
-        Route::view('Detail', 'products/detail');
-    });
+    // Route::prefix('Products')->group(function () {
+    //     Route::redirect('/', '/Products/List');
+    //     Route::view('List', 'products/list');
+    //     Route::view('Detail', 'products/detail');
+    // });
 
-    Route::prefix('Orders')->group(function () {
-        Route::redirect('/', '/Orders/List');
-        Route::view('List', 'orders/list');
-        Route::view('Detail', 'orders/detail');
-    });
+    // Route::prefix('Orders')->group(function () {
+    //     Route::redirect('/', '/Orders/List');
+    //     Route::view('List', 'orders/list');
+    //     Route::view('Detail', 'orders/detail');
+    // });
 
-    Route::prefix('Storefront')->group(function () {
-        Route::redirect('/', '/Storefront/Home');
-        Route::view('Home', 'storefront/home');
-        Route::view('Filters', 'storefront/filters');
-        Route::view('Categories', 'storefront/categories');
-        Route::view('Detail', 'storefront/detail');
-        Route::view('Cart', 'storefront/cart');
-        Route::view('Checkout', 'storefront/checkout');
-        Route::view('Invoice', 'storefront/invoice');
-    });
+    // Route::prefix('Storefront')->group(function () {
+    //     Route::redirect('/', '/Storefront/Home');
+    //     Route::view('Home', 'storefront/home');
+    //     Route::view('Filters', 'storefront/filters');
+    //     Route::view('Categories', 'storefront/categories');
+    //     Route::view('Detail', 'storefront/detail');
+    //     Route::view('Cart', 'storefront/cart');
+    //     Route::view('Checkout', 'storefront/checkout');
+    //     Route::view('Invoice', 'storefront/invoice');
+    // });
 
     Route::prefix('Settings')->group(function () {
         Route::view('/', 'settings/index');

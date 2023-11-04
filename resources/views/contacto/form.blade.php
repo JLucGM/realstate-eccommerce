@@ -30,7 +30,7 @@
         </div>
         <div class="form-group col-12 col-md-6 mb-4">
             {{ Form::label('origen','Origen', ['class' => 'form-label']) }}
-            {{ Form::text('origen', $contacto->origen, ['class' => 'form-control' . ($errors->has('origen') ? ' is-invalid' : ''), 'placeholder' => 'Origen']) }}
+            {{ Form::select('origen', ['Pagina web' => 'Pagina web', 'Instagram' => 'Instagram', 'TikTok' => 'TikTok'], $contacto->origen, ['class' => 'form-control' . ($errors->has('origen') ? ' is-invalid' : ''), 'placeholder' => 'Origen']) }}
             {!! $errors->first('origen', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group col-12 col-md-6 mb-4">
@@ -54,25 +54,25 @@
         <div class="form-group col-12 col-md-6 mb-4">
             {{ Form::label('pais','Pais', ['class' => 'form-label']) }}
             <select class="form-control {{ ($errors->has('pais') ? ' is-invalid' : '') }}" name="pais" id="paisSelect">
-                            <option value="">Seleccione un pais</option>
-                            @foreach($paises as $pais)
-                            <option value="{{ $pais->id }}">{{ $pais->name }}</option>
-                            @endforeach
-                        </select>            {!! $errors->first('pais', '<div class="invalid-feedback">:message</div>') !!}
+                <option value="">Seleccione un pais</option>
+                @foreach($paises as $pais)
+                <option value="{{ $pais->id }}">{{ $pais->name }}</option>
+                @endforeach
+            </select> {!! $errors->first('pais', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group col-12 col-md-6 mb-4">
             {{ Form::label('region','Region', ['class' => 'form-label']) }}
             <select class="form-control {{ ($errors->has('region') ? ' is-invalid' : '') }}" id="estadoSelect" name="region">
-                            <option value="">Seleccione un estado</option>
-                            <!-- Aquí se cargarán las opciones de los estados en función del país seleccionado -->
-                        </select>            {!! $errors->first('region', '<div class="invalid-feedback">:message</div>') !!}
+                <option value="">Seleccione un estado</option>
+                <!-- Aquí se cargarán las opciones de los estados en función del país seleccionado -->
+            </select> {!! $errors->first('region', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group col-12 col-md-6 mb-4">
             {{ Form::label('ciudad','Ciudad', ['class' => 'form-label']) }}
             <select class="form-control {{ ($errors->has('ciudad') ? ' is-invalid' : '') }}" id="ciudadSelect" name="ciudad">
-                            <option value="">Seleccione una ciudad</option>
-                            <!-- Aquí se cargarán las opciones de las ciudades en función del estado seleccionado -->
-                        </select>            {!! $errors->first('ciudad', '<div class="invalid-feedback">:message</div>') !!}
+                <option value="">Seleccione una ciudad</option>
+                <!-- Aquí se cargarán las opciones de las ciudades en función del estado seleccionado -->
+            </select> {!! $errors->first('ciudad', '<div class="invalid-feedback">:message</div>') !!}
         </div>
         <div class="form-group col-12 mb-4">
             {{ Form::label('direccion','Direccion', ['class' => 'form-label']) }}
@@ -99,16 +99,16 @@
 
     function onSelectProjectChange() {
         var project_id = $(this).val();
-        console.log(project_id);
+        // console.log(project_id);
         if (!project_id)
             $('#estadoSelect').html(html_select);
-        $.get('pais/' + project_id + '/estado', function(data) {
+        $.get('/pais/' + project_id + '/estado', function(data) {
             var html_select = '<option value="">Seleccione un estado</option>'
             for (var i = 0; i < data.length; ++i)
                 html_select += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
             $('#estadoSelect').html(html_select);
-            console.log(html_select);
-            console.log($('#estadoSelect').html(html_select));
+            // console.log(html_select);
+            // console.log($('#estadoSelect').html(html_select));
         });
 
     }
@@ -119,16 +119,16 @@
 
     function onSelectProjectChanges() {
         var project_id2 = $(this).val();
-        console.log(project_id2);
+        // console.log(project_id2);
         if (!project_id2)
             $('#ciudadSelect').html(html_select2);
-        $.get('estado/' + project_id2 + '/ciudad', function(data) {
+        $.get('/estado/' + project_id2 + '/ciudad', function(data) {
             var html_select2 = '<option value="">Seleccione una ciudad</option>'
             for (var a = 0; a < data.length; ++a)
                 html_select2 += '<option value="' + data[a].id + '">' + data[a].name + '</option>';
             $('#ciudadSelect').html(html_select2);
-            console.log(html_select2);
-            console.log($('#ciudadSelect').html(html_select2));
+            // console.log(html_select2);
+            // console.log($('#ciudadSelect').html(html_select2));
         });
 
     }

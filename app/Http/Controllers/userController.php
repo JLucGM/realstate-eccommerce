@@ -234,7 +234,7 @@ class userController extends Controller
         $user = User::find($id);
         $user->delete();
         $message = "Eliminado con exito";
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('success', "Usuario eliminado con exito.");
     }
 
     public function usuariosUpdate(Request $request, $id)
@@ -244,7 +244,7 @@ class userController extends Controller
         $user = User::find($id);
         $user->name = $request->name;
         $user->last_name = $request->last_name;
-        $user->rol = $request->rol;
+        // $user->rol = $request->rol;
         $user->email = $request->email;
 
         $user->status = $request->filled('status') ? 1 : 0;
@@ -261,7 +261,7 @@ class userController extends Controller
         $user->save();
 
         $message = "Datos cargados correctamente";
-        return redirect()->back()->with('user', $user)->with('roles', $roles)->with('message', $message);
+        return redirect()->route('user.index')->with('user', $user)->with('roles', $roles)->with('success', "Usuario actualizado con exito.");
     }
 
 

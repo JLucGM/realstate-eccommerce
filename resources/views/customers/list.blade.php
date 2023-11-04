@@ -30,11 +30,13 @@ $description= 'Ecommerce Customer List Page'
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
 
-                        <h1>{{$title}}</h1>
+                    <h1>{{$title}}</h1>
 
+                    @can('admin.user.create')
                     <a href="{{route('new.user') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
                         {{"Crear" }}
                     </a>
+                    @endcan
                 </div>
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success">
@@ -75,10 +77,14 @@ $description= 'Ecommerce Customer List Page'
 
                                     <td class="text-end">
                                         <form action="{{ route('user.delete',$user->id) }}" method="GET">
-                                            <a class="btn btn-sm btn-success" href="{{ route('user.edit',$user->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
                                             @csrf
-
+                                            @can('admin.user.edit')
+                                            <a class="btn btn-sm btn-success" href="{{ route('user.edit',$user->id) }}"><i class="fa fa-fw fa-edit"></i> </a>
+                                            @endcan
+                                            
+                                            @can('admin.user.delete')
                                             <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> </button>
+                                            @endcan
                                         </form>
                                     </td>
                                 </tr>

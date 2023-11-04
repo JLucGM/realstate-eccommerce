@@ -1,7 +1,7 @@
 @php
-    $html_tag_data = [];
-    $title = 'Categorias';
-    $description= 'Ecommerce Product List Page'
+$html_tag_data = [];
+$title = 'Categorias';
+$description= 'Ecommerce Product List Page'
 @endphp
 @extends('layout',['html_tag_data'=>$html_tag_data, 'title'=>$title, 'description'=>$description])
 
@@ -12,89 +12,79 @@
 @endsection
 
 @section('js_page')
-    <script src="/js/cs/checkall.js"></script>
-    <script src="/js/pages/products.list.js"></script>
+<script src="/js/cs/checkall.js"></script>
+<script src="/js/pages/products.list.js"></script>
 @endsection
 
 
 
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
 
-                            <span id="card_title">
-                               <h2>
-                                {{"Categorias"}}
-                                </h2> 
-                            </span>
+                    <h2>{{"Categorias"}}</h2>
 
-                             <div class="float-right">
-                                <a href="{{route('cat.create')}}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{"Agregar Nuevo" }}
-                                </a>
-                              </div>
-                        </div>
-                    </div>
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
+                    @can('admin.categorias.create')
+                    <a href="{{route('cat.create')}}" class="btn btn-primary btn-sm float-right" data-placement="left">
+                        {{"Agregar Nuevo" }}
+                    </a>
+                    @endcan
+                </div>
+            </div>
+            @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+            @endif
 
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead class="thead">
-                                    <tr>
-                                     
-                                        
-										<th>Nombre</th>
-									
-										<th>Estatus</th>
-
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($categories as $ctgry)
-                                   
-                                        <tr>
-                                           
-
-                                            
-											<td>{{ $ctgry->name }}</td>
-										
-						
-											{{-- <td>{{ isset($mensajesSoporte->product->name) ? $mensajesSoporte->product->name: 'No definido' }}</td> --}}
-											@if ($ctgry->status == 0)
-                                            <td><span class="badge bg-danger px-3">Inactivo</span></td>
-                                               @else 
-                                            <td><span class="badge bg-success px-3">Activo</span></td>
-
-                                            @endif
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="thead">
+                            <tr>
 
 
-                                            <td class="text-end">
-                                                <form action="{{ route('cat.delete',$ctgry->id) }}" method="GET">
-                                                    <a class="btn btn-sm btn-success" href="{{ route('cat.edit',$ctgry->id) }}"><i class="fa fa-fw fa-edit"></i></a>
-                                                    @csrf
-                                                  
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                                <th>Nombre</th>
+
+                                <th>Estatus</th>
+
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($categories as $ctgry)
+
+                            <tr>
+                                <td>{{ $ctgry->name }}</td>
+                                @if ($ctgry->status == 0)
+                                <td><span class="badge bg-danger px-3">Inactivo</span></td>
+                                @else
+                                <td><span class="badge bg-success px-3">Activo</span></td>
+                                @endif
+
+                                <td class="text-end">
+                                    <form action="{{ route('cat.delete',$ctgry->id) }}" method="GET">
+                                        @csrf
+                                        @can('admin.categorias.edir')
+                                        <a class="btn btn-sm btn-success" href="{{ route('cat.edit',$ctgry->id) }}"><i class="fa fa-fw fa-edit"></i></a>
+                                        @endcan
+                                        @can('admin.categorias.delete')
+                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> </button>
+                                        @endcan
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
+</div>
 @endsection

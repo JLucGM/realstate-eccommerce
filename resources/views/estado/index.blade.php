@@ -32,11 +32,11 @@ $description= 'Ecommerce Product List Page'
 
                     <h2>{{ $title }}</h2>
 
-                    <div class="">
-                        <a href="{{ route('estados.create') }}" class="btn btn-primary btn-sm">
-                            Crear
-                        </a>
-                    </div>
+                    @can('admin.estados.create')
+                    <a href="{{ route('estados.create') }}" class="btn btn-primary btn-sm">
+                        Crear
+                    </a>
+                    @endcan
 
                 </div>
                 @if ($message = Session::get('success'))
@@ -66,10 +66,14 @@ $description= 'Ecommerce Product List Page'
                                     <td class="text-end">
                                         <form action="{{ route('estados.destroy',$estado->id) }}" method="POST">
                                             {{--<a class="btn btn-sm btn-primary " href="{{ route('estados.show',$estado->id) }}"><i class="fa fa-fw fa-eye"></i></a>--}}
+                                            @can('admin.estados.edit')
                                             <a class="btn btn-sm btn-success" href="{{ route('estados.edit',$estado->id) }}"><i class="fa fa-fw fa-edit"></i></a>
+                                            @endcan
                                             @csrf
                                             @method('DELETE')
+                                            @can('admin.estados.delete')
                                             <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+                                            @endcan
                                         </form>
                                     </td>
                                 </tr>

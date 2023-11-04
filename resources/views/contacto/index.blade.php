@@ -31,7 +31,9 @@ $description= 'Ecommerce Product List Page'
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h2>{{$title}}</h2>
+                    @can('admin.contactos.create')
                     <a href="{{ route('contactos.create') }}" class="btn btn-primary btn-sm">{{ "Crear"}}</a>
+                    @endcan
                 </div>
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success">
@@ -66,13 +68,21 @@ $description= 'Ecommerce Product List Page'
 
                                     <td class="text-end">
                                         <form action="{{ route('contactos.destroy',$contacto->id) }}" method="POST">
+                                            @can('admin.contactos.create')
                                             <a class="btn btn-sm btn-primary" href="{{ route('contactos.show',$contacto->id) }}"><i data-acorn-icon="eye" class="icon" data-acorn-size="10"></i></a>
+                                            @endcan
+                                            @can('admin.contactos.edit')
                                             <a class="btn btn-sm btn-success" href="{{ route('contactos.edit',$contacto->id) }}"><i data-acorn-icon="edit" class="icon" data-acorn-size="10"></i></a>
+                                            @endcan
+                                            @can('admin.contactos.create')
                                             <a class="btn btn-sm btn-warning" href="{{ route('contactos-propiedad.index',$contacto->id) }}"><i data-acorn-icon="home-garage" class="icon" data-acorn-size="10"></i></a>
+                                            @endcan
 
                                             @csrf
                                             @method('DELETE')
+                                            @can('admin.contactos.create')
                                             <button type="submit" class="btn btn-danger btn-sm"><i data-acorn-icon="bin" class="icon" data-acorn-size="10"></i></button>
+                                            @endcan
                                         </form>
                                     </td>
                                 </tr>

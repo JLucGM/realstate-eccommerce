@@ -87,6 +87,13 @@ class Product extends Model implements HasMedia
     {
         return $this->hasOne('App\Models\PropiedadAgente','product_id','id');
     }
+
+    public function usuarios()
+{
+    return $this->belongsToMany(User::class, 'propiedad_agente', 'product_id', 'user_id');
+}
+
+
      public function tipopropiedad()
     {
         return $this->hasOne('App\Models\TipoPropiedad','id','tipoPropiedad_id');

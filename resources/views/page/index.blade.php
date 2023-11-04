@@ -30,9 +30,11 @@ $description= 'Ecommerce Product List Page'
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h2>{{$title}}</h2>
+                    @can('admin.pages.create')
                     <a href="{{ route('pages.create') }}" class="btn btn-primary btn-sm">
                         {{ __('Crear') }}
                     </a>
+                    @endcan
                 </div>
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success">
@@ -70,10 +72,14 @@ $description= 'Ecommerce Product List Page'
                                     <td class="text-end">
                                         <form action="{{ route('pages.destroy',$page->id) }}" method="POST">
                                             {{--<a class="btn btn-sm btn-primary " href="{{ route('pages.show',$page->id) }}"><i class="fa fa-fw fa-eye"></i></a>--}}
+                                            @can('admin.pages.edit')
                                             <a class="btn btn-sm btn-success" href="{{ route('pages.edit',$page->id) }}"><i class="fa fa-fw fa-edit"></i></a>
+                                            @endcan
                                             @csrf
                                             @method('DELETE')
+                                            @can('admin.pages.delete')
                                             <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+                                            @endcan
                                         </form>
                                     </td>
                                 </tr>

@@ -29,11 +29,13 @@ $description= 'Ecommerce Product List Page'
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
-            <div class="card-header d-flex justify-content-between">
-                        <h2>{{$title}}</h2>
-                        <a href="{{ route('negocios.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
-                            {{ ('Crear') }}
-                        </a>
+                <div class="card-header d-flex justify-content-between">
+                    <h2>{{$title}}</h2>
+                    @can('admin.negocios.create')
+                    <a href="{{ route('negocios.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
+                        {{ ('Crear') }}
+                    </a>
+                    @endcan
                 </div>
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success">
@@ -71,10 +73,14 @@ $description= 'Ecommerce Product List Page'
                                     <td class="text-end">
                                         <form action="{{ route('negocios.destroy',$negocio->id) }}" method="POST">
                                             {{--<a class="btn btn-sm btn-primary " href="{{ route('negocios.show',$negocio->id) }}"><i class="fa fa-fw fa-eye"></i></a>--}}
+                                            @can('admin.negocios.edit')
                                             <a class="btn btn-sm btn-success" href="{{ route('negocios.edit',$negocio->id) }}"><i class="fa fa-fw fa-edit"></i></a>
+                                            @endcan
                                             @csrf
                                             @method('DELETE')
+                                            @can('admin.negocios.delete')
                                             <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+                                            @endcan
                                         </form>
                                     </td>
                                 </tr>

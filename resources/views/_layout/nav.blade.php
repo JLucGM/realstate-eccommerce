@@ -13,7 +13,7 @@
        <!-- User Menu Start -->
        <div class="user-container d-flex">
            <a href="#" class="d-flex user position-relative" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               
+
                @if (auth()->check())
                <img class="profile" alt="profile" src="{{asset('img/profile/'.auth()->user()->avatar)}}" />
                <div class="name">{{auth()->user()->name.' '.auth()->user()->last_name}}</div>
@@ -93,7 +93,6 @@
                        <ul class="list-unstyled border-last-none">
 
                            @forelse(auth()->user()->unreadNotifications as $notification)
-                           <li>
 
                            <li class="mb-3 pb-3 border-bottom border-separator-light d-flex">
                                <img src="/img/profile/profile-1.webp" class="me-3 sw-4 sh-4 rounded-xl align-self-center" alt="..." />
@@ -109,221 +108,246 @@
 
                                </div>
                            </li>
-           </li>
-           @empty
-           <li>
-               <div class="dropdown-item text-justify">
-                   <p class="m- text-justify">
-                       No hay notificaciones nuevas
-                   </p>
+                           @empty
+                           <li>
+                               <div class="dropdown-item text-justify">
+                                   <p class="m- text-justify">
+                                       No hay notificaciones nuevas
+                                   </p>
+                               </div>
+                           </li>
+                           @endforelse
+
+                       </ul>
+                   </div>
                </div>
            </li>
-           @endforelse
-
-
        </ul>
-   </div>
-   </div>
-   </li>
-   </ul>
-   <!-- Icons Menu End -->
+       <!-- Icons Menu End -->
 
-   <!-- Menu Start -->
-   <div class="menu-container flex-grow-1">
-       <ul id="menu" class="menu">
-           <li>
-               <a href="/Dashboard">
-                   <i data-acorn-icon="shop" class="icon" data-acorn-size="18"></i>
-                   <span class="label">Pantalla Principal</span>
-               </a>
-           </li>
-           <li>
-               <a href="#customers" data-href="{{route('user.index')}}">
-                   <i data-acorn-icon="user" class="icon" data-acorn-size="18"></i>
-                   <span class="label">Usuarios</span>
-               </a>
-               <ul id="customers">
-                   @hasrole('super Admin')
-                   <li>
-                       <a href="{{route('user.index')}}">
-                           <span class="label">Usuarios</span>
-                       </a>
-                   </li>
-                   @endhasrole
+       <!-- Menu Start -->
+       <div class="menu-container flex-grow-1">
+           <ul id="menu" class="menu">
+               <li>
+                   <a href="/Dashboard">
+                       <i data-acorn-icon="shop" class="icon" data-acorn-size="18"></i>
+                       <span class="label">Pantalla Principal</span>
+                   </a>
+               </li>
+               <li>
+                   @canAny(['admin.user.index', 'admin.role.index'])
+                   <a href="#customers" data-href="{{route('user.index')}}">
+                       <i data-acorn-icon="user" class="icon" data-acorn-size="18"></i>
+                       <span class="label">Usuarios</span>
+                   </a>
+                   @endcan
+                   <ul id="customers">
+                       @can('admin.user.index')
+                       <li>
+                           <a href="{{route('user.index')}}">
+                               <span class="label">Usuarios</span>
+                           </a>
+                       </li>
+                       @endcan
 
+                       @can('admin.role.index')
+                       <li>
+                           <a href="{{route('roles.index')}}">
+                               <span class="label">Roles</span>
+                           </a>
+                       </li>
+                       @endcan
+                   </ul>
+               </li>
 
+               <li>
+                   @canAny(['admin.products.index','admin.amenities-checks.index'])
+                   <a href="#products" data-href="{{route('product.index')}}">
+                       <i data-acorn-icon="cupcake" class="icon" data-acorn-size="18"></i>
+                       <span class="label">Propiedades</span>
+                   </a>
+                   @endcan
+                   <ul id="products">
+                       @can('admin.products.index')
+                       <li>
+                           <a href="{{route('product.index')}}">
+                               <span class="label">Propiedades</span>
+                           </a>
+                       </li>
+                       @endcan
+                       @can('admin.amenities-checks.index')
+                       <li>
+                           <a href="{{route('amenities-checks.index')}}">
+                               <span class="label">Comodidades</span>
+                           </a>
+                       </li>
+                       @endcan
+                   </ul>
+               </li>
 
-                   @hasrole('super Admin')
-                   <li>
-                       <a href="{{route('roles.index')}}">
-                           <span class="label">Roles</span>
-                       </a>
-                   </li>
-                   @endhasrole
-               </ul>
-           </li>
+               <li>
+                   @canAny(['admin.contactos.index','admin.negocios.index','admin.tasks.index'])
+                   <a href="#crm" data-href="{{route('product.index')}}">
+                       <i data-acorn-icon="trend-up" class="icon" data-acorn-size="18"></i>
+                       <span class="label">CRM</span>
+                   </a>
+                   @endcan
+                   <ul id="crm">
+                       @can('admin.contactos.index')
+                       <li>
+                           <a href="{{route('contactos.index')}}">
+                               <span class="label">Contactos</span>
+                           </a>
+                       </li>
+                       @endcan
+                       @can('admin.negocios.index')
+                       <li>
+                           <a href="{{route('negocios.index')}}">
+                               <span class="label">Negociaciones</span>
+                           </a>
+                       </li>
+                       @endcan
+                       @can('admin.tasks.index')
+                       <li>
+                           <a href="{{route('tasks.index')}}">
+                               <span class="label">Tareas</span>
+                           </a>
+                       </li>
+                       @endcan
+                   </ul>
+               </li>
 
-           <li>
-               <a href="#products" data-href="{{route('product.index')}}">
-                   <i data-acorn-icon="cupcake" class="icon" data-acorn-size="18"></i>
-                   <span class="label">Propiedades</span>
-               </a>
-               <ul id="products">
-                   <li>
-                       <a href="{{route('product.index')}}">
-                           <span class="label">Lista</span>
-                       </a>
-                   </li>
-                   <li>
-                       <a href="{{route('amenities-checks.index')}}">
-                           <span class="label">Comodidades</span>
-                       </a>
-                   </li>
-               </ul>
-           </li>
-
-           <li>
-               <a href="#crm" data-href="{{route('product.index')}}">
-                   <i data-acorn-icon="trend-up" class="icon" data-acorn-size="18"></i>
-                   <span class="label">CRM</span>
-               </a>
-               <ul id="crm">
-                   <li>
-                       <a href="{{route('contactos.index')}}">
-                           <span class="label">Contactos</span>
-                       </a>
-                   </li>
-                   <li>
-                       <a href="{{route('negocios.index')}}">
-                           <span class="label">Negociaciones</span>
-                       </a>
-                   </li>
-                   <li>
-                       <a href="{{route('tasks.index')}}">
-                           <span class="label">Tareas</span>
-                       </a>
-                   </li>
-                   <li>
-                       <a href="{{route('mensajes-soportes.index')}}">
-                           <span class="label">Mensajes</span>
-                       </a>
-                   </li>
-               </ul>
-           </li>
-
-           <li>
-               <a href="#blog" data-href="{{route('user.index')}}">
-                   <i data-acorn-icon="user" class="icon" data-acorn-size="18"></i>
-                   <span class="label">Blog</span>
-               </a>
-               <ul id="blog">
-                   @hasrole('super Admin')
-                   <li>
-                       <a href="{{route('posts.index')}}">
-                           <span class="label">Post</span>
-                       </a>
-                   </li>
-                   @endhasrole
-                   @hasrole('super Admin')
-                   <li>
-                       <a href="{{route('cat.index')}}">
-                           <span class="label">Categorias</span>
-                       </a>
-                   </li>
-                   @endhasrole
-                   @hasrole('super Admin')
-                   <li>
-                       <a href="{{route('tags.index')}}">
-                           <span class="label">tags</span>
-                       </a>
-                   </li>
-                   @endhasrole
-
-               </ul>
-           </li>
-           <li>
-               <a href="{{route('faqs.index')}}">
-                   <i class="fa-regular fa-circle-question icon" data-acorn-size="18"></i>
-                   <span class="label">FAQS</span>
-               </a>
-           </li>
-           <li>
-               <a href="{{route('testimonios.index')}}">
-                   <i class="fa-regular fa-comment-dots icon" data-acorn-size="18"></i>
-                   <span class="label">Testimonios</span>
-               </a>
-           </li>
-           <li>
-               <a href="{{route('pages.index')}}">
-                   <i class="fa-regular fa-comment-dots icon" data-acorn-size="18"></i>
-                   <span class="label">Pages</span>
-               </a>
-           </li>
-           <li>
-               <a href="#location" data-href="{{route('product.index')}}">
-                   <i class="fa-regular fa-map icon" data-acorn-size="18"></i>
-                   <span class="label">Locaciones</span>
-               </a>
-               <ul id="location">
-                   <li>
-                       <a href="{{route('paises.index')}}">
-                           <span class="label">Paises</span>
-                       </a>
-                   </li>
-                   <li>
-                       <a href="{{route('estados.index')}}">
-                           <span class="label">Estado</span>
-                       </a>
-                   </li>
-                   <li>
-                       <a href="{{route('city.index')}}">
-                           <span class="label">Ciudades</span>
-                       </a>
-                   </li>
-               </ul>
-           </li>
-           @hasrole('super Admin')
-           <li>
-               <a href="#storefront" data-href="/Storefront/Home">
-                   <i data-acorn-icon="screen" class="icon" data-acorn-size="18"></i>
-                   <span class="label">Configuraciones</span>
-               </a>
-               <ul id="storefront">
-                   <li>
-                       <a href="{{route('setting-generals.index')}}">
-                           <span class="label">Generales</span>
-                       </a>
-                   </li>
-                   <li>
-                       <a href="{{route('slides.index')}}">
-                           <span class="label">Slide Principal</span>
-                       </a>
-                   </li>
-
-                   <li>
-                       <a href="{{route('info-webs.index')}}">
-                           <span class="label">Información Principal</span>
-                       </a>
-                   </li>
-
-               </ul>
-           </li>
-
-           @endhasrole
-       </ul>
-   </div>
-   <!-- Menu End -->
-   @else
-   <p>vuelve a inicio</p>
-   @endif
-   <!-- Mobile Buttons Start -->
-   <div class="mobile-buttons-container">
-       <!-- Menu Button Start -->
-       <a href="#" id="mobileMenuButton" class="menu-button">
-           <i data-acorn-icon="menu"></i>
-       </a>
-       <!-- Menu Button End -->
-   </div>
-   <!-- Mobile Buttons End -->
+               <li>
+                   @canAny(['admin.posts.index','admin.cat.index','admin.tags.index'])
+                   <a href="#blog" data-href="{{route('user.index')}}">
+                       <i data-acorn-icon="user" class="icon" data-acorn-size="18"></i>
+                       <span class="label">Blog</span>
+                   </a>
+                   @endcan
+                   <ul id="blog">
+                       @can('admin.posts.index')
+                       <li>
+                           <a href="{{route('posts.index')}}">
+                               <span class="label">Post</span>
+                           </a>
+                       </li>
+                       @endcan
+                       @can('admin.cat.index')
+                       <li>
+                           <a href="{{route('cat.index')}}">
+                               <span class="label">Categorias</span>
+                           </a>
+                       </li>
+                       @endcan
+                       @can('admin.tags.index')
+                       <li>
+                           <a href="{{route('tags.index')}}">
+                               <span class="label">Tags</span>
+                           </a>
+                       </li>
+                       @endcan
+                   </ul>
+               </li>
+               @can('admin.faqs.index')
+               <li>
+                   <a href="{{route('faqs.index')}}">
+                       <i class="fa-regular fa-circle-question icon" data-acorn-size="18"></i>
+                       <span class="label">FAQS</span>
+                   </a>
+               </li>
+               @endcan
+               @can('admin.testimonios.index')
+               <li>
+                   <a href="{{route('testimonios.index')}}">
+                       <i class="fa-regular fa-comment-dots icon" data-acorn-size="18"></i>
+                       <span class="label">Testimonios</span>
+                    </a>
+                </li>
+                @endcan
+                @can('admin.pages.index')
+                <li>
+                    <a href="{{route('pages.index')}}">
+                        <i class="fa-regular fa-comment-dots icon" data-acorn-size="18"></i>
+                        <span class="label">Pages</span>
+                    </a>
+                </li>
+                @endcan
+                <li>
+                    @canAny(['admin.paises.index','admin.ciudades.index','admin.estados.index'])
+                    <a href="#location" data-href="{{route('product.index')}}">
+                        <i class="fa-regular fa-map icon" data-acorn-size="18"></i>
+                        <span class="label">Locaciones</span>
+                    </a>
+                    @endcan
+                    <ul id="location">
+                        @can('admin.paises.index')
+                        <li>
+                            <a href="{{route('paises.index')}}">
+                                <span class="label">Paises</span>
+                            </a>
+                        </li>
+                        @endcan
+                        <li>
+                            @can('admin.estados.index')
+                            <a href="{{route('estados.index')}}">
+                                <span class="label">Estado</span>
+                            </a>
+                            @endcan
+                        </li>
+                        @can('admin.ciudades.index')
+                        <li>
+                            <a href="{{route('city.index')}}">
+                                <span class="label">Ciudades</span>
+                            </a>
+                        </li>
+                        @endcan
+                    </ul>
+                </li>
+                <li>
+                    @canAny(['admin.setting-generals.index','admin.slides.index','admin.info-webs.index'])
+                    <a href="#storefront" data-href="/Storefront/Home">
+                        <i data-acorn-icon="screen" class="icon" data-acorn-size="18"></i>
+                        <span class="label">Configuraciones</span>
+                    </a>
+                    @endcan
+                    <ul id="storefront">
+                        @can('admin.setting-generals.index')
+                        <li>
+                            <a href="{{route('setting-generals.index')}}">
+                                <span class="label">Generales</span>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('admin.slides.index')
+                        <li>
+                            <a href="{{route('slides.index')}}">
+                                <span class="label">Slide Principal</span>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('admin.info-webs.index')
+                        <li>
+                            <a href="{{route('info-webs.index')}}">
+                                <span class="label">Información Principal</span>
+                            </a>
+                        </li>
+                        @endcan
+                   </ul>
+               </li>
+           </ul>
+       </div>
+       <!-- Menu End -->
+       @else
+       <a href="{{ route('home') }}" class="btn">Volver a inicio</a>
+       @endif
+       <!-- Mobile Buttons Start -->
+       <div class="mobile-buttons-container">
+           <!-- Menu Button Start -->
+           <a href="#" id="mobileMenuButton" class="menu-button">
+               <i data-acorn-icon="menu"></i>
+           </a>
+           <!-- Menu Button End -->
+       </div>
+       <!-- Mobile Buttons End -->
    </div>
    <div class="nav-shadow"></div>

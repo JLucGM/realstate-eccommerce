@@ -15,57 +15,62 @@ class userSeeder extends Seeder
      */
     public function run()
     {
-        $rolSuperAdmin = Role::create(['name' => 'super Admin']);
-        $rolAdmin = Role::create(['name' => 'admin']);
-        $rolCliente = Role::create(['name' => 'cliente']);
-        $rolArrendador = Role::create(['name' => 'arredador']);
-        $rolVendedor = Role::create(['name' => 'vendedor']);
+        // $rolSuperAdmin = Role::create(['name' => 'super Admin']);
+        // $rolAdmin = Role::create(['name' => 'admin']);
+        // $rolCliente = Role::create(['name' => 'cliente']);
+        // $rolArrendador = Role::create(['name' => 'arredador']);
+        // $rolVendedor = Role::create(['name' => 'vendedor']);
 
         
             User::create([
-                'name' => 'Usuario 1',
+                'name' => 'Super Admin',
                 'email' => 'sadmin@admin.com',
                 'password' => bcrypt('123456789'),
                 'points' => 0,
                 'whatsapp' => 0,
+                'status' => 1,
                 'avatar' => 'default.jpg',
-            ])->assignRole($rolSuperAdmin);
+            ])->assignRole('super Admin');
             
             User::create([
-                'name' => 'Usuario 2',
+                'name' => 'Admin',
                 'email' => 'admin@admin.com',
                 'password' => bcrypt('123456789'),
                 'points' => 0,
                 'whatsapp' => 0,
+                'status' => 1,
                 'avatar' => 'default.jpg',
-            ])->assignRole($rolAdmin);
+            ])->assignRole('admin');
             
             User::create([
-                'name' => 'Usuario 3',
+                'name' => 'Cliente',
                 'email' => 'cliente@admin.com',
                 'password' => bcrypt('123456789'),
                 'points' => 0,
                 'whatsapp' => 0,
+                'status' => 1,
                 'avatar' => 'default.jpg',
-            ])->assignRole($rolCliente);
+            ])->assignRole('cliente');
+
+            // User::create([
+            //     'name' => 'Usuario 4',
+            //     'email' => 'arrendador@admin.com',
+            //     'password' => bcrypt('123456789'),
+            //     'points' => 0,
+            //     'whatsapp' => 0,
+            //     'status' => 1,
+            //     'avatar' => 'default.jpg',
+            // ])->assignRole('arrendador');
 
             User::create([
-                'name' => 'Usuario 4',
-                'email' => 'arrendador@admin.com',
-                'password' => bcrypt('123456789'),
-                'points' => 0,
-                'whatsapp' => 0,
-                'avatar' => 'default.jpg',
-            ])->assignRole($rolArrendador);
-
-            User::create([
-                'name' => 'Usuario 5',
+                'name' => 'Vendedor',
                 'email' => 'vendedor@admin.com',
                 'password' => bcrypt('123456789'),
                 'points' => 0,
                 'whatsapp' => 0,
+                'status' => 1,
                 'avatar' => 'default.jpg',
-            ])->assignRole($rolVendedor);
+            ])->assignRole('Vendedor');
         
 
     }

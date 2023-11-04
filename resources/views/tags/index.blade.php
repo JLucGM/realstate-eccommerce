@@ -32,9 +32,11 @@ $description= 'Ecommerce Customer List Page'
 
                 <div class="card-header d-flex justify-content-between">
                     <h2>{{$title}}</h2>
-                    <a class="btn btn-success float-right" href="{{ route('tags.create') }}">
+                    @can('admin.tags.create')
+                    <a class="btn btn-success" href="{{ route('tags.create') }}">
                         Crear
                     </a>
+                    @endcan
                 </div>
 
                 <div class="card-body">
@@ -54,10 +56,14 @@ $description= 'Ecommerce Customer List Page'
 
                                 <td class="text-end">
                                     <form action="{{route('tags.destroy',$tag)}}" method="POST">
+                                        @can('admin.tags.edit')
                                         <a class="btn btn-success btn-sm" href="{{route('tags.edit',$tag)}}"><i class="fa fa-fw fa-edit"></i></a>
+                                        @endcan
                                         @csrf
                                         @method('delete')
+                                        @can('admin.tags.delete')
                                         <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-fw fa-trash"></i></button>
+                                        @endcan
                                     </form>
                                 </td>
                             </tr>

@@ -64,6 +64,15 @@ $description= 'Ecommerce Customer List Page'
                                         </select>
                                     </div>
 
+                                    {{--@foreach ($roles as $rol)
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="{{$rol->name}}" id="flexCheckDefault{{$rol->id}}">
+                                        <label class="form-check-label" for="flexCheckDefault{{$rol->id}}">
+                                            {{$rol->name}}
+                                        </label>
+                                    </div>
+                                    @endforeach--}}
+
 
                                     <div class="form-group col-sm-6 mb-4">
                                         {{ Form::label('email','Email',['class'=>'']) }}
