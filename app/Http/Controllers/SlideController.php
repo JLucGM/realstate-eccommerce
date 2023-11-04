@@ -11,6 +11,13 @@ use Illuminate\Http\Request;
  */
 class SlideController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.slides.index')->only('index');
+        $this->middleware('can:admin.slides.create')->only('create', 'store');
+        $this->middleware('can:admin.slides.edit')->only('edit', 'update');
+        $this->middleware('can:admin.slides.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *

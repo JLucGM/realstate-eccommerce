@@ -82,18 +82,47 @@
 </div>
 
 <!-- <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script> -->
-<script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+<!-- <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script> -->
+<script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
+
 
 <script>
+    // ClassicEditor
+    //     .create(document.querySelector('#body'))
+    //     .catch(error => {
+    //         console.error(error);
+    //     });
+
+    // ClassicEditor
+    //     .create(document.querySelector('#extract'))
+    //     .catch(error => {
+    //         console.error(error);
+    //     });
     ClassicEditor
-        .create(document.querySelector('#body'))
-        .catch(error => {
-            console.error(error);
-        });
+    .create(document.querySelector('#extract'), {
+        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'insertMedia' ],
+        mediaEmbed: {
+            previewsInData: true
+        }
+    })
+    .then(editor => {
+        console.log(editor);
+    })
+    .catch(error => {
+        console.error(error);
+    });
 
     ClassicEditor
-        .create(document.querySelector('#extract'))
-        .catch(error => {
-            console.error(error);
-        });
+    .create(document.querySelector('#body'), {
+        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'insertMedia' ],
+        mediaEmbed: {
+            previewsInData: true
+        }
+    })
+    .then(editor => {
+        console.log(editor);
+    })
+    .catch(error => {
+        console.error(error);
+    });
 </script>

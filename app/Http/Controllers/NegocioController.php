@@ -18,6 +18,13 @@ use Illuminate\Http\Request;
  */
 class NegocioController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.negocios.index')->only('index');
+        $this->middleware('can:admin.negocios.create')->only('create', 'store');
+        $this->middleware('can:admin.negocios.edit')->only('edit', 'update');
+        $this->middleware('can:admin.negocios.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -27,8 +34,8 @@ class NegocioController extends Controller
     {
         $negocios = Negocio::all();
         $SettingGeneral = SettingGeneral::first();
-// dd($settingGeneral);
-        return view('negocio.index', compact('negocios','SettingGeneral'))
+        // dd($settingGeneral);
+        return view('negocio.index', compact('negocios', 'SettingGeneral'))
             ->with('i', (request()->input('page', 1) - 1));
     }
 
@@ -40,16 +47,13 @@ class NegocioController extends Controller
     public function create()
     {
         $negocio = new Negocio();
-        $contactos = Contacto::all()->pluck('name','id');
-        $propiedades = Product::all()->pluck('name','id');
+        $contactos = Contacto::all()->pluck('name', 'id');
+        $propiedades = Product::all()->pluck('name', 'id');
+        $agente =  User::whereHas("roles", function ($q) {
+            $q->where("name", "Arrendador")->orWhere("name", 'Vendedor');
+        })->pluck('name', 'id');
 
-       $agente =  User::whereHas("roles", function($q){ $q->where("name", "Arrendador")->orWhere("name",'Vendedor'); })->pluck('name','id');
-
-        
-   
-
-
-        return view('negocio.create', compact('negocio','contactos','propiedades','agente'));
+        return view('negocio.create', compact('negocio', 'contactos', 'propiedades', 'agente'));
     }
 
     /**
@@ -61,7 +65,7 @@ class NegocioController extends Controller
     public function store(Request $request)
     {
         request()->validate(Negocio::$rules);
-// dd($request);
+        // dd($request);
         $negocio = Negocio::create($request->all());
 
         return redirect()->route('negocios.index')
@@ -90,11 +94,13 @@ class NegocioController extends Controller
     public function edit($id)
     {
         $negocio = Negocio::find($id);
-        $contactos = Contacto::all()->pluck('name','id');
-        $propiedades = Product::all()->pluck('name','id');
-        $agente =  User::whereHas("roles", function($q){ $q->where("name", "Arrendador")->orWhere("name",'Vendedor'); })->pluck('name','id');
+        $contactos = Contacto::all()->pluck('name', 'id');
+        $propiedades = Product::all()->pluck('name', 'id');
+        $agente =  User::whereHas("roles", function ($q) {
+            $q->where("name", "Arrendador")->orWhere("name", 'Vendedor');
+        })->pluck('name', 'id');
 
-        return view('negocio.edit', compact('negocio','contactos','propiedades','agente'));
+        return view('negocio.edit', compact('negocio', 'contactos', 'propiedades', 'agente'));
     }
 
     /**
@@ -128,22 +134,13 @@ class NegocioController extends Controller
     }
 
 
-       public function negocioStatus($status,$negocioId)
+    public function negocioStatus($status, $negocioId)
     {
         $negocio = Negocio::find($negocioId);
-        
-     
-            $negocio->status = $status;
-      
-      
-      
-
-      
+        $negocio->status = $status;
 
         $negocio->save();
 
         return redirect()->back();
-
-        
     }
 }

@@ -30,11 +30,10 @@ $description= 'Ecommerce Product List Page'
 
                     @can('admin.categorias.create')
                     <a href="{{route('cat.create')}}" class="btn btn-primary btn-sm float-right" data-placement="left">
-                        {{"Agregar Nuevo" }}
+                        {{"Crear" }}
                     </a>
                     @endcan
                 </div>
-            </div>
             @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>
@@ -46,13 +45,10 @@ $description= 'Ecommerce Product List Page'
                     <table class="table table-striped table-hover">
                         <thead class="thead">
                             <tr>
-
-
                                 <th>Nombre</th>
-
                                 <th>Estatus</th>
 
-                                <th></th>
+                                <th class="text-end">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -69,7 +65,7 @@ $description= 'Ecommerce Product List Page'
                                 <td class="text-end">
                                     <form action="{{ route('cat.delete',$ctgry->id) }}" method="GET">
                                         @csrf
-                                        @can('admin.categorias.edir')
+                                        @can('admin.categorias.edit')
                                         <a class="btn btn-sm btn-success" href="{{ route('cat.edit',$ctgry->id) }}"><i class="fa fa-fw fa-edit"></i></a>
                                         @endcan
                                         @can('admin.categorias.delete')

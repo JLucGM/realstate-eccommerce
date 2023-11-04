@@ -11,6 +11,15 @@ use Illuminate\Http\Request;
  */
 class FaqController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:admin.faqs.index')->only('index');
+        $this->middleware('can:admin.faqs.create')->only('create','store');
+        $this->middleware('can:admin.faqs.edit')->only('edit','update');
+        $this->middleware('can:admin.faqs.destroy')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      *

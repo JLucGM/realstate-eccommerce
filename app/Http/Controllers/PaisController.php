@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class PaisController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.paises.index')->only('index');
+        $this->middleware('can:admin.paises.create')->only('create', 'store');
+        $this->middleware('can:admin.paises.edit')->only('edit', 'update');
+        $this->middleware('can:admin.paises.destroy')->only('destroy');
+    }
     public function index()
     {
         $paises = Paises::all();

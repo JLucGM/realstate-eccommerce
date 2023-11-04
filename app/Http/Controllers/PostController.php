@@ -13,6 +13,13 @@ use Laracasts\Flash\Flash;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.posts.index')->only('index');
+        $this->middleware('can:admin.posts.create')->only('create', 'store');
+        $this->middleware('can:admin.posts.edit')->only('edit', 'update');
+        $this->middleware('can:admin.posts.destroy')->only('destroy');
+    }
 
     public function index()
     {
@@ -28,11 +35,8 @@ class PostController extends Controller
      */
     public function create()
     {
-
         $categories = Categorias::pluck('name', 'id');
-
         $tags = Tag::all();
-
 
         return view('posts.create', compact('categories', 'tags'));
     }
@@ -45,13 +49,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-
         request()->validate(Post::$rules);
 
         $input = $request->all();
         $slug = strtolower($input['name']);
         $slugFinal = str_replace(' ', '-', $slug);
-
         $input['slug'] = $slugFinal;
 
         $path = 'img/posts/';
@@ -93,10 +95,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-
-
         $categories = Categorias::pluck('name', 'id');
-
         $tags = Tag::all();
 
         return view('posts.edit', compact('post', 'categories', 'tags'));
@@ -111,7 +110,6 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-
         $request->validate(
             [
                 'name' => 'required',
@@ -120,19 +118,9 @@ class PostController extends Controller
             ]
         );
 
-
         $input = $request->all();
-
         $slug = strtolower($input['name']);
-
-
-
-
         $slugFinal = str_replace(' ', '-', $slug);
-
-
-
-
         $input['slug'] = $slugFinal;
 
         $path = 'img/posts/';
@@ -147,15 +135,11 @@ class PostController extends Controller
             $file->move($path, $fileNameToStore);
         }
 
-
-
         $post->update($input);
 
         if ($request->tags) {
-
             $post->tags()->sync($request->tags);
         }
-
 
         return redirect()->route('posts.index')->with('success', 'Post actualizado con exito.');
     }
@@ -168,7 +152,6 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-
         $post->delete();
 
         return redirect()->route('posts.index')->with('info', 'el Post se elimino con exito');

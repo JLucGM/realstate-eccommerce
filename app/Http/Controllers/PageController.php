@@ -12,6 +12,13 @@ use Illuminate\Http\Request;
  */
 class PageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.pages.index')->only('index');
+        $this->middleware('can:admin.pages.create')->only('create', 'store');
+        $this->middleware('can:admin.pages.edit')->only('edit', 'update');
+        $this->middleware('can:admin.pages.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -125,10 +132,7 @@ class PageController extends Controller
     {
             $pageShow = Page::where('slug', $slug)->where('status', 1)->get();
             $pages = Page::where('status', 1)->get();
-
-            // dd($pages);
             $setting = SettingGeneral::first();
-
 
             return view('frontend.pages')
             ->with('setting', $setting)

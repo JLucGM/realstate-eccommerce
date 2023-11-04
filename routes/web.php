@@ -135,7 +135,7 @@ Route::group(['middleware' => ['cors']], function () {
     Route::post('/newCoupon', [App\Http\Controllers\CouponController::class, 'newCupon'])->name('new.cupon');
 
     //Categorias
-    Route::get('/Categorias', [App\Http\Controllers\CategoriasController::class, 'index'])->name('cat.index');
+    Route::get('/categorias', [App\Http\Controllers\CategoriasController::class, 'index'])->name('cat.index');
     Route::get('/editCategorias{id}', [App\Http\Controllers\CategoriasController::class, 'edit'])->name('cat.edit');
     Route::get('/createCategorias', [App\Http\Controllers\CategoriasController::class, 'create'])->name('cat.create');
     Route::post('/newCategorias', [App\Http\Controllers\CategoriasController::class, 'store'])->name('cat.store');
@@ -151,7 +151,7 @@ Route::group(['middleware' => ['cors']], function () {
     Route::patch('/subCategoriasUpdate{id}', [App\Http\Controllers\SubCategoriasController::class, 'update'])->name('subcat.update');
 
     // Ciudades
-    Route::get('/Ciudades', [App\Http\Controllers\CiudadesController::class, 'index'])->name('city.index');
+    Route::get('/ciudades', [App\Http\Controllers\CiudadesController::class, 'index'])->name('city.index');
     Route::get('/editCiudades{id}', [App\Http\Controllers\CiudadesController::class, 'edit'])->name('city.edit');
     Route::get('/createCiudades', [App\Http\Controllers\CiudadesController::class, 'create'])->name('city.create');
     Route::post('/newCiudades', [App\Http\Controllers\CiudadesController::class, 'store'])->name('city.store');

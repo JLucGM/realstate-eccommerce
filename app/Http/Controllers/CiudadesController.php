@@ -10,6 +10,15 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CiudadesController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:admin.ciudades.index')->only('index');
+        $this->middleware('can:admin.ciudades.create')->only('create','store');
+        $this->middleware('can:admin.ciudades.edit')->only('edit','update');
+        $this->middleware('can:admin.ciudades.destroy')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      *

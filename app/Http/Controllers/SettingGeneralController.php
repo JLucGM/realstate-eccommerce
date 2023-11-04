@@ -12,6 +12,13 @@ use Illuminate\Http\Request;
  */
 class SettingGeneralController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.setting-generals.index')->only('index');
+        $this->middleware('can:admin.setting-generals.create')->only('create', 'store');
+        $this->middleware('can:admin.setting-generals.edit')->only('edit', 'update');
+        $this->middleware('can:admin.setting-generals.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *

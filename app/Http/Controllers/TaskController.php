@@ -15,6 +15,13 @@ use Illuminate\Http\Request;
  */
 class TaskController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.tasks.index')->only('index');
+        $this->middleware('can:admin.tasks.create')->only('create', 'store');
+        $this->middleware('can:admin.tasks.edit')->only('edit', 'update');
+        $this->middleware('can:admin.tasks.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *

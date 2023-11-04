@@ -109,7 +109,7 @@ $description= 'Detalles de productos'
 
                         <div class="mb-3">
                             <label class="form-label">Descripción del inmueble</label>
-                            <textarea name="description" class="form-control">{{$product->description}}</textarea>
+                            <textarea name="description" id="description" class="form-control">{{$product->description}}</textarea>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Notas del cliente</label>
@@ -370,4 +370,34 @@ $description= 'Detalles de productos'
     }
 </script>
 
+<script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+    .create(document.querySelector('#description'), {
+        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'insertMedia' ],
+        mediaEmbed: {
+            previewsInData: true
+        }
+    })
+    .then(editor => {
+        console.log(editor);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+    ClassicEditor
+    .create(document.querySelector('#details'), {
+        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'insertMedia' ],
+        mediaEmbed: {
+            previewsInData: true
+        }
+    })
+    .then(editor => {
+        console.log(editor);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+</script>
 @endsection

@@ -232,7 +232,7 @@
                            </a>
                        </li>
                        @endcan
-                       @can('admin.cat.index')
+                       @can('admin.categorias.index')
                        <li>
                            <a href="{{route('cat.index')}}">
                                <span class="label">Categorias</span>

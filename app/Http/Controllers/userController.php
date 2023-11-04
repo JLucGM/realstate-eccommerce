@@ -27,7 +27,13 @@ class userController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    
+        $this->middleware('can:admin.user.index')->only('index');
+        $this->middleware('can:admin.user.create')->only('create', 'store');
+        $this->middleware('can:admin.user.edit')->only('edit', 'update');
+        // $this->middleware('can:admin.user.destroy')->only('destroy');
     }
+    
 
     //
     // public function indexView()
@@ -53,17 +59,17 @@ class userController extends Controller
     //     // return view('customers.list');
     // }
 
-    public function usuarioLogin()
-    {
+    // public function usuarioLogin()
+    // {
 
-        if (auth()->attempt(request(['email', 'password'])) == false) {
+    //     if (auth()->attempt(request(['email', 'password'])) == false) {
 
-            return back()->withErrors([
-                'message' => 'Fallo: Correo o contraseña incorrectos'
-            ]);
-        }
-        return redirect()->to('/dashboard');
-    }
+    //         return back()->withErrors([
+    //             'message' => 'Fallo: Correo o contraseña incorrectos'
+    //         ]);
+    //     }
+    //     return redirect()->to('/dashboard');
+    // }
 
     public function store(Request $request)
     {
@@ -108,7 +114,7 @@ class userController extends Controller
         return redirect()->to('/');
     }
 
-    public function usuarios()
+    public function usuarios()//index
     {
         $users = User::all();
         // $users = User::ordenar($users)->paginate(10);
@@ -128,7 +134,7 @@ class userController extends Controller
         return view('customers.list')->with('users', $users)->with('i', (request()->input('page', 1) - 1));
     }
 
-    public function newUser()
+    public function newUser()//create
     {
         $user = new User;
         $roles = Roles::all();

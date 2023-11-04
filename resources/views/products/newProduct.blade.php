@@ -89,8 +89,7 @@ $description= $title
 
                     @hasrole('super Admin')
                     @endhasrole
-                    @dump(auth()->user()->id)
-@if(auth()->user()->roles() == 'super Admin')
+                    @if(auth()->user()->roles() == 'super Admin')
                     <div class="form-group col-md-6">
                         {{ Form::label('agenteVendedor_id', 'Asignar agente inmobiliario', ['class' => 'form-label']) }}
                         <!-- ROLE VENDEDOR -->
@@ -99,7 +98,7 @@ $description= $title
                     </div>
 
                     @else()
-<input type="text" value="{{auth()->user()->id}}" name="agenteVendedor_id" hidden>
+                    <input type="text" value="{{auth()->user()->id}}" name="agenteVendedor_id" hidden>
                     @endif
 
 
@@ -121,13 +120,13 @@ $description= $title
 
                     <div class="col-12">
                         <label class="form-label">Descripción del inmueble</label>
-                        <textarea class="form-control {{ ($errors->has('description') ? ' is-invalid' : '') }}" type="text" name="description" placeholder="Descripción">{{ old('description') }}</textarea>
+                        <textarea class="form-control {{ ($errors->has('description') ? ' is-invalid' : '') }}" id="description" type="text" name="description" placeholder="Descripción">{{ old('description') }}</textarea>
                         {!! $errors->first('description', '<div class="invalid-feedback">:message</div>') !!}
                     </div>
 
                     <div class="col-12">
-                        <label class="form-label">Notas del cliente</label>
-                        <textarea class="form-control {{ ($errors->has('details') ? ' is-invalid' : '') }}" type="text" name="details" placeholder="Notas del cliente">{{ old('details') }}</textarea>
+                        <label class="form-label">Descripción breve</label>
+                        <textarea class="form-control {{ ($errors->has('details') ? ' is-invalid' : '') }}" type="text" name="details" id="details" placeholder="Notas del cliente">{{ old('details') }}</textarea>
                         {!! $errors->first('details', '<div class="invalid-feedback">:message</div>') !!}
                     </div>
 
@@ -268,7 +267,7 @@ $description= $title
                         </select>
                         {!! $errors->first('pais', '<div class="invalid-feedback">:message</div>') !!}
                     </div>
-                    
+
                     <div class="col-12 col-md-4">
                         <label class="form-label">Estado</label>
                         <select class="form-control {{ ($errors->has('region') ? ' is-invalid' : '') }}" id="estadoSelect" name="region">
@@ -629,4 +628,43 @@ $description= $title
     // FINAL MAPS
 </script>
 
+<script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+
+<script>
+    // ClassicEditor
+    //     .create(document.querySelector('#description'))
+    //     .catch(error => {
+    //         console.error(error);
+    //     });
+
+    ClassicEditor
+    .create(document.querySelector('#description'), {
+        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'insertMedia' ],
+        mediaEmbed: {
+            previewsInData: true
+        }
+    })
+    .then(editor => {
+        console.log(editor);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+    
+    ClassicEditor
+    .create(document.querySelector('#details'), {
+        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'insertMedia' ],
+        mediaEmbed: {
+            previewsInData: true
+        }
+    })
+    .then(editor => {
+        console.log(editor);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+
+</script>
 @endsection

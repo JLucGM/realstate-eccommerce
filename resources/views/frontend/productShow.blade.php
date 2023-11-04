@@ -170,7 +170,7 @@ Launch static backdrop modal{{ $image->id }}
           <div class="tab-pane fade show active p-5" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
             <h5>Descripción</h5>
             <hr class="mb-5">
-            <p class="">{{$product->description}}</p>
+            <p class="">{!! $product->description !!}</p>
           </div>
 
           <div class="tab-pane fade p-5" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
@@ -272,127 +272,130 @@ Launch static backdrop modal{{ $image->id }}
       </div>
 
 
-      {{-- cierra de descripcion  
-      <div class="card border-0 p-5">
+
+      {{--<div class="card border-0 p-5">
         <h5>Video</h5>
         <video width="auto" controls>
-          <source src="{{$product->lonkVideo}}" type="video/mp4">
-      Your browser does not support HTML video.
-      </video>
-    </div>--}}
+          <source src="{{$product->linkVideo}}" type="video/mp4">
+          Your browser does not support HTML video.
+        </video>
+        <iframe width="560" height="315" src="{{$product->linkVideo}}" frameborder="0" allowfullscreen></iframe>
+      </div>--}}
 
-    <div class="row pb-3 mt-5">
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <h3>Anuncios Similares</h3>
+
+
+      <div class="row pb-3 mt-5">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <h3>Anuncios Similares</h3>
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      @foreach ($products as $product)
-      <div class="col-12 col-lg-6 col-sm-6">
-        <a href="{{route('producto.show', [$product->id])}}" class="card  text-decoration-none p-0 shadow-sm border-0 rounded-4 my-1 position-relative">
+      <div class="row">
+        @foreach ($products as $product)
+        <div class="col-12 col-lg-6 col-sm-6">
+          <a href="{{route('producto.show', [$product->id])}}" class="card  text-decoration-none p-0 shadow-sm border-0 rounded-4 my-1 position-relative">
 
-          <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $product->portada) }}" class="card-img-top rounded-bottom" style="height: 250px; background-size: cover;" alt="Imagen de la propiedad">
+            <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $product->portada) }}" class="card-img-top rounded-bottom" style="height: 250px; background-size: cover;" alt="Imagen de la propiedad">
 
-          <div class="card-body p-3">
-            <h5 class="card-title link-dark fw-bold">{{ $product->name }}</h5>
-            <p class="card-text text-secondary mb-0 fs-7"><i class="bi bi-geo-alt-fill me-2 fs-6 "></i>{{ $product->direccion }}</p>
+            <div class="card-body p-3">
+              <h5 class="card-title link-dark fw-bold">{{ $product->name }}</h5>
+              <p class="card-text text-secondary mb-0 fs-7"><i class="bi bi-geo-alt-fill me-2 fs-6 "></i>{{ $product->direccion }}</p>
 
-            <table class="table table-borderless">
-              <thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <p class="link-secondary mb-0 fs-7"><i class="fa-solid fa-bed me-2 fs-6"></i>{{ $product->dormitorios }} Habitaciones</p>
-                  </td>
-                  <td>
-                    <p class="link-secondary mb-0 fs-7"><i class="fa-solid fa-toilet me-2 fs-6"></i>{{ $product->toilet }} Baños</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <p class="link-secondary mb-0 fs-7"><i class="fa-solid fa-ruler-combined me-2 fs-6"></i>{{ $product->metrosCuadradosT }} m<sup>2</sup> totales</p>
-                  </td>
-                  <td>
-                    <p class="link-secondary mb-0 fs-7"><i class="fa-solid fa-car me-2 fs-6"></i>{{ $product->cocheras }} Estacionamiento</p>
-                  </td>
-                </tr>
+              <table class="table table-borderless">
+                <thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <p class="link-secondary mb-0 fs-7"><i class="fa-solid fa-bed me-2 fs-6"></i>{{ $product->dormitorios }} Habitaciones</p>
+                    </td>
+                    <td>
+                      <p class="link-secondary mb-0 fs-7"><i class="fa-solid fa-toilet me-2 fs-6"></i>{{ $product->toilet }} Baños</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p class="link-secondary mb-0 fs-7"><i class="fa-solid fa-ruler-combined me-2 fs-6"></i>{{ $product->metrosCuadradosT }} m<sup>2</sup> totales</p>
+                    </td>
+                    <td>
+                      <p class="link-secondary mb-0 fs-7"><i class="fa-solid fa-car me-2 fs-6"></i>{{ $product->cocheras }} Estacionamiento</p>
+                    </td>
+                  </tr>
 
-              </tbody>
-            </table>
-          </div>
-          <div class="card-footer rounded-bottom rounded-top-0 bg-white px-3 pt-3">
-            <p class="fs-6 fw-bold link-dark">{{ $setting->monedaSetting->denominacion.' '.number_format($product->price,2,".",".")}}</p>
-          </div>
-          <div class="position-absolute top-10 start-90 translate-middle" style="z-index: 1;">
-            <div class="bg-success rounded p-2 ">
-              <span class="text-white fs-7 mb-0 text-nowrap">{{ $product->status }}</span>
+                </tbody>
+              </table>
             </div>
-          </div>
-        </a>
+            <div class="card-footer rounded-bottom rounded-top-0 bg-white px-3 pt-3">
+              <p class="fs-6 fw-bold link-dark">{{ $setting->monedaSetting->denominacion.' '.number_format($product->price,2,".",".")}}</p>
+            </div>
+            <div class="position-absolute top-10 start-90 translate-middle" style="z-index: 1;">
+              <div class="bg-success rounded p-2 ">
+                <span class="text-white fs-7 mb-0 text-nowrap">{{ $product->status }}</span>
+              </div>
+            </div>
+          </a>
+        </div>
+        @endforeach
       </div>
-      @endforeach
     </div>
-  </div>
 
-  <div class="col-lg-4 col-xs-12 ps-2 p-0 mb-3 ">
-    <div class="container sticky-top">
-      <div class="bg-white border-0 shadow-sm rounded-4">
-        <div class="row">
-          @if ($producto->usuarios->count() > 0)
-          <div class="text-center mt-3">
-            <img src="{{ asset('img/profile/' . $product->agente->user->avatar) }}" alt="{{$product->agente->user->avatar}}" class="w-50 rounded">
-            <h4>{{ $producto->usuarios->first()->name.' '.$producto->usuarios->first()->last_name }}</h4>
-            <!-- <p class="text-primary mb-0">Agente</p> -->
-          </div>
-          @endif
+    <div class="col-lg-4 col-xs-12 ps-2 p-0 mb-3 ">
+      <div class="container sticky-top">
+        <div class="bg-white border-0 shadow-sm rounded-4">
+          <div class="row">
+            @if ($producto->usuarios->count() > 0)
+            <div class="text-center mt-3">
+              <img src="{{ asset('img/profile/' . $product->agente->user->avatar) }}" alt="{{$product->agente->user->avatar}}" class="w-50 rounded">
+              <h4>{{ $producto->usuarios->first()->name.' '.$producto->usuarios->first()->last_name }}</h4>
+              <!-- <p class="text-primary mb-0">Agente</p> -->
+            </div>
+            @endif
 
-          <div class="col-12 p-5 pt-2">
-            <!-- <hr>
+            <div class="col-12 p-5 pt-2">
+              <!-- <hr>
                   <a href="#" class="btn btn-primary w-100 fw-bold mb-2">PROGRAMAR UNA
                     VISITA</a> -->
-            <form method="POST" action="{{ route('store.user-contacto') }}" role="form" enctype="multipart/form-data">
-              @csrf
-              <div class="mb-2">
-                <input type="text" value="{{old('name')}}" class="form-control mb-2 {{ ($errors->has('name') ? ' is-invalid' : '') }}" name="name" placeholder="Nombre">
-                {!! $errors->first('name', '<div class="invalid-feedback">:message</div>') !!}
-              </div>
+              <form method="POST" action="{{ route('store.user-contacto') }}" role="form" enctype="multipart/form-data">
+                @csrf
+                <div class="mb-2">
+                  <input type="text" value="{{old('name')}}" class="form-control mb-2 {{ ($errors->has('name') ? ' is-invalid' : '') }}" name="name" placeholder="Nombre">
+                  {!! $errors->first('name', '<div class="invalid-feedback">:message</div>') !!}
+                </div>
 
-              <div class="mb-2">
-                <input type="text" value="{{old('apellido')}}" class="form-control mb-2 {{ ($errors->has('apellido') ? ' is-invalid' : '') }}" name="apellido" placeholder="Apellido">
-                {!! $errors->first('apellido', '<div class="invalid-feedback">:message</div>') !!}
-              </div>
-              <div class="mb-2">
-                <input type="text" value="{{old('email')}}" class="form-control mb-2 {{ ($errors->has('email') ? ' is-invalid' : '') }}" name="email" placeholder="Correo">
-                {!! $errors->first('email', '<div class="invalid-feedback">:message</div>') !!}
-              </div>
-              <div class="mb-2">
-                <input type="text" value="{{old('telefono')}}" class="form-control mb-2 {{ ($errors->has('telefono') ? ' is-invalid' : '') }}" name="telefono" placeholder="Telefono">
-                {!! $errors->first('telefono', '<div class="invalid-feedback">:message</div>') !!}
-              </div>
-              <div class="mb-2">
-                <textarea name="observaciones" id="" placeholder="Mensaje" rows="5" class="form-control mb-2 {{ ($errors->has('observaciones') ? ' is-invalid' : '') }}">{{old('observaciones')}}</textarea>
-                {!! $errors->first('observaciones', '<div class="invalid-feedback">:message</div>') !!}
-              </div>
+                <div class="mb-2">
+                  <input type="text" value="{{old('apellido')}}" class="form-control mb-2 {{ ($errors->has('apellido') ? ' is-invalid' : '') }}" name="apellido" placeholder="Apellido">
+                  {!! $errors->first('apellido', '<div class="invalid-feedback">:message</div>') !!}
+                </div>
+                <div class="mb-2">
+                  <input type="text" value="{{old('email')}}" class="form-control mb-2 {{ ($errors->has('email') ? ' is-invalid' : '') }}" name="email" placeholder="Correo">
+                  {!! $errors->first('email', '<div class="invalid-feedback">:message</div>') !!}
+                </div>
+                <div class="mb-2">
+                  <input type="text" value="{{old('telefono')}}" class="form-control mb-2 {{ ($errors->has('telefono') ? ' is-invalid' : '') }}" name="telefono" placeholder="Telefono">
+                  {!! $errors->first('telefono', '<div class="invalid-feedback">:message</div>') !!}
+                </div>
+                <div class="mb-2">
+                  <textarea name="observaciones" id="" placeholder="Mensaje" rows="5" class="form-control mb-2 {{ ($errors->has('observaciones') ? ' is-invalid' : '') }}">{{old('observaciones')}}</textarea>
+                  {!! $errors->first('observaciones', '<div class="invalid-feedback">:message</div>') !!}
+                </div>
 
-              @if ($producto->usuarios->count() > 0)
-              <input type="hidden" name="agente_id" value="{{ $producto->usuarios->first()->id }}" class="form-control mb-2" required>
-              @endif
+                @if ($producto->usuarios->count() > 0)
+                <input type="hidden" name="agente_id" value="{{ $producto->usuarios->first()->id }}" class="form-control mb-2" required>
+                @endif
 
-              <button type="submit" class="btn btn-primary w-100 fw-bold">Enviar</button>
-            </form>
+                <button type="submit" class="btn btn-primary w-100 fw-bold">Enviar</button>
+              </form>
 
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
 </div>
-</div>
 
-<h1>Información del Producto</h1>
+
+{{--<h1>Información del Producto</h1>
 <p>Nombre del Producto: {{ $producto->name }}</p>
 
 <h2>Usuario Asignado</h2>
@@ -401,7 +404,7 @@ Launch static backdrop modal{{ $image->id }}
 <p>id del Usuario: {{ $producto->usuarios->first()->id }}</p>
 @else
 <p>No hay usuario asignado a este producto.</p>
-@endif
+@endif--}}
 
 <!-- </div> -->
 

@@ -11,6 +11,13 @@ use Illuminate\Http\Request;
  */
 class TestimonioController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.testimonios.index')->only('index');
+        $this->middleware('can:admin.testimonios.create')->only('create', 'store');
+        $this->middleware('can:admin.testimonios.edit')->only('edit', 'update');
+        $this->middleware('can:admin.testimonios.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *

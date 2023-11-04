@@ -47,11 +47,8 @@ class HomeController extends Controller
         $tipoAll = TipoPropiedad::all()->pluck('nombre', 'id');
         $setting = SettingGeneral::first();
 
-        $max = Product::max('price');
-        $min = Product::min('price');
-
         return view('frontend.Home')
-        ->with('products', $products)
+            ->with('products', $products)
             ->with('productsDestacados', $productsDestacados)
             ->with('slides', $slides)
             ->with('paises', $paises)
@@ -81,9 +78,8 @@ class HomeController extends Controller
         $estados = Estado::all();
         $pages = Page::where('status', 1)->get();
 
-
         $products = Product::where('tipoPropiedad_id', $product->tipoPropiedad_id)->take(6)->get();
-        $productFooter = Product::with(['media'])->get()->take(2);
+        
         return view('frontend.productShow')
             ->with('product', $product)
             ->with('producto', $producto)
@@ -94,8 +90,7 @@ class HomeController extends Controller
             ->with('paises', $paises)
             ->with('ciudades', $ciudades)
             ->with('estados', $estados)
-            ->with('pages', $pages)
-            ->with('productFooter', $productFooter);
+            ->with('pages', $pages);
     }
 
     public function indexView()
@@ -116,7 +111,7 @@ class HomeController extends Controller
         $contactocount = Contacto::count();
 
         $taskcount = Task::where('status', 'Completado')->count();
-        
+
         $taskPcount = Task::where('status', 'Pendiente')->count();
 
         $blogcount = Post::count();
@@ -127,17 +122,17 @@ class HomeController extends Controller
 
 
         return view('/dashboard')->with('message', $message)
-        ->with('contactos', $contactos)
-        ->with('blogcount', $blogcount)
-        ->with('taskPcount', $taskPcount)
-        ->with('taskcount', $taskcount)
-        ->with('contactocount', $contactocount)
-        ->with('user', $user)
-        ->with('usercount', $usercount)
-        ->with('product', $product)
-        ->with('productcount', $productcount)
-        ->with('setting', $setting)
-        ->with('posts', $posts);
+            ->with('contactos', $contactos)
+            ->with('blogcount', $blogcount)
+            ->with('taskPcount', $taskPcount)
+            ->with('taskcount', $taskcount)
+            ->with('contactocount', $contactocount)
+            ->with('user', $user)
+            ->with('usercount', $usercount)
+            ->with('product', $product)
+            ->with('productcount', $productcount)
+            ->with('setting', $setting)
+            ->with('posts', $posts);
         // return view('customers.list');
     }
     public function footerIndex()
@@ -145,7 +140,7 @@ class HomeController extends Controller
         $settingFooter = SettingGeneral::first();
 
         return view('frontend.footer')
-        ->with('settingFooter', $settingFooter);
+            ->with('settingFooter', $settingFooter);
         // return view('customers.list');
     }
 
@@ -156,22 +151,8 @@ class HomeController extends Controller
         $pages = Page::where('status', 1)->get();
 
         return view('frontend.faq')
-        ->with('faqs', $faqs)
-        ->with('pages', $pages)
-        ->with('setting', $setting);
-
+            ->with('faqs', $faqs)
+            ->with('pages', $pages)
+            ->with('setting', $setting);
     }
-
-    // public function login()
-    // {
-    //     $faqs = Faq::all()->where('status', 'Publicar');
-    //     $setting = SettingGeneral::first();
-
-    //     return view('auth.login')
-    //     ->with('faqs', $faqs)
-    //     ->with('setting', $setting);
-
-    // }
-    
-    
 }
