@@ -68,7 +68,7 @@ $description= 'Ecommerce Product List Page'
                                             @csrf
                                             @method('DELETE')
                                             @can('admin.setting-generals.delete')
-                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+                                            {{--<button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>--}}
                                             @endcan
                                         </form>
                                     </td>

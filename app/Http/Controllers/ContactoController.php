@@ -26,7 +26,7 @@ class ContactoController extends Controller
         $this->middleware('can:admin.contactos.index')->only('index');
         $this->middleware('can:admin.contactos.create')->only('create','store');
         $this->middleware('can:admin.contactos.edit')->only('edit','update');
-        $this->middleware('can:admin.contactos.destroy')->only('destroy');
+        $this->middleware('can:admin.contactos.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.

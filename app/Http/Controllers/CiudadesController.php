@@ -16,7 +16,7 @@ class CiudadesController extends Controller
         $this->middleware('can:admin.ciudades.index')->only('index');
         $this->middleware('can:admin.ciudades.create')->only('create','store');
         $this->middleware('can:admin.ciudades.edit')->only('edit','update');
-        $this->middleware('can:admin.ciudades.destroy')->only('destroy');
+        $this->middleware('can:admin.ciudades.delete')->only('destroy');
     }
 
     /**

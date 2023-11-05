@@ -17,7 +17,7 @@ class PageController extends Controller
         $this->middleware('can:admin.pages.index')->only('index');
         $this->middleware('can:admin.pages.create')->only('create', 'store');
         $this->middleware('can:admin.pages.edit')->only('edit', 'update');
-        $this->middleware('can:admin.pages.destroy')->only('destroy');
+        $this->middleware('can:admin.pages.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.

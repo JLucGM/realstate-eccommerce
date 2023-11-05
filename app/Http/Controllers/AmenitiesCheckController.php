@@ -18,7 +18,7 @@ class AmenitiesCheckController extends Controller
         $this->middleware('can:admin.amenities-checks.index')->only('index');
         $this->middleware('can:admin.amenities-checks.create')->only('create','store');
         $this->middleware('can:admin.amenities-checks.edit')->only('edit','update');
-        $this->middleware('can:admin.amenities-checks.destroy')->only('destroy');
+        $this->middleware('can:admin.amenities-checks.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.

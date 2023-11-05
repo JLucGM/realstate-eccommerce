@@ -13,7 +13,7 @@ class PaisController extends Controller
         $this->middleware('can:admin.paises.index')->only('index');
         $this->middleware('can:admin.paises.create')->only('create', 'store');
         $this->middleware('can:admin.paises.edit')->only('edit', 'update');
-        $this->middleware('can:admin.paises.destroy')->only('destroy');
+        $this->middleware('can:admin.paises.delete')->only('destroy');
     }
     public function index()
     {

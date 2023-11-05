@@ -17,6 +17,7 @@ use App\Http\Controllers\PaisController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RolesController;
 use App\Models\Ciudades;
 use App\Models\Estado;
 
@@ -53,11 +54,6 @@ Route::group(['middleware' => ['cors']], function () {
     //     Route::view('List', 'customers/list');
     //     Route::view('Detail', 'customers/detail');
     // });
-    // roles
-    Route::get('/roles', [App\Http\Controllers\RolesController::class, 'roles'])->name('roles.index');
-    Route::get('/rolesEdit{id}', [App\Http\Controllers\RolesController::class, 'rolesEdit'])->name('roles.edit');
-    Route::patch('/rolesUpdate{id}', [App\Http\Controllers\RolesController::class, 'rolesUpdate'])->name('roles.update');
-    Route::get('/rolesDelete{id}', [App\Http\Controllers\RolesController::class, 'rolesDelete'])->name('roles.delete');
 
     // User
     Route::get('/user', [App\Http\Controllers\userController::class, 'usuarios'])->name('user.index');
@@ -183,6 +179,7 @@ Route::group(['middleware' => ['cors']], function () {
     // Tratando de usar ajax
     // Route::get('/country', [ProductController::class, 'country'])->name('country');
 
+    Route::resource('roles', RolesController::class);
     Route::resource('contactos', ContactoController::class);
     Route::resource('contactos-propiedads', ContactosPropiedadController::class);
     Route::get('contactos-propiedad/{id}', [ContactosPropiedadController::class, 'index'])->name('contactos-propiedad.index');

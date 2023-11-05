@@ -149,14 +149,6 @@
                            </a>
                        </li>
                        @endcan
-
-                       @can('admin.role.index')
-                       <li>
-                           <a href="{{route('roles.index')}}">
-                               <span class="label">Roles</span>
-                           </a>
-                       </li>
-                       @endcan
                    </ul>
                </li>
 
@@ -304,7 +296,7 @@
                     </ul>
                 </li>
                 <li>
-                    @canAny(['admin.setting-generals.index','admin.slides.index','admin.info-webs.index'])
+                    @canAny(['admin.setting-generals.index','admin.slides.index','admin.info-webs.index','admin.role.index'])
                     <a href="#storefront" data-href="/Storefront/Home">
                         <i data-acorn-icon="screen" class="icon" data-acorn-size="18"></i>
                         <span class="label">Configuraciones</span>
@@ -329,6 +321,14 @@
                         <li>
                             <a href="{{route('info-webs.index')}}">
                                 <span class="label">Información Principal</span>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('admin.role.index')
+                        <li>
+                            <a href="{{route('roles.index')}}">
+                                <i class="fa-regular fa-comment-dots icon" data-acorn-size="18"></i>
+                                <span class="label">Roles</span>
                             </a>
                         </li>
                         @endcan

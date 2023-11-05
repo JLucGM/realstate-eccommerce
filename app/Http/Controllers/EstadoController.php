@@ -18,7 +18,7 @@ class EstadoController extends Controller
         $this->middleware('can:admin.estados.index')->only('index');
         $this->middleware('can:admin.estados.create')->only('create','store');
         $this->middleware('can:admin.estados.edit')->only('edit','update');
-        $this->middleware('can:admin.estados.destroy')->only('destroy');
+        $this->middleware('can:admin.estados.delete')->only('destroy');
     }
 
     /**

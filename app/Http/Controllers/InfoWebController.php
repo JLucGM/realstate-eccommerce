@@ -16,7 +16,7 @@ class InfoWebController extends Controller
         $this->middleware('can:admin.info-webs.index')->only('index');
         $this->middleware('can:admin.info-webs.create')->only('create','store');
         $this->middleware('can:admin.info-webs.edit')->only('edit','update');
-        $this->middleware('can:admin.info-webs.destroy')->only('destroy');
+        $this->middleware('can:admin.info-webs.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.

@@ -16,7 +16,7 @@ class SlideController extends Controller
         $this->middleware('can:admin.slides.index')->only('index');
         $this->middleware('can:admin.slides.create')->only('create', 'store');
         $this->middleware('can:admin.slides.edit')->only('edit', 'update');
-        $this->middleware('can:admin.slides.destroy')->only('destroy');
+        $this->middleware('can:admin.slides.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.

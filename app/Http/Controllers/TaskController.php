@@ -20,7 +20,7 @@ class TaskController extends Controller
         $this->middleware('can:admin.tasks.index')->only('index');
         $this->middleware('can:admin.tasks.create')->only('create', 'store');
         $this->middleware('can:admin.tasks.edit')->only('edit', 'update');
-        $this->middleware('can:admin.tasks.destroy')->only('destroy');
+        $this->middleware('can:admin.tasks.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.

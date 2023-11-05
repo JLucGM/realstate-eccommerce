@@ -23,7 +23,7 @@ class NegocioController extends Controller
         $this->middleware('can:admin.negocios.index')->only('index');
         $this->middleware('can:admin.negocios.create')->only('create', 'store');
         $this->middleware('can:admin.negocios.edit')->only('edit', 'update');
-        $this->middleware('can:admin.negocios.destroy')->only('destroy');
+        $this->middleware('can:admin.negocios.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.

@@ -36,7 +36,7 @@ class ProductController extends Controller
         $this->middleware('can:admin.products.index')->only('index');
         $this->middleware('can:admin.products.create')->only('create', 'store');
         $this->middleware('can:admin.products.edit')->only('edit', 'update');
-        $this->middleware('can:admin.products.destroy')->only('destroy');
+        $this->middleware('can:admin.products.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.

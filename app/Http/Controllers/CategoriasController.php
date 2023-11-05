@@ -13,7 +13,7 @@ class CategoriasController extends Controller
         $this->middleware('can:admin.categorias.index')->only('index');
         $this->middleware('can:admin.categorias.create')->only('create','store');
         $this->middleware('can:admin.categorias.edit')->only('edit','update');
-        $this->middleware('can:admin.categorias.destroy')->only('destroy');
+        $this->middleware('can:admin.categorias.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.

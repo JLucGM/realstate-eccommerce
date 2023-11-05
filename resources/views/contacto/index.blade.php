@@ -80,7 +80,7 @@ $description= 'Ecommerce Product List Page'
 
                                             @csrf
                                             @method('DELETE')
-                                            @can('admin.contactos.create')
+                                            @can('admin.contactos.delete')
                                             <button type="submit" class="btn btn-danger btn-sm"><i data-acorn-icon="bin" class="icon" data-acorn-size="10"></i></button>
                                             @endcan
                                         </form>

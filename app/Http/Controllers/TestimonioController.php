@@ -16,7 +16,7 @@ class TestimonioController extends Controller
         $this->middleware('can:admin.testimonios.index')->only('index');
         $this->middleware('can:admin.testimonios.create')->only('create', 'store');
         $this->middleware('can:admin.testimonios.edit')->only('edit', 'update');
-        $this->middleware('can:admin.testimonios.destroy')->only('destroy');
+        $this->middleware('can:admin.testimonios.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.

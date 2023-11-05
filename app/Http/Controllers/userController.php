@@ -31,7 +31,7 @@ class userController extends Controller
         $this->middleware('can:admin.user.index')->only('index');
         $this->middleware('can:admin.user.create')->only('create', 'store');
         $this->middleware('can:admin.user.edit')->only('edit', 'update');
-        // $this->middleware('can:admin.user.destroy')->only('destroy');
+        // $this->middleware('can:admin.user.delete')->only('destroy');
     }
     
 
