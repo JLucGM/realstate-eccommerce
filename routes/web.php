@@ -84,10 +84,12 @@ Route::group(['middleware' => ['cors']], function () {
     Route::post('/storeProducto', [App\Http\Controllers\ProductController::class, 'store'])->name('store.product');
     Route::patch('/productUpdate{id}', [App\Http\Controllers\ProductController::class, 'productUpdate'])->name('product.update');
     // Rutas auxiliares
-    Route::patch('/productJsonEdit{id}', [App\Http\Controllers\ProductController::class, 'productJsonImages'])->name('pjson.images');
+    Route::patch('/productJsonEdit{id}', [App\Http\Controllers\ProductController::class, 'productJsonImages'])->name('pjsonimages');
     Route::get('/create-product', [App\Http\Controllers\ProductController::class, 'create'])->name('new.product');
     Route::get('/edit-product/{id}', [App\Http\Controllers\ProductController::class, 'productEdit'])->name('product.edit');
     
+    Route::delete('/products/{id}/images/{imageId}', [App\Http\Controllers\ProductController::class, 'deleteImage'])->name('pjsondelete');
+
     
     
     

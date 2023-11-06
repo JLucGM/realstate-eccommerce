@@ -327,7 +327,6 @@
                         @can('admin.role.index')
                         <li>
                             <a href="{{route('roles.index')}}">
-                                <i class="fa-regular fa-comment-dots icon" data-acorn-size="18"></i>
                                 <span class="label">Roles</span>
                             </a>
                         </li>

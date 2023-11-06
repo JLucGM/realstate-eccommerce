@@ -113,7 +113,7 @@ $description= 'Detalles de productos'
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Notas del cliente</label>
-                            <textarea name="details" class="form-control">{{$product->details}}</textarea>
+                            <textarea name="details" class="form-control" id="details">{{$product->details}}</textarea>
                         </div>
 
                     </div>
@@ -284,37 +284,43 @@ $description= 'Detalles de productos'
             <div class="card">
                 <div class="card-body">
                     <h2 class="small-title">Galeria de la propiedad</h2>
-                    <form class="" action="{{route('pjson.images',['id' => $product->id])}}" enctype="multipart/form-data" method="post">
+                    <form class="" action="{{ route('pjsonimages', ['id' => $product->id]) }}" enctype="multipart/form-data" method="post">
                         @csrf
                         @method('PATCH')
 
                         <div class="mb-2">
-
                             <label class="form-label">Portada</label>
                             <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $product->portada) }}" class="w-100 mb-2" alt="Imagen de la propiedad">
                             <input class="form-control" type="file" name="portada" label="image" id="image" multiple>
                         </div>
 
-                        <div class="mb-2">
-                            <label class="form-label">Galeria</label>
-                            <div class="row">
-                                @foreach($images as $image)
-                                <div class="col-md-4">
-                                    <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $image->name) }}" class="w-100 mb-2" alt="Imagen de la propiedad">
-                                </div>
-                                {{$image->id}}
-                                @endforeach
-                            </div>
-                            <input class="form-control" type="file" name="image[]" label="image" id="image" multiple>
-                        </div>
-
+                        <label class="form-label">Galeria</label>
+                        <input class="form-control" type="file" name="image[]" label="image" id="image" multiple>
+                        
                         <div class="text-center">
-                            <p class="mt-3">{{$message}}</p>
+                            <p class="mt-3">{{ $message }}</p>
                         </div>
                         <button type="submit" class="btn btn-primary" id="">
                             Guardar cambios
                         </button>
                     </form>
+                    
+                    
+                    <div class="my-2">
+                        <div class="row">
+                            @foreach($images as $image)
+                            <div class="col-md-6">
+                                
+                                <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $image->name) }}" class="w-100 mb-2" alt="Imagen de la propiedad">
+                                <form action="{{ route('pjsondelete', ['id' => $product->id, 'imageId' => $image->id]) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger my-2">Eliminar</button>
+                                </form>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
 
 
                 </div>
@@ -373,31 +379,32 @@ $description= 'Detalles de productos'
 <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
 <script>
     ClassicEditor
-    .create(document.querySelector('#description'), {
-        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'insertMedia' ],
-        mediaEmbed: {
-            previewsInData: true
-        }
-    })
-    .then(editor => {
-        console.log(editor);
-    })
-    .catch(error => {
-        console.error(error);
-    });
-
+        .create(document.querySelector('#description'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'insertMedia'],
+            mediaEmbed: {
+                previewsInData: true
+            }
+        })
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
     ClassicEditor
-    .create(document.querySelector('#details'), {
-        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'insertMedia' ],
-        mediaEmbed: {
-            previewsInData: true
-        }
-    })
-    .then(editor => {
-        console.log(editor);
-    })
-    .catch(error => {
-        console.error(error);
-    });
+        .create(document.querySelector('#details'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'insertMedia'],
+            mediaEmbed: {
+                previewsInData: true
+            }
+        })
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+    
 </script>
 @endsection

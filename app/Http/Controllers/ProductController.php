@@ -3,31 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-// use App\Models\Categorias;
 use App\Models\TipoPropiedad;
-// use App\Models\Sub_categorias;
 use App\Models\Monedas;
 use App\Models\User;
 use App\Models\PropiedadAgente;
 use App\Models\PropiedadAmenities;
 use App\Models\SettingGeneral;
 
-
-
-
 use App\Models\Amenities;
 use App\Models\AmenitiesCheck;
-
-use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Ciudades;
 use App\Models\Estado;
 use App\Models\Page;
 use App\Models\Paises;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use SettingGeneral as GlobalSettingGeneral;
-use SpomkyLabs\Pki\ASN1\Type\Primitive\Real;
 
 class ProductController extends Controller
 {
@@ -48,25 +38,12 @@ class ProductController extends Controller
         $SettingGeneral = SettingGeneral::first();
         if (auth()->user()->hasRole('super Admin')) {
             $products = Product::with(['media'])->get();
-
-            // $products = Product::ordenar($products);
         } else {
 
-            // $products = Product::join('propiedad_agente', 'propiedad_agente.product_id', '=', 'products.id')
-            //     ->select('products.*')
-            //     ->where('user_id', auth()->user()->id)
-            //     ->orderBy('id', 'desc');
-            // $user_id = 1; // ID del agente
-
-$products = Product::join('propiedad_agente', 'propiedad_agente.product_id', '=', 'products.id')
-    ->where('propiedad_agente.user_id', auth()->user()->id)
-    ->get();
-
+            $products = Product::join('propiedad_agente', 'propiedad_agente.product_id', '=', 'products.id')
+                ->where('propiedad_agente.user_id', auth()->user()->id)
+                ->get();
         }
-
-
-        // dd($SettingGeneral);
-
 
         return view('products.list')->with('products', $products)->with('SettingGeneral', $SettingGeneral)->with('i', (request()->input('page', 1) - 1));
     }
@@ -84,21 +61,9 @@ $products = Product::join('propiedad_agente', 'propiedad_agente.product_id', '='
      * @return \Illuminate\Http\Response
      */
 
-    // public function country()
-    // {
-    //     $ch = curl_init();
-    //     curl_setopt($ch, CURLOPT_URL, "http://battuta.medunes.net/api/country/all/?key=COLOCAR_API_KEY");
-    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    //     $country = curl_exec($ch);
-    //     curl_close($ch);
-    //     $country = json_decode($country);
-    //     return $country;
-    // }
 
     public function create()
     {
-        // $categorias = Categorias::all();
-        // $subcat = Sub_categorias::all();
         $tipoPropiedad = TipoPropiedad::all();
         $monedas = Monedas::all();
         $amenities = Amenities::all();
@@ -114,7 +79,6 @@ $products = Product::join('propiedad_agente', 'propiedad_agente.product_id', '='
         return view('products.newProduct')->with('message', $message)
             ->with('amenities', $amenities)
             ->with('amenitiesCheck', $amenitiesCheck)
-            // ->with('categorias', $categorias)
             ->with('paises', $paises)
             ->with('SettingGeneral', $SettingGeneral)
             ->with('tipoPropiedad', $tipoPropiedad)
@@ -185,8 +149,7 @@ $products = Product::join('propiedad_agente', 'propiedad_agente.product_id', '='
             $propiedadAgente->user_id = $input['agenteVendedor_id'];
             $propiedadAgente->product_id = $product->id;
             $propiedadAgente->save();
-        } 
-        else {
+        } else {
             $propiedadAgente = new PropiedadAgente();
             $propiedadAgente->user_id = auth()->user()->id;
             $propiedadAgente->product_id = $product->id;
@@ -212,14 +175,10 @@ $products = Product::join('propiedad_agente', 'propiedad_agente.product_id', '='
      */
     public function productUpdate(request $request, $id)
     {
-
-        // dd($request->input());
         $product = Product::find($id);
-        // dd($product);
 
         $product->name = $request->name;
         $product->price = $request->price;
-        // $product->category = $request->category;
         $product->status = $request->status;
         $product->description = $request->description;
         $product->details = $request->details;
@@ -250,7 +209,6 @@ $products = Product::join('propiedad_agente', 'propiedad_agente.product_id', '='
                 $images[] = $imageName; // Agregar el nombre de la imagen al arreglo
             }
 
-            // Actualizar el campo "image" con el arreglo de nombres de las imágenes en la base de datos
             $product->image = $images;
         }
 
@@ -269,7 +227,6 @@ $products = Product::join('propiedad_agente', 'propiedad_agente.product_id', '='
     public function productEdit($id)
     {
         $product = Product::find($id);
-        // // $categorias = Categorias::all();
         $images = json_decode($product->image);
         $tipoPropiedad = TipoPropiedad::all();
         $paises = Paises::all();
@@ -299,8 +256,6 @@ $products = Product::join('propiedad_agente', 'propiedad_agente.product_id', '='
         $images = json_decode($product->image, false);
         $tipoPropiedad = TipoPropiedad::all();
 
-
-        // // $categorias = Categorias::all();
         if ($request->hasFile('portada')) {
             $image = $request->file('portada');
             $nombreImagen = $image->getClientOriginalName();
@@ -310,34 +265,9 @@ $products = Product::join('propiedad_agente', 'propiedad_agente.product_id', '='
             $product->save();
         }
         if ($request->hasFile('image')) {
-            //     $message = "No seleccionaste ningun archivo";
-            //     $product = Product::find($id);
-            // $categorias = Categorias::all();
-            //     // $product->image = json_decode($product->image);
-            // return view('products.detail')->with('product', $product)->with('categorias', $categorias)->with('message', $message);
-            // } else {
             $array = [];
             $file = $request->file('image');
             $count = count($file);
-            // $product->image = json_decode($product->image);
-
-            // ELIMINA LAS IMAGENES EXISTENTES
-            // if (empty($product->image)) {
-            // } else {
-
-            //     $count2 = count($product->image);
-
-            //     for ($i = 0; $i < $count2; $i++) {
-            //         $url = public_path('propierties' . $id . "\\" . $product->image[$i]);
-            //         if (file_exists($url)) {
-            //             unlink($url);
-            //         }
-            //     }
-
-            //     $product->image = "";
-            //     $product->save();
-            // }
-
 
             for ($i = 0; $i < $count; $i++) {
                 $filepath = "img/product/product_id_" . $id . "/";
@@ -349,18 +279,39 @@ $products = Product::join('propiedad_agente', 'propiedad_agente.product_id', '='
                 ];
             }
 
-            // $product->image = json_encode(array_merge($images, $array));
             $product->image = json_encode(array_merge((array) $images, $array));
 
             $product->save();
-            // $product->image = array_merge($images, $array);
             $product->image = array_merge((array) $images, $array);
         }
 
         $message = "Exito al subir Archivos";
 
-        return view('products.detail')->with('product', $product)->with('message', $message)->with('images', $images)->with('tipoPropiedad', $tipoPropiedad);
-        // // return redirect()->route('product.edit', ['id' => $product->id])->with('product', $product)->with('categorias', $categorias)->with('message', $message)->with('images', $images);
+        return redirect()->route('product.index')->with('product', $product)->with('message', $message)->with('images', $images)->with('tipoPropiedad', $tipoPropiedad);
+    }
+
+    public function deleteImage($id, $imageId)
+    {
+        $product = Product::findOrFail($id);
+
+        $images = json_decode($product->image, true);
+
+        if (!is_array($images)) {
+            return redirect()->back()->with('error', 'No se pudo eliminar la imagen. El arreglo de imágenes no es válido.');
+        }
+
+        $position = array_search($imageId, array_column($images, 'id'));
+
+        if ($position !== false) {
+            unset($images[$position]);
+            $images = array_values($images);
+            $product->image = json_encode($images);
+            $product->save();
+
+            return redirect()->back()->with('success', 'Imagen eliminada correctamente');
+        }
+
+        return redirect()->back()->with('error', 'No se pudo encontrar la imagen para eliminar');
     }
 
 
@@ -478,7 +429,6 @@ $products = Product::join('propiedad_agente', 'propiedad_agente.product_id', '='
         $tipoAll = TipoPropiedad::all()->pluck('nombre', 'id');
         $paises = Paises::all();
         $pages = Page::where('status', 1)->get();
-
 
         $setting = SettingGeneral::first();
 

@@ -55,7 +55,6 @@ $description= 'Verificación de comodidades'
                                     <th>No</th>
                                     <th>Nombre</th>
                                     <th>Comodidades generales</th>
-                                    <th>Icono</th>
                                     <th class="text-end">Acciones</th>
                                 </tr>
                             </thead>
@@ -66,7 +65,6 @@ $description= 'Verificación de comodidades'
 
                                     <td>{{ $amenitiesCheck->name }}</td>
                                     <td>{{ $amenitiesCheck->amenitiess->name }}</td>
-                                    <td>{{ $amenitiesCheck->icon }}</td>
 
                                     <td class="text-end">
                                         <form action="{{ route('amenities-checks.destroy',$amenitiesCheck->id) }}" method="POST">

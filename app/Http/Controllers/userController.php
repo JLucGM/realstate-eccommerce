@@ -250,7 +250,7 @@ class userController extends Controller
         $user = User::find($id);
         $user->name = $request->name;
         $user->last_name = $request->last_name;
-        // $user->rol = $request->rol;
+        $user->whatsapp = $request->whatsapp;
         $user->email = $request->email;
 
         $user->status = $request->filled('status') ? 1 : 0;
