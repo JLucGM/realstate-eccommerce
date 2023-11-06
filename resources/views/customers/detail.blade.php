@@ -59,7 +59,7 @@ $description= 'Ecommerce Customer List Page'
                             {{ Form::label('rol','Rol',['class'=>'mb-4']) }}
                             <select class="form-control" name="rol" id="rol">
                                 @foreach ($roles as $rol)
-                                <option value="{{$rol->rol}}">{{$rol->name}}</option>
+                                <option value="{{$rol->name}}">{{$rol->name}}</option>
                                 @endforeach
                             </select>
                         </div>

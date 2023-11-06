@@ -56,15 +56,15 @@ Route::group(['middleware' => ['cors']], function () {
     // });
 
     // User
-    Route::get('/user', [App\Http\Controllers\userController::class, 'usuarios'])->name('user.index');
-    Route::get('/user-edit/{id}', [App\Http\Controllers\userController::class, 'usuariosEdit'])->name('user.edit');
-    Route::patch('/user-update/{id}', [App\Http\Controllers\userController::class, 'usuariosUpdate'])->name('user.update');
+    Route::get('/user', [App\Http\Controllers\userController::class, 'index'])->name('user.index');
+    Route::get('/user-edit/{id}', [App\Http\Controllers\userController::class, 'edit'])->name('user.edit');
+    Route::patch('/user-update/{id}', [App\Http\Controllers\userController::class, 'update'])->name('user.update');
     Route::get('/UsuarioLogin', [App\Http\Controllers\userController::class, 'usuarioLogin'])->name('user.login');
-    Route::get('/logout', [App\Http\Controllers\userController::class, 'destroy'])->name('login.destroy');
+    Route::get('/logout', [App\Http\Controllers\userController::class, 'logout'])->name('login.destroy');
     // Route::post('/register', [App\Http\Controllers\userController::class, 'store'])->name('register.store');
-    Route::get('/userDelete{id}', [App\Http\Controllers\userController::class, 'usersDelete'])->name('user.delete');
-    Route::get('/nuevoUsuario', [App\Http\Controllers\userController::class, 'newUser'])->name('new.user');
-    Route::post('/storeUsuario', [App\Http\Controllers\userController::class, 'storeUser'])->name('store.user');
+    Route::get('/userDelete{id}', [App\Http\Controllers\userController::class, 'destroy'])->name('user.delete');
+    Route::get('/nuevoUsuario', [App\Http\Controllers\userController::class, 'create'])->name('new.user');
+    Route::post('/storeUsuario', [App\Http\Controllers\userController::class, 'store'])->name('store.user');
     Route::get('/profile',[App\Http\Controllers\UserController::class, 'profile'])->name('profile');
 
 
