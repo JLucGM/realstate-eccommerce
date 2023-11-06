@@ -237,7 +237,7 @@ $description= $title
                 </div>
 
 
-                <div class="row mt-2">
+                {{--<div class="row mt-2">
                     <div class="col-12 col-md-6">
                         <label class="form-label">Videos</label>
                         <select class="form-control" name="videoTipo" id="sitioVideo">
@@ -252,7 +252,7 @@ $description= $title
                         <input class="form-control" type="text" name="linkVideo" value="{{ old('linkVideo') }}" placeholder="Link del video">
                         <!-- <span> Añadir youtube o vimeo url, ej. https://www.youtube.com/watch?v=video_id</span> -->
                     </div>
-                </div>
+                </div>--}}
 
                 <h1 class="my-3 small-title">Ubicación de la propiedad</h1>
 

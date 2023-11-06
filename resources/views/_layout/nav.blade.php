@@ -61,11 +61,11 @@
 
        <!-- Icons Menu Start -->
        <ul class="list-unstyled list-inline text-center menu-icons">
-           <li class="list-inline-item">
+           {{--<li class="list-inline-item">
                <a href="#" data-bs-toggle="modal" data-bs-target="#searchPagesModal">
                    <i data-acorn-icon="search" data-acorn-size="18"></i>
                </a>
-           </li>
+           </li>--}}
            <li class="list-inline-item">
                <a href="#" id="pinButton" class="pin-button">
                    <i data-acorn-icon="lock-on" class="unpin" data-acorn-size="18"></i>
@@ -78,7 +78,7 @@
                    <i data-acorn-icon="light-off" class="dark" data-acorn-size="18"></i>
                </a>
            </li>
-           <li class="list-inline-item">
+           {{--<li class="list-inline-item">
                <a href="#" data-bs-toggle="dropdown" data-bs-target="#notifications" aria-haspopup="true" aria-expanded="false" class="notification-button">
                    <div class="position-relative d-inline-flex">
                        <i data-acorn-icon="bell" data-acorn-size="18"></i>
@@ -121,7 +121,7 @@
                        </ul>
                    </div>
                </div>
-           </li>
+           </li>--}}
        </ul>
        <!-- Icons Menu End -->
 

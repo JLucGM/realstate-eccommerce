@@ -35,8 +35,8 @@ class UpdateProductsTable extends Migration
             $table->boolean('estrenar')->default(0)->nullable();
             $table->integer('expensas')->default(0)->nullable();
             $table->integer('cocheras')->default(0)->nullable();
-            $table->string('videoTipo')->nullable();//youtube ,vimeo
-            $table->string('linkVideo')->nullable();
+            // $table->string('videoTipo')->nullable();//youtube ,vimeo
+            // $table->string('linkVideo')->nullable();
             $table->string('pais')->nullable();
             $table->string('region')->nullable();
             $table->string('ciudad')->nullable();
