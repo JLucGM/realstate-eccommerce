@@ -61,11 +61,10 @@ Route::group(['middleware' => ['cors']], function () {
     Route::patch('/user-update/{id}', [App\Http\Controllers\userController::class, 'usuariosUpdate'])->name('user.update');
     Route::get('/UsuarioLogin', [App\Http\Controllers\userController::class, 'usuarioLogin'])->name('user.login');
     Route::get('/logout', [App\Http\Controllers\userController::class, 'destroy'])->name('login.destroy');
-    Route::post('/register', [App\Http\Controllers\userController::class, 'store'])->name('register.store');
+    // Route::post('/register', [App\Http\Controllers\userController::class, 'store'])->name('register.store');
     Route::get('/userDelete{id}', [App\Http\Controllers\userController::class, 'usersDelete'])->name('user.delete');
     Route::get('/nuevoUsuario', [App\Http\Controllers\userController::class, 'newUser'])->name('new.user');
     Route::post('/storeUsuario', [App\Http\Controllers\userController::class, 'storeUser'])->name('store.user');
-    // Route::get('/profile', [App\Http\Controllers\userController::class, 'profile'])->name('profile');
     Route::get('/profile',[App\Http\Controllers\UserController::class, 'profile'])->name('profile');
 
 

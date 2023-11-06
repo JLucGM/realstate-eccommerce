@@ -71,38 +71,38 @@ class userController extends Controller
     //     return redirect()->to('/dashboard');
     // }
 
-    public function store(Request $request)
-    {
-        // dd("entro");
-        $users = User::all();
-        $user = new User;
-        $user->name = $request->name;
-        $user->last_name = $request->last_name;
+    // public function store(Request $request)
+    // {
+    //     dd("entro");
+    //     $users = User::all();
+    //     $user = new User;
+    //     $user->name = $request->name;
+    //     $user->last_name = $request->last_name;
 
-        $count = count($users);
+    //     $count = count($users);
 
-        for ($i = 0; $i < $count; $i++) {
-            if ($users[$i]->email == $request->email) {
-                $message = "El correo ya existe!";
-                return view('/dashboard')->with('message', $message);
-            }
-        }
+    //     for ($i = 0; $i < $count; $i++) {
+    //         if ($users[$i]->email == $request->email) {
+    //             $message = "El correo ya existe!";
+    //             return view('/dashboard')->with('message', $message);
+    //         }
+    //     }
 
-        $user->email = $request->email;
-        $request->password = Hash::make($request->password);
-        $user->password =  $request->password;
-        $user->whatsapp =  $request->whatsapp;
-        $user->avatar = "default.jpg";
-        $user->status = 1;
-        $user->rol = 3;
-        $user->country_id = 0;
-        $user->city_id = 0;
-        $user->points = 0;
-        $user->save();
+    //     $user->email = $request->email;
+    //     $request->password = Hash::make($request->password);
+    //     $user->password =  $request->password;
+    //     $user->whatsapp =  0;
+    //     $user->avatar = "default.jpg";
+    //     $user->status = 1;
+    //     // $user->rol = 3;
+    //     $user->country_id = 0;
+    //     $user->city_id = 0;
+    //     $user->points = 0;
+    //     $user->save();
 
-        auth()->login($user);
-        return redirect()->to('/');
-    }
+    //     // auth()->login($user);
+    //     return redirect()->to('/');
+    // }
 
 
 
@@ -134,7 +134,7 @@ class userController extends Controller
         return view('customers.list')->with('users', $users)->with('i', (request()->input('page', 1) - 1));
     }
 
-    public function newUser()//create
+    public function newUser() //create
     {
         $user = new User;
         $roles = Roles::all();
@@ -142,7 +142,7 @@ class userController extends Controller
         return view('customers.newUser')->with('user', $user)->with('roles', $roles)->with('message', $message);
     }
 
-    public function storeUser(Request $request)
+    public function storeUser(Request $request) //Store de pagina newuser en backend
     {
         $validated = $request->validate([
             'name' => 'required|max:255',
@@ -158,7 +158,7 @@ class userController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->whatsapp = $request->whatsapp;
-        $user->points = 0;
+        // $user->points = 0;
         $user->status = $request->status == "on" ? 1 : 0;
         $user->country_id = 0;
         $user->city_id = 0;
@@ -205,7 +205,7 @@ class userController extends Controller
         // $user->direccion = $request->direccion;
         $user->whatsapp =  $request->telefono;
         $user->avatar = "default.jpg";
-        $user->points = 0;
+        // $user->points = 0;
         if ($request->status == null) {
             $user->status = 0;
         }
@@ -243,7 +243,7 @@ class userController extends Controller
         return redirect()->route('user.index')->with('success', "Usuario eliminado con exito.");
     }
 
-    public function usuariosUpdate(Request $request, $id)
+    public function usuariosUpdate(Request $request, $id) // update en vista detail en backend
     {
 
         $roles = Roles::all();

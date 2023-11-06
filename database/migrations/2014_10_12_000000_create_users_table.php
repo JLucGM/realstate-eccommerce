@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             // $table->string('rol');            
-            $table->integer('points');
+            // $table->integer('points');
             $table->string('whatsapp');
             $table->boolean('status')->default(0);
             $table->string('avatar')->nullable();
