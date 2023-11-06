@@ -99,9 +99,10 @@ class ProductController extends Controller
         request()->validate(Product::$rules);
 
         $input = $request->all();
-        // dd($input);
-        $amenitiesAll = json_decode($input['comodidades']);
-
+        // dd($input['comodidades']);
+        $amenitiesAlla = json_encode($input['comodidades']);
+        $amenitiesAll = json_decode($amenitiesAlla);
+// dd($amenitiesAll);
         $product = Product::create($input);
         $productId = $product->id;
         $folderPath = 'img/product/product_id_' . $productId;
@@ -157,9 +158,11 @@ class ProductController extends Controller
         }
 
         foreach ($amenitiesAll as $a) {
+
             $productAmenities = new PropiedadAmenities();
             $productAmenities->product_id = $product->id;
-            $productAmenities->amenities_checks_id = $a->id;
+            // dd($a->id);
+            $productAmenities->amenities_checks_id = $a;
 
             $productAmenities->save();
         }

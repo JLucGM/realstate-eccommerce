@@ -200,28 +200,19 @@ $description= $title
 
                 <h1 class="my-3 small-title">Comodidades</h1>
 
-                @foreach ($amenities as $am)
-
-                <button class="s_amenities btn btn-outline-dark my-3" type="button">{{$am->name}}
-                    <svg fill="#FFFFFF" class="btn_pregunta" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 330 330" style="enable-background:new 0 0 330 330;" xml:space="preserve">
-                        <path id="XMLID_225_" d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393  c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393  s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z" />
-                    </svg>
-                </button>
-
-                <div class="form-check linea_grid border-1" id="lineaGrids">
-                    @foreach ($amenitiesCheck as $amCh)
-                    @if ($am->id == $amCh->amenities_id)
-                    <input type="checkbox" class="checks form-check-input" id="{{$amCh->id}}" value="{{$amCh->name}}" {{ old($amCh->id) ? 'checked' : '' }}>
-                    <label class="form-check-label" for="{{$amCh->id}}">
-                        {{$amCh->name}}
-                    </label>
-                    @endif
-                    @endforeach
+                <div class="mb-3">
+                    <div class="row">
+                        @foreach ($amenitiesCheck as $am)
+                        <div class="col-6">
+                            <input type="checkbox" name="comodidades[]" class=" form-check-input" id="{{$am->id}}" value="{{$am->id}}" {{ old($am->id) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="{{$am->id}}">
+                                {{$am->name}}
+                            </label>
+                        </div>
+                        @endforeach
+                    </div>
+                    {!! $errors->first('comodidades', '<div class="invalid-feedback">:message</div>') !!}
                 </div>
-                @endforeach
-
-                <input class="form-control {{ ($errors->has('comodidades') ? ' is-invalid' : '') }}" style="position:absolute; filter:opacity(0); transform:translateX(-5000px);" type="text" name="comodidades" id="ghostJson">
-                {!! $errors->first('comodidades', '<div class="invalid-feedback">:message</div>') !!}
 
                 <h1 class="my-3 small-title">Imagenes</h1>
                 <div class="mb-3">
@@ -235,24 +226,6 @@ $description= $title
                     <input type="file" class="form-control {{ ($errors->has('image') ? ' is-invalid' : '') }}" name="image[]" label="image" id="image" multiple>
                     {!! $errors->first('image', '<div class="invalid-feedback">:message</div>') !!}
                 </div>
-
-
-                {{--<div class="row mt-2">
-                    <div class="col-12 col-md-6">
-                        <label class="form-label">Videos</label>
-                        <select class="form-control" name="videoTipo" id="sitioVideo">
-                            <option value="YouTube" {{ old('videoTipo') == 'YouTube' ? 'selected' : '' }}>YouTube</option>
-                            <option value="Vimeo" {{ old('videoTipo') == 'Vimeo' ? 'selected' : '' }}>Vimeo</option>
-                        </select>
-                    </div>
-
-
-                    <div class="col-12 col-md-6">
-                        <label class="form-label">Link del video</label>
-                        <input class="form-control" type="text" name="linkVideo" value="{{ old('linkVideo') }}" placeholder="Link del video">
-                        <!-- <span> Añadir youtube o vimeo url, ej. https://www.youtube.com/watch?v=video_id</span> -->
-                    </div>
-                </div>--}}
 
                 <h1 class="my-3 small-title">Ubicación de la propiedad</h1>
 
@@ -312,9 +285,6 @@ $description= $title
                 </div>
 
                 <div id="map" class="col-12" style="height: 500px; width: 100%;"> </div>
-
-
-
             </div>
             <div class="card-footer">
                 <div class="mt-2">
@@ -369,126 +339,6 @@ $description= $title
 
     }
 </script>
-
-<script>
-    // CHECKBOXES
-    let lineaGrid = document.querySelectorAll('.linea_grid');
-    let ghostJson = document.getElementById('ghostJson');
-    let json;
-    let element = [];
-    let array = [];
-    let id;
-
-    for (let i = 0; i < lineaGrid.length; i++) {
-        lineaGrid[i].addEventListener('click', (e) => {
-            // console.log(e);
-
-            // console.log("hola");
-            if (e.target.checked == true) {
-                element = e.target.value;
-                // console.log(element);
-                id = e.target.id;
-                tmp = {
-                    'id': id,
-                    'elemento': element
-                };
-                array.push(tmp);
-            } else {
-                for (let i = 0; i < array.length; i++) {
-                    if (e.target.id == array[i].id) {
-                        array.splice(i, 1);
-                    }
-                }
-            }
-            // console.log(array);
-            json = JSON.stringify(array);
-            // console.log(json);
-            ghostJson.value = json;
-
-
-        });
-
-    }
-
-
-    let s_amenities = document.querySelectorAll('.s_amenities');
-    let btn_pregunta = document.querySelectorAll('.btn_pregunta');
-    let texto = document.querySelectorAll('.linea_grid');
-
-    for (let i = 0; i < s_amenities.length; i++) {
-
-        s_amenities[i].addEventListener('click', (e) => {
-            if (btn_pregunta[i].style.transform == "rotate(0deg)") {
-                alldropclosed(e);
-                setTimeout(() => {
-                    texto[i].style.transitionDuration = "0.2s";
-                }, 100);
-            } else {
-                dropBottom(i);
-                setTimeout(() => {
-                    texto[i].style.transitionDuration = "0s";
-                }, 100);
-            }
-        });
-
-        alldropclosed(i);
-    }
-
-    function alldropclosed(e) {
-        for (let i = 0; i < s_amenities.length; i++) {
-            btn_pregunta[i].style.transform = "rotate(-90deg)";
-            texto[i].style.filter = "opacity(0)";
-            texto[i].style.position = "absolute";
-            texto[i].style.transform = "translateY(-200px)";
-            texto[i].style.zIndex = "-1";
-        }
-    }
-
-    function dropBottom(e) {
-        for (let i = 0; i < s_amenities.length; i++) {
-            texto[i].style.filter = "opacity(0)";
-            texto[i].style.position = "absolute";
-            texto[i].style.transform = "translateY(-200px)";
-            texto[i].style.zIndex = "-1";
-            btn_pregunta[i].style.transform = "rotate(-90deg)";
-
-        };
-        texto[e].style.filter = "opacity(1)";
-        texto[e].style.position = "relative";
-        texto[e].style.transform = "translateY(0px)";
-        texto[e].style.zIndex = "0";
-        btn_pregunta[e].style.transform = "rotate(0deg)";
-
-    };
-</script>
-
-<style>
-    .btn_pregunta {
-        width: 10px;
-        margin-left: 10px;
-        transform: rotate(-90deg);
-        z-index: 1;
-    }
-
-    .linea_grid::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-        background-color: transparent;
-    }
-
-    .linea_grid::-webkit-scrollbar {
-        width: 6px;
-        background-color: transparent;
-    }
-
-    .linea_grid::-webkit-scrollbar-thumb {
-        background-color: #000000;
-    }
-
-    /* .check {
-        margin-right: -90px;
-        transform: translateY(5px);
-    } */
-</style>
 
 <!-- MAPA -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -631,40 +481,33 @@ $description= $title
 <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
 
 <script>
-    // ClassicEditor
-    //     .create(document.querySelector('#description'))
-    //     .catch(error => {
-    //         console.error(error);
-    //     });
 
     ClassicEditor
-    .create(document.querySelector('#description'), {
-        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'insertMedia' ],
-        mediaEmbed: {
-            previewsInData: true
-        }
-    })
-    .then(editor => {
-        console.log(editor);
-    })
-    .catch(error => {
-        console.error(error);
-    });
-    
+        .create(document.querySelector('#description'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'insertMedia'],
+            mediaEmbed: {
+                previewsInData: true
+            }
+        })
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
     ClassicEditor
-    .create(document.querySelector('#details'), {
-        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'insertMedia' ],
-        mediaEmbed: {
-            previewsInData: true
-        }
-    })
-    .then(editor => {
-        console.log(editor);
-    })
-    .catch(error => {
-        console.error(error);
-    });
-
-
+        .create(document.querySelector('#details'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'insertMedia'],
+            mediaEmbed: {
+                previewsInData: true
+            }
+        })
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
 </script>
 @endsection
