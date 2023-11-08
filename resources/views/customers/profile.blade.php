@@ -57,7 +57,7 @@ $description= 'Ecommerce Customer List Page'
                             {!! $errors->first('last_name', '<div class="invalid-feedback">:message</div>') !!}
                         </div>
 
-                        @hasrole('super Admin')
+                        {{--@hasrole('super Admin')
                         <div class="form-group col-sm-6 mb-4">
                             {{ Form::label('rol','Rol',['class'=>'mb-4']) }}
                             <select class="form-control" name="rol" id="rol">
@@ -66,7 +66,11 @@ $description= 'Ecommerce Customer List Page'
                                 @endforeach
                             </select>
                         </div>
-                        @endhasrole
+                        @endhasrole--}}
+
+                        @dump(Auth::user()->roles->pluck('name')->first())
+                        <input type="hidden" name="rol" value="{{ Auth::user()->roles->pluck('name')->first() }}">
+
 
                         <div class="form-group col-sm-6 mb-4">
                             {{ Form::label('email','Email',['class'=>'mb-4']) }}
