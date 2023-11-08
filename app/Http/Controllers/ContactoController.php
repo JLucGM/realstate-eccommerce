@@ -199,7 +199,6 @@ class ContactoController extends Controller
         $user->last_name = $request->apellido;
         $user->email = $request->email;
         $user->whatsapp = $request->telefono;
-        $user->points = '0';
         $user->password = bcrypt('123456789');
 
         $role = Role::where('name', 'cliente')->first();
