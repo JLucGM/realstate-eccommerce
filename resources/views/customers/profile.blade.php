@@ -68,7 +68,6 @@ $description= 'Ecommerce Customer List Page'
                         </div>
                         @endhasrole--}}
 
-                        @dump(Auth::user()->roles->pluck('name')->first())
                         <input type="hidden" name="rol" value="{{ Auth::user()->roles->pluck('name')->first() }}">
 
 
