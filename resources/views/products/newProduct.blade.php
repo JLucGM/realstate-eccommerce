@@ -87,9 +87,7 @@ $description= $title
                         {!! $errors->first('price', '<div class="invalid-feedback">:message</div>') !!}
                     </div>
 
-                    @hasrole('super Admin')
-                    @endhasrole
-                    @if(auth()->user()->roles() == 'super Admin')
+                    @if(auth()->user()->roles->contains('name', 'super Admin'))
                     <div class="form-group col-md-6">
                         {{ Form::label('agenteVendedor_id', 'Asignar agente inmobiliario', ['class' => 'form-label']) }}
                         <!-- ROLE VENDEDOR -->
@@ -165,6 +163,17 @@ $description= $title
                         <input class="form-control {{ ($errors->has('metrosCuadradosC') ? ' is-invalid' : '') }}" type="number" name="metrosCuadradosC" value="{{ old('metrosCuadradosC') }}" placeholder="M2 Cubiertos">
                         {!! $errors->first('metrosCuadradosC', '<div class="invalid-feedback">:message</div>') !!}
                     </div>
+                    <div class="col-12 col-md-4">
+                        <label class="form-label">Expensas (Condominio)</label>
+                        <input class="form-control {{ ($errors->has('expensas') ? ' is-invalid' : '') }}" type="number" name="expensas" value="{{ old('expensas') }}" placeholder="Expensas">
+                        {!! $errors->first('expensas', '<div class="invalid-feedback">:message</div>') !!}
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label class="form-label">Cocheras</label>
+                        <input class="form-control {{ ($errors->has('cocheras') ? ' is-invalid' : '') }}" type="number" name="cocheras" value="{{ old('cocheras') }}" placeholder="Cocheras">
+                        {!! $errors->first('cocheras', '<div class="invalid-feedback">:message</div>') !!}
+                    </div>
 
                     <div class="col-12 col-md-4">
                         <label class="form-label">¿Propiedad a estrenar?</label>
@@ -181,23 +190,27 @@ $description= $title
                             </label>
                         </div>
                     </div>
-
+                    
                 </div>
 
                 <div class="row">
-                    <div class="col-12 col-md-4">
-                        <label class="form-label">Expensas (Condominio)</label>
-                        <input class="form-control {{ ($errors->has('expensas') ? ' is-invalid' : '') }}" type="number" name="expensas" value="{{ old('expensas') }}" placeholder="Expensas">
-                        {!! $errors->first('expensas', '<div class="invalid-feedback">:message</div>') !!}
-                    </div>
-
-                    <div class="col-12 col-md-4">
-                        <label class="form-label">Cocheras</label>
-                        <input class="form-control {{ ($errors->has('cocheras') ? ' is-invalid' : '') }}" type="number" name="cocheras" value="{{ old('cocheras') }}" placeholder="Cocheras">
-                        {!! $errors->first('cocheras', '<div class="invalid-feedback">:message</div>') !!}
-                    </div>
+                    
                 </div>
 
+                
+                <h1 class="my-3 small-title">Imagenes</h1>
+                <div class="mb-3">
+                    <label class="form-label" for="portada">Subir portada</label>
+                    <input type="file" class="form-control {{ ($errors->has('portada') ? ' is-invalid' : '') }}" name="portada" label="portada" id="portada" multiple>
+                    {!! $errors->first('portada', '<div class="invalid-feedback">:message</div>') !!}
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label" for="image">Subir imagenes de galeria</label>
+                    <input type="file" class="form-control {{ ($errors->has('image') ? ' is-invalid' : '') }}" name="image[]" label="image" id="image" multiple>
+                    {!! $errors->first('image', '<div class="invalid-feedback">:message</div>') !!}
+                </div>
+                
                 <h1 class="my-3 small-title">Comodidades</h1>
 
                 <div class="mb-3">
@@ -212,19 +225,6 @@ $description= $title
                         @endforeach
                     </div>
                     {!! $errors->first('comodidades', '<div class="invalid-feedback">:message</div>') !!}
-                </div>
-
-                <h1 class="my-3 small-title">Imagenes</h1>
-                <div class="mb-3">
-                    <label class="form-label" for="portada">Subir portada</label>
-                    <input type="file" class="form-control {{ ($errors->has('portada') ? ' is-invalid' : '') }}" name="portada" label="portada" id="portada" multiple>
-                    {!! $errors->first('portada', '<div class="invalid-feedback">:message</div>') !!}
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label" for="image">Subir imagenes de galeria</label>
-                    <input type="file" class="form-control {{ ($errors->has('image') ? ' is-invalid' : '') }}" name="image[]" label="image" id="image" multiple>
-                    {!! $errors->first('image', '<div class="invalid-feedback">:message</div>') !!}
                 </div>
 
                 <h1 class="my-3 small-title">Ubicación de la propiedad</h1>

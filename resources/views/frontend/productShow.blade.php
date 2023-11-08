@@ -229,7 +229,7 @@ Launch static backdrop modal{{ $image->id }}
                     <p><strong>Precio:</strong> {{ $setting->monedaSetting->denominacion.' '.number_format($product->price,2,".",".")}}</p>
                   </td>
                   <td>
-                    <p><strong>M<sup>2</sup> construidos:</strong> {{$product->metrosCuadradosC}} ft</p>
+                    <p><strong>M<sup>2</sup> construidos:</strong> {{$product->metrosCuadradosC}} mt<sup>2</sup></p>
                   </td>
                 </tr>
                 <tr>
@@ -259,29 +259,13 @@ Launch static backdrop modal{{ $image->id }}
             <div class="row">
               @foreach ($product->amenities as $ameniti )
               <div class="col-5">
-                @if(isset($ameniti->amenitiesCheck->icon))
-                <p> <i class="{{$ameniti->amenitiesCheck->icon}}"></i> {{$ameniti->amenitiesCheck->name }}</p>
-                @else
-                <p> <i class="fa-solid fa-house"></i> {{$ameniti->amenitiesCheck->name }}</p>
-                @endif
+                <p> <i class="fa-regular fa-circle-check"></i></i> {{$ameniti->amenitiesCheck->name }}</p>
               </div>
               @endforeach
             </div>
           </div>
         </div>
       </div>
-
-
-
-      {{--<div class="card border-0 p-5">
-        <h5>Video</h5>
-        <video width="auto" controls>
-          <source src="{{$product->linkVideo}}" type="video/mp4">
-          Your browser does not support HTML video.
-        </video>
-        <iframe width="560" height="315" src="{{$product->linkVideo}}" frameborder="0" allowfullscreen></iframe>
-      </div>--}}
-
 
 
       <div class="row pb-3 mt-5">

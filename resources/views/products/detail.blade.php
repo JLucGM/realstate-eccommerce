@@ -23,8 +23,6 @@ $description= 'Detalles de productos'
 @endsection
 
 @section('js_page')
-<script src="/js/cs/dropzone.templates.js"></script>
-<script src="/js/pages/products.detail.js"></script>
 @endsection
 
 @section('content')
@@ -99,6 +97,16 @@ $description= 'Detalles de productos'
                             <label class="form-label">Precio</label>
                             <input class="form-control" type="number" name="price" value="{{$product->price}}" placeholder="Precio" required>
                         </div>
+
+                        <div class="col-12 col-md-3">
+                            <label class="form-label">¿Destacado?</label>
+                            <div class="form-check form-switch">
+                                <input type="hidden" name="destacado" value="0">
+                                <input class="form-check-input" type="checkbox" role="switch" name="destacado" value="1" id="inputDestacado" {{ $product->destacado ? 'checked' : '' }}>
+                                <label class="form-check-label" for="inputDestacado">Si</label>
+                            </div>
+                        </div>
+
                         <div class="col-12 col-md-3">
                             <label class="form-label">Publicar propiedad</label>
                             <div class="form-check form-switch">
@@ -149,12 +157,17 @@ $description= 'Detalles de productos'
                             <label class="form-label">M2 Cubiertos</label>
                             <input class="form-control " type="number" name="metrosCuadradosC" value="{{$product->metrosCuadradosC}}" placeholder="M2 Cubiertos" required>
                         </div>
-                    </div>
+                        <div class="col-12 col-md-4">
+                            <label class="form-label">Expensas</label>
+                            <input class="form-control" type="number" name="expensas" value="{{ $product->expensas}}" placeholder="Expensas" required>
+                        </div>
+
+                        <div class="col-12 col-md-4">
+                            <label class="form-label">Cocheras</label>
+                            <input class="form-control" type="number" name="cocheras" value="{{ $product->cocheras}}" placeholder="Cocheras" required>
+                        </div>
 
 
-
-
-                    <div class="row">
                         <div class="col-12 col-md-4">
                             <label class="form-label">¿Propiedad a estrenar?</label>
                             <div class="form-check">
@@ -170,16 +183,21 @@ $description= 'Detalles de productos'
                                 </label>
                             </div>
                         </div>
-                        <div class="col-12 col-md-4">
-                            <label class="form-label">Expensas</label>
-                            <input class="form-control" type="number" name="expensas" value="{{ $product->expensas}}" placeholder="Expensas" required>
-                        </div>
+                    </div>
 
-                        <div class="col-12 col-md-4">
-                            <label class="form-label">Cocheras</label>
-                            <input class="form-control" type="number" name="cocheras" value="{{ $product->cocheras}}" placeholder="Cocheras" required>
-                        </div>
+                    <div class="row">
 
+                        <h1 class="my-3 small-title">Comodidades</h1>
+
+                        <div class="row">
+
+                            @foreach($amenities as $amenityCheck)
+                            <div class="col-6">
+                                <input type="checkbox" class="form-check-input" name="amenities[]" value="{{ $amenityCheck->id }}" @if($amenitiesChecks->contains('amenities_checks_id', $amenityCheck->id)) checked @endif>
+                                <label>{{ $amenityCheck->name }}</label>
+                            </div>
+                            @endforeach
+                        </div>
                         <h1 class="my-3 small-title">Ubicación de la propiedad</h1>
 
                         <div class="row mt-2">
@@ -244,27 +262,32 @@ $description= 'Detalles de productos'
                                 <input class="form-control {{ ($errors->has('longitud') ? ' is-invalid' : '') }}" type="text" id="longitud" name="longitud" value="{{$product->longitud}}" placeholder="Longitud">
                                 {!! $errors->first('longitud', '<div class="invalid-feedback">:message</div>') !!}
                             </div>
+                            <div class="col-12 my-2">
+                                <label class="form-label">Ingrese una dirección</label>
+                                <div class="input-group">
+        
+                                    <input class="form-control {{ ($errors->has('direccion') ? ' is-invalid' : '') }}" type="text" name="direccion" value="{{$product->direccion}}" placeholder="Ingresar direccion">
+                                </div>
+                                {!! $errors->first('direccion', '<div class="invalid-feedback">:message</div>') !!}
+                                <div id="emailHelp" class="form-text">Presione "Buscar" para ubicar su dirección en el mapa.</div>
+                            </div>
                         </div>
                     </div>
 
 
-                    <div class=" my-2">
-                        <label class="form-label">Ingrese una dirección</label>
-                        <div class="input-group">
 
-                            <input class="form-control {{ ($errors->has('direccion') ? ' is-invalid' : '') }}" type="text" name="direccion" value="{{$product->direccion}}" placeholder="Ingresar direccion">
-                        </div>
-                        {!! $errors->first('direccion', '<div class="invalid-feedback">:message</div>') !!}
-                        <div id="emailHelp" class="form-text">Presione "Buscar" para ubicar su dirección en el mapa.</div>
-                    </div>
-
+                    @if(auth()->user()->roles->contains('name', 'super Admin') || auth()->user()->roles->contains('name', 'admin'))
                     <div class="form-group col-md-6">
                         {{ Form::label('agenteVendedor_id', 'Asignar agente inmobiliario', ['class' => 'form-label']) }}
                         <!-- ROLE VENDEDOR -->
                         {{ Form::select('agenteVendedor_id', $asignado, old('agenteVendedor_id'), ['class' => 'form-control' . ($errors->has('agenteVendedor_id') ? ' is-invalid' : ''), 'placeholder' => 'Asignar agente']) }}
+                        {{-- Form::select('agenteVendedor_id', $usuarios, $asignado, ['class' => 'form-control' . ($errors->has('agenteVendedor_id') ? ' is-invalid' : ''), 'placeholder' => 'Asignar agente']) --}}
                         {!! $errors->first('agenteVendedor_id', '<div class="invalid-feedback">:message</div>') !!}
                     </div>
 
+                    @else()
+                    <input type="text" value="{{auth()->user()->id}}" name="agenteVendedor_id" hidden>
+                    @endif
 
                     <div class="card-footer">
                         <button class="btn btn-primary" type="submit" class="form-submit">
@@ -296,7 +319,7 @@ $description= 'Detalles de productos'
 
                         <label class="form-label">Galeria</label>
                         <input class="form-control" type="file" name="image[]" label="image" id="image" multiple>
-                        
+
                         <div class="text-center">
                             <p class="mt-3">{{ $message }}</p>
                         </div>
@@ -304,13 +327,13 @@ $description= 'Detalles de productos'
                             Guardar cambios
                         </button>
                     </form>
-                    
-                    
+
+
                     <div class="my-2">
                         <div class="row">
                             @foreach($images as $image)
                             <div class="col-md-6">
-                                
+
                                 <img src="{{ asset('img/product/product_id_' . $product->id . '/' . $image->name) }}" class="w-100 mb-2" alt="Imagen de la propiedad">
                                 <form action="{{ route('pjsondelete', ['id' => $product->id, 'imageId' => $image->id]) }}" method="post">
                                     @csrf
@@ -404,7 +427,5 @@ $description= 'Detalles de productos'
         .catch(error => {
             console.error(error);
         });
-
-    
 </script>
 @endsection

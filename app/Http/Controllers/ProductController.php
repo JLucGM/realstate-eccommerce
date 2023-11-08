@@ -36,7 +36,7 @@ class ProductController extends Controller
     public function index()
     {
         $SettingGeneral = SettingGeneral::first();
-        if (auth()->user()->hasRole('super Admin')) {
+        if (auth()->user()->hasRole('super Admin')||auth()->user()->hasRole('admin')) {
             $products = Product::with(['media'])->get();
         } else {
 
@@ -102,7 +102,7 @@ class ProductController extends Controller
         // dd($input['comodidades']);
         $amenitiesAlla = json_encode($input['comodidades']);
         $amenitiesAll = json_decode($amenitiesAlla);
-// dd($amenitiesAll);
+        // dd($amenitiesAll);
         $product = Product::create($input);
         $productId = $product->id;
         $folderPath = 'img/product/product_id_' . $productId;
@@ -180,6 +180,7 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
 
+        // dd($request->estrenar);
         $product->name = $request->name;
         $product->price = $request->price;
         $product->status = $request->status;
@@ -193,6 +194,7 @@ class ProductController extends Controller
         $product->metrosCuadradosT = $request->metrosCuadradosT;
         $product->metrosCuadradosC = $request->metrosCuadradosC;
         $product->estrenar = $request->estrenar;
+        $product->destacado = $request->destacado;
         $product->expensas = $request->expensas;
         $product->cocheras = $request->cocheras;
         $product->pais = $request->pais;
@@ -215,6 +217,21 @@ class ProductController extends Controller
             $product->image = $images;
         }
 
+        $amenitiesSelected = $request->amenities;
+
+        $product->amenities()->delete();
+        foreach ($amenitiesSelected as $amenityId) {
+            $propiedadAmenity = new PropiedadAmenities();
+            $propiedadAmenity->product_id = $product->id;
+            $propiedadAmenity->amenities_checks_id = $amenityId;
+            $propiedadAmenity->save();
+        }
+
+
+        $propiedadAgente = PropiedadAgente::findOrFail($id);
+    $propiedadAgente->user_id = $request->agenteVendedor_id;
+    $propiedadAgente->product_id = $product->id;
+    $propiedadAgente->save();
 
         $product->save();
 
@@ -235,6 +252,21 @@ class ProductController extends Controller
         $paises = Paises::all();
         $estado = Estado::all();
         $ciudades = Ciudades::all();
+        $amenities = AmenitiesCheck::all();
+        // $asignado = $product->usuarios()->pluck('users.name', 'users.id')->flip();
+        // $vendedores = User::whereHas('roles', function ($query) {
+        //     $query->where('name', 'vendedor');
+        // })->pluck('name', 'id');
+
+        // $admins = User::whereHas('roles', function ($query) {
+        //     $query->where('name', 'admin');
+        // })->pluck('name', 'id');
+
+        // $usuarios = $vendedores->merge($admins);        
+        // dd($usuarios);
+
+        $amenitiesChecks = $product->amenities()->get();
+
 
         $asignado = User::whereHas("roles", function ($q) {
             $q->Where('name', 'Vendedor');
@@ -250,6 +282,8 @@ class ProductController extends Controller
             ->with('images', $images)
             ->with('tipoPropiedad', $tipoPropiedad)
             ->with('message', $message)
+            ->with('amenitiesChecks', $amenitiesChecks)
+            ->with('amenities', $amenities)
             ->with('asignado', $asignado);
     }
 

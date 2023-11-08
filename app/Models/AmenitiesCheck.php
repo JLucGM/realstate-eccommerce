@@ -33,7 +33,7 @@ class AmenitiesCheck extends Model
      *
      * @var array
      */
-    protected $fillable = ['name','amenities_id','icon'];
+    protected $fillable = ['name','amenities_id'];
 
 
     /**
