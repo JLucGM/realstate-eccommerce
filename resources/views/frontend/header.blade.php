@@ -52,7 +52,7 @@
         <a class="btn" href="{{ route('home') }}">
           <img src="{{ asset('image/' . $setting->logo_empresa) }}" alt="{{$setting->name}}" class="logo" width="60px" height="auto" />
         </a>
-        <ul class="navbar-nav ms-auto mt-2 pb-2 mb-lg-0">
+        <ul class="navbar-nav mx-auto mt-2 pb-2 mb-lg-0">
           <li class="nav-item " style="margin-left: 25px;">
             <a class="btn nav-link " href="{{ route('home') }}">
               Inicio

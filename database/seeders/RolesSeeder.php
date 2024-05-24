@@ -84,10 +84,10 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'admin.testimonios.edit','description' => 'Editar testimonios'])->syncRoles([$rolSuperAdmin]);
         Permission::create(['name' => 'admin.testimonios.delete','description' => 'Eliminar testimonios'])->syncRoles([$rolSuperAdmin]);
         
-        // Permission::create(['name' => 'admin.setting-generals.index','description' => 'Ver lista de configuración general'])->syncRoles([$rolSuperAdmin]);
-        // Permission::create(['name' => 'admin.setting-generals.create','description' => 'Crear configuración general'])->syncRoles([$rolSuperAdmin]);
+        Permission::create(['name' => 'admin.setting-generals.index','description' => 'Ver lista de configuración general'])->syncRoles([$rolSuperAdmin]);
+        Permission::create(['name' => 'admin.setting-generals.create','description' => 'Crear configuración general'])->syncRoles([$rolSuperAdmin]);
         Permission::create(['name' => 'admin.setting-generals.edit','description' => 'Editar configuración general'])->syncRoles([$rolSuperAdmin]);
-        // Permission::create(['name' => 'admin.setting-generals.delete','description' => 'Eliminar configuración general'])->syncRoles([$rolSuperAdmin]);
+        Permission::create(['name' => 'admin.setting-generals.delete','description' => 'Eliminar configuración general'])->syncRoles([$rolSuperAdmin]);
         
         Permission::create(['name' => 'admin.amenities-checks.index','description' => 'Ver lista de comididades'])->syncRoles([$rolSuperAdmin]);
         Permission::create(['name' => 'admin.amenities-checks.create','description' => 'Crear comodidades'])->syncRoles([$rolSuperAdmin]);
